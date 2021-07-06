@@ -1,0 +1,1 @@
+Rails.application.config.session_store :cookie_store, key: "_trailblazer_app", domain: "https://blooming-dusk-67341.herokuapp.com/"
