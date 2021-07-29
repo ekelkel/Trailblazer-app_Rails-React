@@ -82,7 +82,11 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  <<: *default
+  adapter: postgresql
+  encoding: unicode
+  # For details on connection pooling, see Rails configuration guide
+  # https://guides.rubyonrails.org/configuring.html#databasepooling
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   database: trailblazer_production
   username: trailblazer
   password: <%= ENV['TRAILBLAZER_DATABASE_PASSWORD'] %>
