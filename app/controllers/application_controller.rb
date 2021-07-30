@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include SessionsHelper
   # skip_before_action :verify_authenticity_token
   # the above line skips the CSRF protection
   # https://pragmaticstudio.com/tutorials/rails-session-cookies-for-api-authentication

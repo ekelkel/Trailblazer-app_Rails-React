@@ -1,3 +1,5 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-# empty
+# convention that all fixture users have the same password ('password').
+elora:
+  name: Elora
+  email: elora@example.com
+  password_digest: <%= User.digest('password') %>
