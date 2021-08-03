@@ -12,6 +12,7 @@ import { useDispatch } from "react-redux";
 import { ActionCreators } from "./actions";
 import { Provider } from "react-redux";
 import store from "./store";
+import Layout from "./Layout";
 
 const theme = createTheme({
   palette: {
@@ -68,11 +69,13 @@ const AppComponent = () => {
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/signup" component={Registration} />
-          <Route exact path="/login" component={LogIn} />
-        </Switch>
+        <Layout>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/signup" component={Registration} />
+            <Route exact path="/login" component={LogIn} />
+          </Switch>
+        </Layout>
       </BrowserRouter>
     </ThemeProvider>
   );
