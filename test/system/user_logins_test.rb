@@ -20,6 +20,20 @@ class UserLoginsTest < ApplicationSystemTestCase
     click_button 'Log In'
     page.assert_current_path('/')
     assert page.has_content? 'Hello hello hello Elora!'
+    find_by_id('menu-icon').click
+    assert page.has_no_content? 'Log In'
+    assert page.has_no_content? 'Sign up'
+    assert page.has_content? 'Profile'
+    assert page.has_content? 'My account'
+    assert page.has_content? 'Log out'
+    click_on 'Log out'
+    page.assert_current_path('/login')
+    find_by_id('menu-icon').click
+    assert page.has_content? 'Log In'
+    assert page.has_content? 'Sign up'
+    assert page.has_no_content? 'Profile'
+    assert page.has_no_content? 'My account'
+    assert page.has_no_content? 'Log out'
   end
 
   test 'login with invalid information' do

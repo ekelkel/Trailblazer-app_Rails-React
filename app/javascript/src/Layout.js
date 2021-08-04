@@ -10,6 +10,11 @@ import MenuItem from "@material-ui/core/MenuItem";
 import { useSelector } from "react-redux";
 import Badge from "@material-ui/core/Badge";
 import NotificationsTwoToneIcon from "@material-ui/icons/NotificationsTwoTone";
+import { Link as RouterLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { ActionCreators } from "./actions";
+import { csrfToken } from "@rails/ujs";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -29,6 +34,7 @@ const useStyles = makeStyles((theme) => {
 });
 
 export default function Layout({ children }) {
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -40,6 +46,19 @@ export default function Layout({ children }) {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleLogoutClick = async () => {
+    try {
+      const response = await axios.delete("/logout", {
+        headers: { "X-CSRF-Token": csrfToken() },
+      });
+      console.log(response.data);
+      dispatch(ActionCreators.login(null));
+      setAnchorEl(null);
+    } catch (error) {
+      console.log("logout error");
+    }
   };
 
   return (
@@ -54,7 +73,7 @@ export default function Layout({ children }) {
         <Toolbar>
           <Typography className={classes.logo}>Trailblazer</Typography>
           <Typography>Elora</Typography>
-          {user.name && (
+          {user && (
             <div>
               <IconButton>
                 <Badge badgeContent={17} color="error">
@@ -63,11 +82,10 @@ export default function Layout({ children }) {
               </IconButton>
             </div>
           )}
-          <IconButton onClick={handleMenu}>
+          <IconButton id="menu-icon" onClick={handleMenu}>
             <AccountCircleTwoToneIcon color="primary" fontSize="large" />
           </IconButton>
           <Menu
-            id="menu-appbar"
             anchorEl={anchorEl}
             getContentAnchorEl={null}
             anchorOrigin={{
@@ -81,15 +99,34 @@ export default function Layout({ children }) {
             open={open}
             onClose={handleClose}
           >
-            {user.name ? (
+            {user ? (
               <div>
                 <MenuItem onClick={handleClose}>Profile</MenuItem>
                 <MenuItem onClick={handleClose}>My account</MenuItem>
+                <MenuItem
+                  onClick={handleLogoutClick}
+                  component={RouterLink}
+                  to="/login"
+                >
+                  Log out
+                </MenuItem>
               </div>
             ) : (
               <div>
-                <MenuItem onClick={handleClose}>Log In</MenuItem>
-                <MenuItem onClick={handleClose}>Sign up</MenuItem>
+                <MenuItem
+                  onClick={handleClose}
+                  component={RouterLink}
+                  to="/login"
+                >
+                  Log In
+                </MenuItem>
+                <MenuItem
+                  onClick={handleClose}
+                  component={RouterLink}
+                  to="/signup"
+                >
+                  Sign up
+                </MenuItem>
               </div>
             )}
           </Menu>

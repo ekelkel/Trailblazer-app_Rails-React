@@ -27,5 +27,6 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
              },
            }
     end
+    assert is_logged_in?
   end
 end

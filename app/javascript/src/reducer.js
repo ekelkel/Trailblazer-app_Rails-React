@@ -1,7 +1,7 @@
 import { Types } from "./actionTypes";
 
 const initialState = {
-  user: {},
+  user: null,
 };
 
 const reducer = (state = initialState, action) => {
