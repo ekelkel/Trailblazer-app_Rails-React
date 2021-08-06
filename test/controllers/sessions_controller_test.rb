@@ -27,5 +27,8 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     assert is_logged_in?
     delete logout_path
     assert_not is_logged_in?
+
+    # Simulate a user clicking logout in a second window.
+    delete logout_path
   end
 end
