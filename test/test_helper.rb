@@ -15,4 +15,16 @@ class ActiveSupport::TestCase
   def is_logged_in?
     !session[:user_id].nil?
   end
+
+  # Log in as a particular user
+  def log_in_as(user, password = 'password', remember_me = false)
+    post login_path,
+         params: {
+           user: {
+             email: user.email,
+             password: password,
+             remember_me: remember_me,
+           },
+         }
+  end
 end

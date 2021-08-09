@@ -1,13 +1,13 @@
 class SessionsController < ApplicationController
   def create
-    user = User.find_by(email: session_params[:email].downcase)
-    if !user
+    @user = User.find_by(email: session_params[:email].downcase)
+    if !@user
       render json: { errors: { email: 'User does not exist' } }, status: 400
-    elsif user&.authenticate(session_params[:password])
+    elsif @user&.authenticate(session_params[:password])
       # Log the user in
-      log_in user
-      remember user
-      render json: { logged_in: true, user: user }, status: 200
+      log_in @user
+      session_params[:remember_me] ? remember(@user) : forget(@user)
+      render json: { logged_in: true, user: @user }, status: 200
     else
       render json: {
                errors: {
@@ -34,6 +34,6 @@ class SessionsController < ApplicationController
   private
 
   def session_params
-    params.require(:user).permit(:email, :password)
+    params.require(:user).permit(:email, :password, :remember_me)
   end
 end

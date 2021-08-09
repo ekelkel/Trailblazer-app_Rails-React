@@ -12,8 +12,18 @@ const LogInForm = (props) => {
   const [values, setValues] = useState({
     email: "",
     password: "",
+    remember_me: true,
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [checked, setChecked] = useState(false);
+
+  const handleCheck = (event) => {
+    setChecked(event.target.checked);
+    setValues({
+      ...values,
+      remember_me: event.target.checked,
+    });
+  };
 
   const submitForm = async () => {
     try {
@@ -59,8 +69,10 @@ const LogInForm = (props) => {
     <LogInFormView
       values={values}
       errors={errors}
+      checked={checked}
       onChange={handleChange}
       onSubmit={handleSubmit}
+      onCheck={handleCheck}
     />
   );
 };

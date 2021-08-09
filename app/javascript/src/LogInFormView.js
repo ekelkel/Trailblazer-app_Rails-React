@@ -1,5 +1,7 @@
 import React from "react";
 import { Grid, TextField, Button, Typography } from "@material-ui/core";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
@@ -66,6 +68,17 @@ const LogInFormView = (props) => {
               required
               error={props.errors.password ? true : false}
               helperText={props.errors.password}
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={props.checked}
+                  onChange={props.onCheck}
+                  id="remember_me"
+                  color="secondary"
+                />
+              }
+              label="Remember me on this computer"
             />
             <Button type="submit" color="secondary" variant="contained">
               Log In
