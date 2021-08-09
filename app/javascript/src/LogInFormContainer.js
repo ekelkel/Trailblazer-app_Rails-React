@@ -12,7 +12,7 @@ const LogInForm = (props) => {
   const [values, setValues] = useState({
     email: "",
     password: "",
-    remember_me: true,
+    remember_me: false,
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [checked, setChecked] = useState(false);

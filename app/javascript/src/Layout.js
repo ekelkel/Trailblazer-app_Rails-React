@@ -4,12 +4,12 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
-import AccountCircleTwoToneIcon from "@material-ui/icons/AccountCircleTwoTone";
+import AccountCircleRoundedIcon from "@material-ui/icons/AccountCircleRounded";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { useSelector } from "react-redux";
 import Badge from "@material-ui/core/Badge";
-import NotificationsTwoToneIcon from "@material-ui/icons/NotificationsTwoTone";
+import NotificationsIcon from "@material-ui/icons/Notifications";
 import { Link as RouterLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { ActionCreators } from "./actions";
@@ -20,7 +20,6 @@ const useStyles = makeStyles((theme) => {
   return {
     page: {
       width: "100%",
-      padding: theme.spacing(3),
     },
     root: {
       display: "flex",
@@ -68,22 +67,26 @@ export default function Layout({ children }) {
         position="fixed"
         elevation={0}
         className={classes.appBar}
-        color="transparent"
+        color="primary"
       >
         <Toolbar>
           <Typography className={classes.logo}>Trailblazer</Typography>
-          <Typography>Elora</Typography>
+          <Typography>Welcome</Typography>
           {user && (
             <div>
               <IconButton>
-                <Badge badgeContent={17} color="error">
-                  <NotificationsTwoToneIcon color="primary" fontSize="large" />
+                <Badge badgeContent={17} color="secondary">
+                  <NotificationsIcon
+                    style={{ color: "#787878", fontSize: 30 }}
+                  />
                 </Badge>
               </IconButton>
             </div>
           )}
           <IconButton id="menu-icon" onClick={handleMenu}>
-            <AccountCircleTwoToneIcon color="primary" fontSize="large" />
+            <AccountCircleRoundedIcon
+              style={{ color: "#787878", fontSize: 30 }}
+            />
           </IconButton>
           <Menu
             anchorEl={anchorEl}

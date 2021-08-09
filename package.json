@@ -19,6 +19,7 @@
     "react_ujs": "^2.6.1",
     "redux": "^4.1.0",
     "turbolinks": "^5.2.0",
+    "vanta": "^0.5.21",
     "webpack": "^4.46.0",
     "webpack-cli": "^3.3.12"
   },

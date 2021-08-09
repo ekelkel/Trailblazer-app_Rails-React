@@ -17,10 +17,10 @@ import Layout from "./Layout";
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#292F36",
+      main: "#fefefe",
     },
     secondary: {
-      main: "#F5AB00",
+      main: "#9A5DE9",
     },
   },
   typography: {
