@@ -11,8 +11,8 @@ const Bird = ({ children }) => {
           el: myRef.current,
           backgroundColor: 0xededed,
           backgroundAlpha: 0.4,
-          color1: 0x6a5de0,
-          color2: 0xa75bf0,
+          //color1: 0x6a5de0,
+          //color2: 0xa75bf0,
           quantity: 4,
           separation: 40.0,
         })

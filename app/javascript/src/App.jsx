@@ -20,11 +20,11 @@ const theme = createTheme({
       main: "#fefefe",
     },
     secondary: {
-      main: "#9A5DE9",
+      main: "#FFBC1F",
     },
   },
   typography: {
-    fontFamily: "Karla",
+    fontFamily: "Raleway",
     fontWeightLight: 400,
     fontWeightRegular: 500,
     fontWeightMedium: 600,

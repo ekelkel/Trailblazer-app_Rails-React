@@ -18,6 +18,14 @@ const useStyles = makeStyles((theme) => {
       padding: theme.spacing(5),
       textAlign: "center",
     },
+    form: {
+      [theme.breakpoints.down("md")]: {
+        width: "100%",
+      },
+    },
+    container: {
+      minHeight: "100vh",
+    },
   };
 });
 
@@ -31,7 +39,7 @@ const RegistrationFormView = (props) => {
         justifyContent="center"
         alignItems="center"
         direction="column"
-        style={{ minHeight: "100vh" }}
+        className={classes.container}
         spacing={5}
       >
         <Paper className={classes.paper} elevation={5}>
@@ -41,7 +49,7 @@ const RegistrationFormView = (props) => {
               className={classes.title}
               color="secondary"
             >
-              Trailblazer
+              Create your Trailblazer account
             </Typography>
           </Grid>
           <Grid item>
@@ -51,7 +59,7 @@ const RegistrationFormView = (props) => {
                 direction="column"
                 alignItems="center"
                 justifyContent="center"
-                style={{ width: 350 }}
+                className={classes.form}
               >
                 <TextField
                   fullWidth
@@ -109,7 +117,7 @@ const RegistrationFormView = (props) => {
                   error={props.errors.password_confirmation ? true : false}
                   helperText={props.errors.password_confirmation}
                 />
-                <Button type="submit" color="secondary" variant="contained">
+                <Button type="submit" variant="contained" color="secondary">
                   Register
                 </Button>
               </Grid>

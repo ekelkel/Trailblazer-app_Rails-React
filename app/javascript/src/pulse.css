@@ -1,0 +1,30 @@
+.pulse {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  background: #0096ff;
+  border-radius: 100%;
+  border: 2px solid #fff;
+  margin: auto;
+}
+.pulse:before,
+.pulse:after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: #0096ff;
+  border-radius: 100%;
+}
+.pulse:before {
+  animation: blip1 2s infinite;
+}
+.pulse:after {
+  animation: blip2 4s infinite;
+}
+@keyframes blip1 {
+  to {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}

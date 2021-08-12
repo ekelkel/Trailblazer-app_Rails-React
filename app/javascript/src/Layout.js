@@ -1,5 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core";
+import { Link } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -27,6 +28,10 @@ const useStyles = makeStyles((theme) => {
     appBar: {},
     logo: {
       flexGrow: 1,
+    },
+    link: {
+      textDecoration: "none",
+      color: "#FFBC1F",
     },
     toolbar: theme.mixins.toolbar,
   };
@@ -70,8 +75,12 @@ export default function Layout({ children }) {
         color="primary"
       >
         <Toolbar>
-          <Typography className={classes.logo}>Trailblazer</Typography>
-          <Typography>Welcome</Typography>
+          <Typography className={classes.logo}>
+            <Link to={"/"} className={classes.link}>
+              Trailblazer
+            </Link>
+          </Typography>
+          <Typography color="secondary">Welcome</Typography>
           {user && (
             <div>
               <IconButton>

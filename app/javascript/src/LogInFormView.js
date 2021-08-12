@@ -1,7 +1,13 @@
 import React from "react";
-import { Grid, TextField, Button, Typography, Paper } from "@material-ui/core";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
+import {
+  Grid,
+  TextField,
+  Button,
+  Typography,
+  Paper,
+  FormControlLabel,
+  Checkbox,
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Bird from "./Bird";
 
@@ -19,6 +25,14 @@ const useStyles = makeStyles((theme) => {
     paper: {
       padding: theme.spacing(5),
       textAlign: "center",
+    },
+    form: {
+      [theme.breakpoints.down("md")]: {
+        width: "100%",
+      },
+    },
+    checkbox: {
+      color: "#787878",
     },
   };
 });
@@ -43,7 +57,7 @@ const LogInFormView = (props) => {
               className={classes.title}
               color="secondary"
             >
-              Trailblazer
+              Log In
             </Typography>
           </Grid>
           <Grid item>
@@ -53,7 +67,7 @@ const LogInFormView = (props) => {
                 direction="column"
                 alignItems="center"
                 justifyContent="center"
-                style={{ width: 350 }}
+                className={classes.form}
               >
                 <TextField
                   id="email"
@@ -92,9 +106,10 @@ const LogInFormView = (props) => {
                       color="secondary"
                     />
                   }
+                  className={classes.checkbox}
                   label="Remember me on this computer"
                 />
-                <Button type="submit" color="secondary" variant="contained">
+                <Button type="submit" variant="contained" color="secondary">
                   Log In
                 </Button>
               </Grid>

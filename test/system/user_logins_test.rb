@@ -19,7 +19,6 @@ class UserLoginsTest < ApplicationSystemTestCase
     fill_in 'Password', with: 'password', match: :prefer_exact
     click_button 'Log In'
     page.assert_current_path('/')
-    assert page.has_content? 'Hello hello hello Elora!'
     find_by_id('menu-icon').click
     assert page.has_no_content? 'Log In'
     assert page.has_no_content? 'Sign up'

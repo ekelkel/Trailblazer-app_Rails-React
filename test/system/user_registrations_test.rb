@@ -3,7 +3,7 @@ require 'application_system_test_case'
 class UserRegistrationsTest < ApplicationSystemTestCase
   test 'visiting home' do
     visit root_path
-    assert page.has_content? 'Hello hello hello World!'
+    assert page.has_content? 'Share your favorite'
   end
 
   test 'invalid signup information' do
