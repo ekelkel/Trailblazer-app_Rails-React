@@ -4,7 +4,7 @@ import axios from "axios";
 import { validate, parseErrors } from "./LogInFormValidation";
 import LogInFormView from "./LogInFormView";
 import { useDispatch } from "react-redux";
-import { ActionCreators } from "./actions";
+import { ActionCreators } from "../actions";
 
 const LogInForm = (props) => {
   const dispatch = useDispatch();
@@ -14,7 +14,6 @@ const LogInForm = (props) => {
     password: "",
     remember_me: false,
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [checked, setChecked] = useState(false);
 
   const handleCheck = (event) => {
@@ -54,16 +53,16 @@ const LogInForm = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setIsSubmitting(true);
-    setErrors(validate(values));
+    let newErrors = validate(values);
+    setErrors(newErrors);
+    if (Object.keys(newErrors).length === 0) {
+      submitForm();
+    }
   };
 
   useEffect(() => {
-    if (Object.keys(errors).length === 0 && isSubmitting) {
-      submitForm();
-      setIsSubmitting(false);
-    }
-  }, [errors]);
+    if (Object.keys(errors).length !== 0) setErrors(validate(values));
+  }, [values]);
 
   return (
     <LogInFormView

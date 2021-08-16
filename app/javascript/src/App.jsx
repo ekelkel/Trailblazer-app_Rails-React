@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Home from "./Home";
-import Registration from "./signup";
-import LogIn from "./login";
+import Registration from "./auth/signup";
+import LogIn from "./auth/login";
+import Profile from "./updateProfile";
 import { ThemeProvider } from "@material-ui/core";
 import { createTheme } from "@material-ui/core/styles";
 import axios from "axios";
@@ -74,6 +75,7 @@ const AppComponent = () => {
             <Route exact path="/" component={Home} />
             <Route exact path="/signup" component={Registration} />
             <Route exact path="/login" component={LogIn} />
+            <Route exact path="/profile" component={Profile} />
           </Switch>
         </Layout>
       </BrowserRouter>

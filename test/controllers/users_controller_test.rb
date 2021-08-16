@@ -1,6 +1,10 @@
 require 'test_helper'
 
 class UsersControllerTest < ActionDispatch::IntegrationTest
+  def setup
+    @user = users(:elora)
+  end
+
   test 'invalid signup information' do
     assert_no_difference 'User.count' do
       post users_path,
@@ -28,5 +32,22 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
            }
     end
     assert is_logged_in?
+  end
+
+  test 'successful user update' do
+    name = 'Foo Bar'
+    email = 'foo@bar.com'
+    patch user_path(@user),
+          params: {
+            user: {
+              name: name,
+              email: email,
+              password: '',
+              password_confirmation: '',
+            },
+          }
+    @user.reload
+    assert_equal name, @user.name
+    assert_equal email, @user.email
   end
 end

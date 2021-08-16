@@ -12,6 +12,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         user: action.payload.user,
       };
+    case Types.UPDATE:
+      console.log("update", action.payload.user);
+      return {
+        ...state,
+        user: action.payload.user,
+      };
     default:
       return state;
   }

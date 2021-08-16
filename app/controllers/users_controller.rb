@@ -10,6 +10,15 @@ class UsersController < ApplicationController
     end
   end
 
+  def update
+    @user = User.find(params[:id])
+    if @user.update(user_params)
+      render json: { user: @user }, status: 200
+    else
+      render json: { errors: 'Update failed' }, status: 400
+    end
+  end
+
   private
 
   def user_params

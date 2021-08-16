@@ -7,5 +7,5 @@ Rails
     get '/logged_in', to: 'sessions#logged_in'
     delete '/logout', to: 'sessions#destroy'
     get '/*path' => 'static_pages#home', :via => :all
-    resources :users, only: [:create]
+    resources :users
   end

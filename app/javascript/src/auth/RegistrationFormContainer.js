@@ -12,7 +12,6 @@ const RegistrationForm = (props) => {
     password: "",
     password_confirmation: "",
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   /*function getCookie(key) {
     var b = document.cookie.match("(^|;)\\s*" + key + "\\s*=\\s*([^;]+)");
@@ -46,16 +45,16 @@ const RegistrationForm = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setIsSubmitting(true);
-    setErrors(validate(values));
+    let newErrors = validate(values);
+    setErrors(newErrors);
+    if (Object.keys(newErrors).length === 0) {
+      submitForm();
+    }
   };
 
   useEffect(() => {
-    if (Object.keys(errors).length === 0 && isSubmitting) {
-      submitForm();
-      setIsSubmitting(false);
-    }
-  }, [errors]);
+    if (Object.keys(errors).length !== 0) setErrors(validate(values));
+  }, [values]);
 
   return (
     <RegistrationFormView
