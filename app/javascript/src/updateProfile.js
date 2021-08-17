@@ -1,9 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Grid } from "@material-ui/core";
 import UpdateProfile from "./UpdateProfileContainer";
+import LoadingScreen from "./LoadingScreen";
+import { useSelector } from "react-redux";
 
 const Profile = () => {
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const user = useSelector((state) => state.user);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (user) {
+      setLoading(false);
+    }
+  }, [user]);
 
   return (
     <>
@@ -14,7 +23,7 @@ const Profile = () => {
         direction="column"
         style={{ minHeight: "100vh" }}
       >
-        <UpdateProfile setIsSubmitted={setIsSubmitted} />
+        {loading ? <LoadingScreen /> : <UpdateProfile />}
       </Grid>
     </>
   );

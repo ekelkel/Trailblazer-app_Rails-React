@@ -2,7 +2,7 @@ class SessionsController < ApplicationController
   def create
     @user = User.find_by(email: session_params[:email].downcase)
     if !@user
-      render json: { errors: { email: 'User does not exist' } }, status: 400
+      render json: { error: { email: 'User does not exist' } }, status: 400
     elsif @user&.authenticate(session_params[:password])
       # Log the user in
       log_in @user
@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
       render json: { logged_in: true, user: @user }, status: 200
     else
       render json: {
-               errors: {
+               error: {
                  password: 'Invalid email/password combination',
                },
              },

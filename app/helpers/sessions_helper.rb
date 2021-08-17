@@ -24,6 +24,15 @@ module SessionsHelper
     end
   end
 
+  # Returns true if the user is logged in, false otherwise.
+  def logged_in?
+    !current_user.nil?
+  end
+
+  def current_user?(user)
+    user && user == current_user
+  end
+
   def forget(user)
     user.forget
     cookies.delete(:user_id)

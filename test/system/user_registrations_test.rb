@@ -1,6 +1,10 @@
 require 'application_system_test_case'
 
 class UserRegistrationsTest < ApplicationSystemTestCase
+  def setup
+    @user = users(:elora)
+  end
+
   test 'visiting home' do
     visit root_path
     assert page.has_content? 'Share your favorite'
@@ -17,6 +21,16 @@ class UserRegistrationsTest < ApplicationSystemTestCase
     assert page.has_content? 'Email address is invalid'
     assert page.has_content? 'Password needs to be 8 characters or more'
     assert page.has_content? 'Passwords do not match'
+  end
+
+  test 'signup with already used email' do
+    visit '/signup'
+    fill_in 'Name', with: 'Paul'
+    fill_in 'Email', with: @user.email
+    fill_in 'Password', with: 'password', match: :prefer_exact
+    fill_in 'Password confirmation', with: 'password', match: :prefer_exact
+    click_button 'Register'
+    assert page.has_content? 'Email has already been taken.'
   end
 
   test 'valid signup information' do

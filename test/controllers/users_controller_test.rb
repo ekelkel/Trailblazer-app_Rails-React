@@ -3,6 +3,7 @@ require 'test_helper'
 class UsersControllerTest < ActionDispatch::IntegrationTest
   def setup
     @user = users(:elora)
+    @other_user = users(:paul)
   end
 
   test 'invalid signup information' do
@@ -31,10 +32,11 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
              },
            }
     end
-    assert is_logged_in?
+    #assert is_logged_in?
   end
 
   test 'successful user update' do
+    log_in_as(@user)
     name = 'Foo Bar'
     email = 'foo@bar.com'
     patch user_path(@user),
@@ -49,5 +51,32 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     @user.reload
     assert_equal name, @user.name
     assert_equal email, @user.email
+  end
+
+  test 'unsuccessful update when user is not logged in' do
+    name = 'Foo Bar'
+    assert_no_changes 'users(:elora).name' do
+      patch user_path(@user),
+            params: {
+              user: {
+                name: name,
+                email: @user.email,
+              },
+            }
+    end
+  end
+
+  test 'unsuccessful update when logged in as wrong user' do
+    log_in_as(@other_user)
+    name = 'Foo Bar'
+    assert_no_changes 'users(:elora).name' do
+      patch user_path(@user),
+            params: {
+              user: {
+                name: name,
+                email: @user.email,
+              },
+            }
+    end
   end
 end

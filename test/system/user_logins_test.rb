@@ -26,7 +26,7 @@ class UserLoginsTest < ApplicationSystemTestCase
     assert page.has_content? 'My account'
     assert page.has_content? 'Log out'
     click_on 'Log out'
-    page.assert_current_path('/login')
+    page.assert_current_path('/')
     find_by_id('menu-icon').click
     assert page.has_content? 'Log In'
     assert page.has_content? 'Sign up'

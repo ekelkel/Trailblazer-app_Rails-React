@@ -10,7 +10,7 @@ import { ActionCreators } from "./actions";
 
 toast.configure();
 
-const UpdateProfile = (props) => {
+const UpdateProfile = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const [errors, setErrors] = useState({});
@@ -36,7 +36,6 @@ const UpdateProfile = (props) => {
       console.log(response.data);
       dispatch(ActionCreators.update(response.data.user));
       notify();
-      props.setIsSubmitted(true);
     } catch (error) {
       const errors = error.response.data.errors;
       setErrors(parseErrors(errors));

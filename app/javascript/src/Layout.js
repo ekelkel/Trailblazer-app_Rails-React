@@ -1,15 +1,17 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import IconButton from "@material-ui/core/IconButton";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  IconButton,
+  Menu,
+  MenuItem,
+  Badge,
+} from "@material-ui/core";
 import AccountCircleRoundedIcon from "@material-ui/icons/AccountCircleRounded";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
 import { useSelector } from "react-redux";
-import Badge from "@material-ui/core/Badge";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import { Link as RouterLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -124,7 +126,7 @@ export default function Layout({ children }) {
                 <MenuItem
                   onClick={handleLogoutClick}
                   component={RouterLink}
-                  to="/login"
+                  to="/"
                 >
                   Log out
                 </MenuItem>

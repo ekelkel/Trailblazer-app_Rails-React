@@ -1,8 +1,11 @@
 class UsersController < ApplicationController
+  before_action :logged_in_user, only: [:update]
+  before_action :correct_user, only: [:update]
+
   def create
     @user = User.new(user_params)
     if @user.save
-      log_in @user
+      #log_in @user
       render json: { user: @user }, status: 200
     else
       render json: { errors: @user.errors }, status: 400
@@ -11,11 +14,10 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = User.find(params[:id])
     if @user.update(user_params)
       render json: { user: @user }, status: 200
     else
-      render json: { errors: 'Update failed' }, status: 400
+      render json: { errors: @user.errors }, status: 400
     end
   end
 
@@ -25,5 +27,24 @@ class UsersController < ApplicationController
     params
       .require(:user)
       .permit(:name, :email, :password, :password_confirmation)
+  end
+
+  # Before filters
+
+  # Confirms a logged-in user
+  def logged_in_user
+    unless logged_in?
+      render json: {
+               error: 'You must be logged in to perform this action.',
+             },
+             status: 400
+    end
+  end
+
+  def correct_user
+    @user = User.find(params[:id])
+    unless current_user?(@user)
+      render json: { error: 'You cannot perform this action.' }, status: 400
+    end
   end
 end

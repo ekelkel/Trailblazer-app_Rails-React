@@ -37,9 +37,9 @@ const LogInForm = (props) => {
       dispatch(ActionCreators.login(response.data.user));
       console.log(response.data);
     } catch (error) {
-      const errors = error.response.data.errors;
-      console.log(errors);
-      setErrors(parseErrors(errors));
+      const err = error.response.data.error;
+      console.log(err);
+      setErrors(parseErrors(err));
     }
   };
 

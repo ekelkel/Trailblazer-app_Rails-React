@@ -27,7 +27,6 @@ const RegistrationForm = (props) => {
           headers: { "X-CSRF-Token": csrfToken() /*getCookie("CSRF-TOKEN")*/ },
         }
       );
-      console.log(response.data);
       props.setIsSubmitted(true);
     } catch (error) {
       const errors = error.response.data.errors;

@@ -41,4 +41,9 @@ class UsersEditsTest < ApplicationSystemTestCase
     click_button 'Update my profile'
     assert page.has_content? 'Profile successfully updated!'
   end
+
+  test 'should redirect profile when not logged in' do
+    visit '/profile'
+    page.assert_current_path('/')
+  end
 end

@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import Home from "./Home";
-import Registration from "./auth/signup";
+import Registration from "./auth/register";
 import LogIn from "./auth/login";
 import Profile from "./updateProfile";
 import { ThemeProvider } from "@material-ui/core";
@@ -14,6 +14,8 @@ import { ActionCreators } from "./actions";
 import { Provider } from "react-redux";
 import store from "./store";
 import Layout from "./Layout";
+import { useSelector } from "react-redux";
+import LoadingScreen from "./LoadingScreen";
 
 const theme = createTheme({
   palette: {
@@ -47,7 +49,8 @@ const AppComponent = () => {
   useEffect(() => {
     setAuthHeaders(setLoading);
   }, []);*/
-
+  const user = useSelector((state) => state.user);
+  const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
 
   const checkLoginStatus = async () => {
@@ -58,6 +61,7 @@ const AppComponent = () => {
       if (response.data.logged_in) {
         dispatch(ActionCreators.login(response.data.user));
       }
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -70,14 +74,26 @@ const AppComponent = () => {
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
-        <Layout>
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/signup" component={Registration} />
-            <Route exact path="/login" component={LogIn} />
-            <Route exact path="/profile" component={Profile} />
-          </Switch>
-        </Layout>
+        {loading ? (
+          <LoadingScreen />
+        ) : (
+          <Layout>
+            {user ? (
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <Route exact path="/profile" component={Profile} />
+                <Route render={() => <Redirect to="/" />} />
+              </Switch>
+            ) : (
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <Route exact path="/signup" component={Registration} />
+                <Route exact path="/login" component={LogIn} />
+                <Route render={() => <Redirect to="/" />} />
+              </Switch>
+            )}
+          </Layout>
+        )}
       </BrowserRouter>
     </ThemeProvider>
   );
