@@ -1,6 +1,28 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:update]
+  before_action :logged_in_user, only: %i[all_users update]
   before_action :correct_user, only: [:update]
+
+  def get_users
+    #@users = User.all
+    if @users = User.paginate(page: params[:page])
+      render json: {
+               users: @users,
+               page: @users.current_page, # an integer corresponding to the current page
+               pages: @users.total_pages, # an integer corresponding to the total page count
+             },
+             status: 200
+    else
+      render json: { error: 'An error occurred.' }, status: 400
+    end
+  end
+
+  def get_user
+    if @user = User.find(params[:id])
+      render json: { user: @user }, status: 200
+    else
+      render json: { error: 'An error occured.' }, status: 400
+    end
+  end
 
   def create
     @user = User.new(user_params)

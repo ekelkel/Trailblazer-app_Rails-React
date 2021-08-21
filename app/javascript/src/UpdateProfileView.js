@@ -61,6 +61,7 @@ const UpdateProfileView = (props) => {
                 color="secondary"
                 variant="outlined"
                 type="text"
+                InputLabelProps={{ shrink: true }}
                 value={props.values.name}
                 onChange={props.onChange}
                 error={props.errors.name ? true : false}
@@ -74,6 +75,7 @@ const UpdateProfileView = (props) => {
                 color="secondary"
                 variant="outlined"
                 type="email"
+                InputLabelProps={{ shrink: true }}
                 value={props.values.email}
                 onChange={props.onChange}
                 error={props.errors.email ? true : false}

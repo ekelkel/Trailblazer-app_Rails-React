@@ -16,6 +16,8 @@ import store from "./store";
 import Layout from "./Layout";
 import { useSelector } from "react-redux";
 import LoadingScreen from "./LoadingScreen";
+import Users from "./Users";
+import User from "./User";
 
 const theme = createTheme({
   palette: {
@@ -44,8 +46,7 @@ const App = () => {
 };
 
 const AppComponent = () => {
-  /*const [loading, setLoading] = useState(true);
-
+  /*
   useEffect(() => {
     setAuthHeaders(setLoading);
   }, []);*/
@@ -82,6 +83,8 @@ const AppComponent = () => {
               <Switch>
                 <Route exact path="/" component={Home} />
                 <Route exact path="/profile" component={Profile} />
+                <Route exact path="/users" component={Users} />
+                <Route exact path="/user/:userId" component={User} />
                 <Route render={() => <Redirect to="/" />} />
               </Switch>
             ) : (
@@ -89,6 +92,7 @@ const AppComponent = () => {
                 <Route exact path="/" component={Home} />
                 <Route exact path="/signup" component={Registration} />
                 <Route exact path="/login" component={LogIn} />
+                <Route exact path="/user/:userId" component={User} />
                 <Route render={() => <Redirect to="/" />} />
               </Switch>
             )}
