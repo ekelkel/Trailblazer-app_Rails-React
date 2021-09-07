@@ -76,7 +76,7 @@ Rails.application.configure do
     authentication: :plain,
     user_name: 'apikey',
     password: ENV['SENDGRID_API_KEY'],
-    domain: 'heroku.com',
+    domain: 'blooming-dusk-67341.herokuapp.com',
     enable_starttls_auto: true,
   }
 
