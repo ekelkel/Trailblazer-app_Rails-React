@@ -8,4 +8,4 @@
 Welcome to Trailblazer! Click on the link below to activate your account:
 </p>
 
-<%= link_to "Activate", raw("http://localhost:3000/activate_account?validationToken=#{@user.activation_token}&email=#{@user.email}") %>
+<%= link_to "Activate", raw("#{ActionMailer::Base.default_url_options[:host]}/activate_account?validationToken=#{@user.activation_token}&email=#{@user.email}") %>

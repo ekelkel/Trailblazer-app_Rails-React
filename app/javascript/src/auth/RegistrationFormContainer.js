@@ -29,7 +29,6 @@ const RegistrationForm = (props) => {
       );
       props.setIsSubmitted(true);
     } catch (error) {
-      console.log(error);
       const errors = error.response.data.errors;
       setErrors(parseErrors(errors));
     }
