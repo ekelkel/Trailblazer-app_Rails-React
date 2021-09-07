@@ -37,3 +37,5 @@ yarn-debug.log*
 
 # Ignore db test files.
 db/test.*
+# Ignore application configuration
+/config/application.yml
