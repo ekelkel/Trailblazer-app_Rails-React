@@ -4,6 +4,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   def setup
     @user = users(:elora)
     @other_user = users(:paul)
+    ActionMailer::Base.deliveries.clear
   end
 
   test 'invalid signup information' do
@@ -32,7 +33,34 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
              },
            }
     end
-    #assert is_logged_in?
+    assert_equal 1, ActionMailer::Base.deliveries.size
+    user = assigns(:user)
+    assert_not user.activated?
+
+    # Try to log in before activation
+    log_in_as(user)
+    assert_not is_logged_in?
+
+    # Invalid activation token
+    get validate_account_path(
+          validationToken: 'invalid token',
+          email: user.email,
+        )
+    assert_not is_logged_in?
+
+    # Valid token, wrong email
+    get validate_account_path(
+          validationToken: user.activation_token,
+          email: 'wrong',
+        )
+    assert_not is_logged_in?
+
+    # Valid activation token
+    get validate_account_path(
+          validationToken: user.activation_token,
+          email: user.email,
+        )
+    assert user.reload.activated?
   end
 
   test 'successful user update' do

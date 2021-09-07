@@ -3,6 +3,8 @@ require 'application_system_test_case'
 class UserRegistrationsTest < ApplicationSystemTestCase
   def setup
     @user = users(:elora)
+    @other_user = users(:tim)
+    ActionMailer::Base.deliveries.clear
   end
 
   test 'visiting home' do
@@ -45,8 +47,32 @@ class UserRegistrationsTest < ApplicationSystemTestCase
             with: 'secretpassword',
             match: :prefer_exact
     click_button 'Register'
+    assert page.has_content? 'Please check your email to activate your account.'
 
-    # Verify that the User was created
-    assert page.has_content? 'We have received your request!'
+    # Try to log in before activation.
+    visit '/login'
+    fill_in 'Email', with: 'elora@gmail.com'
+    fill_in 'Password', with: 'secretpassword', match: :prefer_exact
+    click_button 'Log In'
+    assert page.has_content? 'Account not activated. Check your email for the activation link.'
+
+    # Invalid activation token
+    visit '/activate_account?validationToken=invalid&email=elora@gmail.com'
+    assert page.has_content? 'Invalid activation link'
+
+    email = ActionMailer::Base.deliveries.last
+    html = Nokogiri.HTML(email.html_part.body.to_s)
+    target_link = html.at("a:contains('Activate')")
+    path =
+      CGI.unescapeHTML(target_link['href']).sub!('http://localhost:3000', '')
+
+    # Valid token, wrong email
+    invalid_path = path.dup.sub!('elora@gmail.com', 'invalid@gmail.com')
+    visit invalid_path
+    assert page.has_content? 'Invalid activation link'
+
+    # Valid activation token
+    visit path
+    assert page.has_content? 'Account activated! You can now log in.'
   end
 end

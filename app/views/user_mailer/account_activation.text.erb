@@ -1,0 +1,5 @@
+Hi <%= @user.name %>,
+
+Welcome to Trailblazer! Click on the link below to activate your account:
+
+<%= "http://localhost:3000/activate_account?validationToken=#{@user.activation_token}&email=#{@user.email}" %>

@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import Home from "./Home";
 import Registration from "./auth/register";
 import LogIn from "./auth/login";
+import AccountValidation from "./AccountValidation";
 import Profile from "./updateProfile";
 import { ThemeProvider } from "@material-ui/core";
 import { createTheme } from "@material-ui/core/styles";
@@ -85,7 +86,7 @@ const AppComponent = () => {
                 <Route exact path="/profile" component={Profile} />
                 <Route exact path="/users" component={Users} />
                 <Route exact path="/user/:userId" component={User} />
-                <Route render={() => <Redirect to="/" />} />
+                <Redirect to="/" />
               </Switch>
             ) : (
               <Switch>
@@ -93,7 +94,8 @@ const AppComponent = () => {
                 <Route exact path="/signup" component={Registration} />
                 <Route exact path="/login" component={LogIn} />
                 <Route exact path="/user/:userId" component={User} />
-                <Route render={() => <Redirect to="/" />} />
+                <Route path="/activate_account" component={AccountValidation} />
+                <Redirect to="/" />
               </Switch>
             )}
           </Layout>

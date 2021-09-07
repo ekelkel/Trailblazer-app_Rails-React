@@ -28,6 +28,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       #log_in @user
+      @user.send_activation_email
       render json: { user: @user }, status: 200
     else
       render json: { errors: @user.errors }, status: 400

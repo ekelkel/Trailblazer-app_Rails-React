@@ -13,7 +13,7 @@ const RegistrationSuccess = () => {
       >
         <Grid item>
           <Typography variant="h5" color="secondary">
-            We have received your request!
+            Please check your email to activate your account.
           </Typography>
         </Grid>
       </Grid>

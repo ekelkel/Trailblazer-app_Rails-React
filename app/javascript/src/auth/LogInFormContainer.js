@@ -5,6 +5,7 @@ import { validate, parseErrors } from "./LogInFormValidation";
 import LogInFormView from "./LogInFormView";
 import { useDispatch } from "react-redux";
 import { ActionCreators } from "../actions";
+import { toast } from "react-toastify";
 
 const LogInForm = (props) => {
   const dispatch = useDispatch();
@@ -15,6 +16,12 @@ const LogInForm = (props) => {
     remember_me: false,
   });
   const [checked, setChecked] = useState(false);
+  const notify = (type) => {
+    if (type === "error")
+      toast.error(
+        "Account not activated. Check your email for the activation link."
+      );
+  };
 
   const handleCheck = (event) => {
     setChecked(event.target.checked);
@@ -38,7 +45,7 @@ const LogInForm = (props) => {
       console.log(response.data);
     } catch (error) {
       const err = error.response.data.error;
-      console.log(err);
+      if (err.account) notify("error");
       setErrors(parseErrors(err));
     }
   };

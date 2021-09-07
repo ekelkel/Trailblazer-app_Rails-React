@@ -57,6 +57,7 @@ group :test do
   gem 'minitest-reporters', '~> 1.1', '>= 1.1.11'
   gem 'guard', '~> 2.14'
   gem 'guard-minitest', '~> 2.4', '>= 2.4.6'
+  gem 'nokogiri'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

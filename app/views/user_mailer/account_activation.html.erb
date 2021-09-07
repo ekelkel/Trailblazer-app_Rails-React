@@ -1,0 +1,11 @@
+<h1>Trailblazer</h1>
+
+<p>
+  Hi <%= @user.name %>,
+</p>
+
+<p>
+Welcome to Trailblazer! Click on the link below to activate your account:
+</p>
+
+<%= link_to "Activate", raw("http://localhost:3000/activate_account?validationToken=#{@user.activation_token}&email=#{@user.email}") %>

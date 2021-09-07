@@ -4,10 +4,19 @@ class SessionsController < ApplicationController
     if !@user
       render json: { error: { email: 'User does not exist' } }, status: 400
     elsif @user&.authenticate(session_params[:password])
-      # Log the user in
-      log_in @user
-      session_params[:remember_me] ? remember(@user) : forget(@user)
-      render json: { logged_in: true, user: @user }, status: 200
+      if @user.activated?
+        # Log the user in
+        log_in @user
+        session_params[:remember_me] ? remember(@user) : forget(@user)
+        render json: { logged_in: true, user: @user }, status: 200
+      else
+        render json: {
+                 error: {
+                   account: 'Account not activated.',
+                 },
+               },
+               status: 400
+      end
     else
       render json: {
                error: {
