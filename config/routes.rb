@@ -9,6 +9,8 @@ Rails
     get '/get_users', to: 'users#get_users'
     get '/get_user', to: 'users#get_user'
     get '/validate_account', to: 'account_activations#validate'
+    get '/check_reset_password_link', to: 'password_resets#check_link'
     get '/*path' => 'static_pages#home', :via => :all
     resources :users
+    resources :password_resets, only: %i[create update]
   end

@@ -2,43 +2,33 @@ import React, { useState, useEffect } from "react";
 import { csrfToken } from "@rails/ujs";
 import axios from "axios";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { validate, parseErrors } from "./updateProfileValidation";
-import UpdateProfileView from "./UpdateProfileView";
-import { useSelector, useDispatch } from "react-redux";
-import { ActionCreators } from "./actions";
+import { validate, parseErrors } from "./ResetPasswordRequestValidation";
+import ResetPasswordRequestView from "./ResetPasswordRequestView";
 
-toast.configure();
-
-const UpdateProfile = () => {
-  const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
+const ResetPasswordRequestForm = (props) => {
   const [errors, setErrors] = useState({});
   const [values, setValues] = useState({
-    name: "",
     email: "",
-    password: "",
-    password_confirmation: "",
   });
   const notify = () => {
-    toast.success("Profile successfully updated!");
+    toast.success("Email sent with password reset instructions");
   };
 
   const submitForm = async () => {
     try {
-      const response = await axios.put(
-        `/users/${user.id}`,
-        { user: values },
+      const response = await axios.post(
+        "/password_resets",
+        { password_reset: values },
         {
           headers: { "X-CSRF-Token": csrfToken() },
         }
       );
+      props.setIsSubmitted(true);
       console.log(response.data);
-      dispatch(ActionCreators.update(response.data.user));
       notify();
     } catch (error) {
-      const errors = error.response.data.errors;
-      setErrors(parseErrors(errors));
+      const err = error.response.data.error;
+      setErrors(parseErrors(err));
     }
   };
 
@@ -63,17 +53,8 @@ const UpdateProfile = () => {
     if (Object.keys(errors).length !== 0) setErrors(validate(values));
   }, [values]);
 
-  useEffect(() => {
-    setValues({
-      name: user ? user.name : "",
-      email: user ? user.email : "",
-      password: "",
-      password_confirmation: "",
-    });
-  }, [user]);
-
   return (
-    <UpdateProfileView
+    <ResetPasswordRequestView
       values={values}
       errors={errors}
       onChange={handleChange}
@@ -82,4 +63,4 @@ const UpdateProfile = () => {
   );
 };
 
-export default UpdateProfile;
+export default ResetPasswordRequestForm;

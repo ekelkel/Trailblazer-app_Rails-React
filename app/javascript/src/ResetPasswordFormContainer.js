@@ -2,42 +2,39 @@ import React, { useState, useEffect } from "react";
 import { csrfToken } from "@rails/ujs";
 import axios from "axios";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { validate, parseErrors } from "./updateProfileValidation";
-import UpdateProfileView from "./UpdateProfileView";
-import { useSelector, useDispatch } from "react-redux";
-import { ActionCreators } from "./actions";
+import { validate, parseErrors } from "./ResetPasswordFormValidation";
+import ResetPasswordFormView from "./ResetPasswordFormView";
 
-toast.configure();
-
-const UpdateProfile = () => {
-  const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
+const ResetPasswordFormContainer = (props) => {
   const [errors, setErrors] = useState({});
   const [values, setValues] = useState({
-    name: "",
-    email: "",
     password: "",
     password_confirmation: "",
   });
-  const notify = () => {
-    toast.success("Profile successfully updated!");
+  const notify = (type) => {
+    if (type === "success")
+      toast.success(
+        "Password has been successfully reset. You can now log in."
+      );
+    else if (type === "error") toast.error("Password reset has expired.");
   };
 
   const submitForm = async () => {
     try {
       const response = await axios.put(
-        `/users/${user.id}`,
-        { user: values },
+        `/password_resets/${props.resetToken}`,
+        { user: values, email: props.email, resetToken: props.resetToken },
         {
           headers: { "X-CSRF-Token": csrfToken() },
         }
       );
-      console.log(response.data);
-      dispatch(ActionCreators.update(response.data.user));
-      notify();
+      if (response.data.successful_reset) {
+        props.setIsSubmitted(true);
+        notify("success");
+      }
     } catch (error) {
       const errors = error.response.data.errors;
+      if (errors.link) notify("error");
       setErrors(parseErrors(errors));
     }
   };
@@ -63,17 +60,8 @@ const UpdateProfile = () => {
     if (Object.keys(errors).length !== 0) setErrors(validate(values));
   }, [values]);
 
-  useEffect(() => {
-    setValues({
-      name: user ? user.name : "",
-      email: user ? user.email : "",
-      password: "",
-      password_confirmation: "",
-    });
-  }, [user]);
-
   return (
-    <UpdateProfileView
+    <ResetPasswordFormView
       values={values}
       errors={errors}
       onChange={handleChange}
@@ -82,4 +70,4 @@ const UpdateProfile = () => {
   );
 };
 
-export default UpdateProfile;
+export default ResetPasswordFormContainer;

@@ -1,16 +1,7 @@
 import React from "react";
-import {
-  Grid,
-  TextField,
-  Button,
-  Typography,
-  Paper,
-  FormControlLabel,
-  Checkbox,
-} from "@material-ui/core";
-import { Link } from "react-router-dom";
+import { Grid, TextField, Button, Typography, Paper } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import Bird from "../Bird";
+import Bird from "./Bird";
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -32,13 +23,13 @@ const useStyles = makeStyles((theme) => {
         width: "100%",
       },
     },
-    checkbox: {
-      color: "#787878",
+    container: {
+      minHeight: "100vh",
     },
   };
 });
 
-const LogInFormView = (props) => {
+const ResetPasswordFormView = (props) => {
   const classes = useStyles();
 
   return (
@@ -48,7 +39,7 @@ const LogInFormView = (props) => {
         justifyContent="center"
         alignItems="center"
         direction="column"
-        style={{ minHeight: "100vh" }}
+        className={classes.container}
         spacing={5}
       >
         <Paper className={classes.paper} elevation={5}>
@@ -58,7 +49,7 @@ const LogInFormView = (props) => {
               className={classes.title}
               color="secondary"
             >
-              Log In
+              Choose a new password
             </Typography>
           </Grid>
           <Grid item>
@@ -71,24 +62,10 @@ const LogInFormView = (props) => {
                 className={classes.form}
               >
                 <TextField
-                  id="email"
-                  className={classes.field}
-                  fullWidth
-                  label="Email"
-                  color="secondary"
-                  variant="outlined"
-                  type="email"
-                  value={props.values.email}
-                  onChange={props.onChange}
-                  required
-                  error={props.errors.email ? true : false}
-                  helperText={props.errors.email}
-                />
-                <TextField
                   id="password"
                   fullWidth
                   className={classes.field}
-                  label="Password"
+                  label="New password"
                   color="secondary"
                   variant="outlined"
                   type="password"
@@ -98,34 +75,25 @@ const LogInFormView = (props) => {
                   error={props.errors.password ? true : false}
                   helperText={props.errors.password}
                 />
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={props.checked}
-                      onChange={props.onCheck}
-                      id="remember_me"
-                      color="secondary"
-                    />
-                  }
-                  className={classes.checkbox}
-                  label="Remember me on this computer"
+                <TextField
+                  id="password_confirmation"
+                  fullWidth
+                  className={classes.field}
+                  color="secondary"
+                  label="New password confirmation"
+                  variant="outlined"
+                  type="password"
+                  value={props.values.password_confirmation}
+                  onChange={props.onChange}
+                  required
+                  error={props.errors.password_confirmation ? true : false}
+                  helperText={props.errors.password_confirmation}
                 />
                 <Button type="submit" variant="contained" color="secondary">
-                  Log In
+                  Reset password
                 </Button>
               </Grid>
             </form>
-          </Grid>
-          <Grid item>
-            <Button
-              color="secondary"
-              size="small"
-              component={Link}
-              to={"/reset_password_request"}
-              style={{ marginTop: "2rem" }}
-            >
-              Forgot your password?
-            </Button>
           </Grid>
         </Paper>
       </Grid>
@@ -133,4 +101,4 @@ const LogInFormView = (props) => {
   );
 };
 
-export default LogInFormView;
+export default ResetPasswordFormView;

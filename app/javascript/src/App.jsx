@@ -4,6 +4,8 @@ import Home from "./Home";
 import Registration from "./auth/register";
 import LogIn from "./auth/login";
 import AccountValidation from "./AccountValidation";
+import ResetPasswordRequest from "./ResetPasswordRequest";
+import ResetPassword from "./ResetPassword";
 import Profile from "./updateProfile";
 import { ThemeProvider } from "@material-ui/core";
 import { createTheme } from "@material-ui/core/styles";
@@ -95,6 +97,16 @@ const AppComponent = () => {
                 <Route exact path="/login" component={LogIn} />
                 <Route exact path="/user/:userId" component={User} />
                 <Route path="/activate_account" component={AccountValidation} />
+                <Route
+                  exact
+                  path="/reset_password_request"
+                  component={ResetPasswordRequest}
+                />
+                <Route
+                  exact
+                  path="/reset_password_form"
+                  component={ResetPassword}
+                />
                 <Redirect to="/" />
               </Switch>
             )}
