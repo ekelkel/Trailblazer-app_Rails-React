@@ -5,23 +5,27 @@ import axios from "axios";
 import { csrfToken } from "@rails/ujs";
 import { toast } from "react-toastify";
 import { Grid } from "@material-ui/core";
-import LoadingScreen from "./LoadingScreen";
-import ResetPasswordForm from "./ResetPasswordForm";
+import LoadingScreen from "../../common/LoadingScreen";
+import ResetPasswordFormContainer from "./components/ResetPasswordForm/ResetPasswordFormContainer";
 
 const ResetPassword = () => {
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const [loading, setLoading] = useState(true);
   const [correctLink, setCorrectLink] = useState(false);
   const parsed = queryString.parse(location.search);
-  const notify = (type) => {
-    if (type === "error") toast.error("Invalid reset password link.");
+  const notify = (type, message) => {
+    if (type === "error") toast.error(message);
   };
 
-  const checkLink = async () => {
+  const checkLink = async (controller) => {
     try {
       const response = await axios.get(
         `/check_reset_password_link?resetToken=${parsed.resetToken}&email=${parsed.email}`,
         {
           headers: { "X-CSRF-Token": csrfToken() },
+        },
+        {
+          signal: controller.signal,
         }
       );
       if (response.data.valid_reset_link) {
@@ -29,13 +33,17 @@ const ResetPassword = () => {
         setLoading(false);
       }
     } catch (error) {
+      const errors = error.response.data.errors;
       setLoading(false);
-      notify("error");
+      if (errors.user) notify("error", errors.user);
+      else if (errors.link) notify("error", errors.link);
     }
   };
 
   useEffect(() => {
-    checkLink();
+    let controller = new AbortController();
+    checkLink(controller);
+    return () => controller?.abort();
   }, []);
 
   return (
@@ -51,8 +59,9 @@ const ResetPassword = () => {
           <LoadingScreen />
         ) : (
           <>
-            {correctLink ? (
-              <ResetPasswordForm
+            {correctLink && !isSubmitted ? (
+              <ResetPasswordFormContainer
+                setIsSubmitted={setIsSubmitted}
                 email={parsed.email}
                 resetToken={parsed.resetToken}
               />

@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid, TextField, Button, Typography, Paper } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import Bird from "./Bird";
+import Bird from "../../../../common/Bird";
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => {
   };
 });
 
-const ResetPasswordFormView = (props) => {
+const SignUpFormView = (props) => {
   const classes = useStyles();
 
   return (
@@ -49,7 +49,7 @@ const ResetPasswordFormView = (props) => {
               className={classes.title}
               color="secondary"
             >
-              Choose a new password
+              Create your Trailblazer account
             </Typography>
           </Grid>
           <Grid item>
@@ -62,10 +62,38 @@ const ResetPasswordFormView = (props) => {
                 className={classes.form}
               >
                 <TextField
+                  fullWidth
+                  id="name"
+                  className={classes.field}
+                  label="Name"
+                  color="secondary"
+                  variant="outlined"
+                  type="text"
+                  value={props.values.name}
+                  onChange={props.onChange}
+                  required
+                  error={props.errors.name ? true : false}
+                  helperText={props.errors.name}
+                />
+                <TextField
+                  id="email"
+                  className={classes.field}
+                  fullWidth
+                  label="Email"
+                  color="secondary"
+                  variant="outlined"
+                  type="email"
+                  value={props.values.email}
+                  onChange={props.onChange}
+                  required
+                  error={props.errors.email ? true : false}
+                  helperText={props.errors.email}
+                />
+                <TextField
                   id="password"
                   fullWidth
                   className={classes.field}
-                  label="New password"
+                  label="Password"
                   color="secondary"
                   variant="outlined"
                   type="password"
@@ -80,7 +108,7 @@ const ResetPasswordFormView = (props) => {
                   fullWidth
                   className={classes.field}
                   color="secondary"
-                  label="New password confirmation"
+                  label="Password confirmation"
                   variant="outlined"
                   type="password"
                   value={props.values.password_confirmation}
@@ -90,7 +118,7 @@ const ResetPasswordFormView = (props) => {
                   helperText={props.errors.password_confirmation}
                 />
                 <Button type="submit" variant="contained" color="secondary">
-                  Reset password
+                  Register
                 </Button>
               </Grid>
             </form>
@@ -101,4 +129,4 @@ const ResetPasswordFormView = (props) => {
   );
 };
 
-export default ResetPasswordFormView;
+export default SignUpFormView;

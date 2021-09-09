@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Grid } from "@material-ui/core";
-import LogInForm from "./LogInFormContainer";
+import LogInForm from "./components/LogInForm/LogInFormContainer";
 import { Redirect } from "react-router";
 
 const LogIn = () => {

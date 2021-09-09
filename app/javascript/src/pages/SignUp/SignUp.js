@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Grid } from "@material-ui/core";
-import RegistrationForm from "./RegistrationFormContainer";
-import RegistrationSuccess from "./RegistrationSuccess";
+import SignUpForm from "./components/SignUpForm/SignUpFormContainer";
+import SignUpFormSuccess from "./components/SignUpFormSuccess/SignUpFormSuccess";
 
-const Registration = () => {
+const SignUp = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   return (
@@ -16,13 +16,13 @@ const Registration = () => {
         style={{ minHeight: "100vh" }}
       >
         {!isSubmitted ? (
-          <RegistrationForm setIsSubmitted={setIsSubmitted} />
+          <SignUpForm setIsSubmitted={setIsSubmitted} />
         ) : (
-          <RegistrationSuccess />
+          <SignUpFormSuccess />
         )}
       </Grid>
     </>
   );
 };
 
-export default Registration;
+export default SignUp;

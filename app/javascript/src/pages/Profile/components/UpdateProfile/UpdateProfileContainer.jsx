@@ -1,52 +1,44 @@
 import React, { useState, useEffect } from "react";
 import { csrfToken } from "@rails/ujs";
 import axios from "axios";
-import { validate, parseErrors } from "./LogInFormValidation";
-import LogInFormView from "./LogInFormView";
-import { useDispatch } from "react-redux";
-import { ActionCreators } from "../actions";
 import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { validate, parseErrors } from "../../../../utils/updateProfileUtil";
+import UpdateProfileView from "./UpdateProfileView";
+import { useSelector, useDispatch } from "react-redux";
+import { ActionCreators } from "../../../../actions/actionCreators";
 
-const LogInForm = (props) => {
+toast.configure();
+
+const UpdateProfile = () => {
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
   const [errors, setErrors] = useState({});
   const [values, setValues] = useState({
+    name: "",
     email: "",
     password: "",
-    remember_me: false,
+    password_confirmation: "",
   });
-  const [checked, setChecked] = useState(false);
-  const notify = (type) => {
-    if (type === "error")
-      toast.error(
-        "Account not activated. Check your email for the activation link."
-      );
-  };
-
-  const handleCheck = (event) => {
-    setChecked(event.target.checked);
-    setValues({
-      ...values,
-      remember_me: event.target.checked,
-    });
+  const notify = () => {
+    toast.success("Profile successfully updated!");
   };
 
   const submitForm = async () => {
     try {
-      const response = await axios.post(
-        "/login",
+      const response = await axios.put(
+        `/users/${user.id}`,
         { user: values },
         {
           headers: { "X-CSRF-Token": csrfToken() },
         }
       );
-      props.setIsSubmitted(true);
-      dispatch(ActionCreators.login(response.data.user));
       console.log(response.data);
+      dispatch(ActionCreators.update(response.data.user));
+      notify();
     } catch (error) {
-      const err = error.response.data.error;
-      if (err.account) notify("error");
-      setErrors(parseErrors(err));
+      const errors = error.response.data.errors;
+      setErrors(parseErrors(errors));
     }
   };
 
@@ -71,16 +63,23 @@ const LogInForm = (props) => {
     if (Object.keys(errors).length !== 0) setErrors(validate(values));
   }, [values]);
 
+  useEffect(() => {
+    setValues({
+      name: user ? user.name : "",
+      email: user ? user.email : "",
+      password: "",
+      password_confirmation: "",
+    });
+  }, [user]);
+
   return (
-    <LogInFormView
+    <UpdateProfileView
       values={values}
       errors={errors}
-      checked={checked}
       onChange={handleChange}
       onSubmit={handleSubmit}
-      onCheck={handleCheck}
     />
   );
 };
 
-export default LogInForm;
+export default UpdateProfile;

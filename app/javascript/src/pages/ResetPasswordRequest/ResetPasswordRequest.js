@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Grid } from "@material-ui/core";
-import ResetPasswordFormContainer from "./ResetPasswordFormContainer";
+import ResetPasswordRequestForm from "./components/ResetPasswordRequestForm/ResetPasswordRequestContainer";
 import { Redirect } from "react-router";
 
-const ResetPasswordForm = (props) => {
+const ResetPasswordRequest = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   return (
@@ -16,11 +16,7 @@ const ResetPasswordForm = (props) => {
         style={{ minHeight: "100vh" }}
       >
         {!isSubmitted ? (
-          <ResetPasswordFormContainer
-            setIsSubmitted={setIsSubmitted}
-            email={props.email}
-            resetToken={props.resetToken}
-          />
+          <ResetPasswordRequestForm setIsSubmitted={setIsSubmitted} />
         ) : (
           <Redirect to="/login" />
         )}
@@ -29,4 +25,4 @@ const ResetPasswordForm = (props) => {
   );
 };
 
-export default ResetPasswordForm;
+export default ResetPasswordRequest;

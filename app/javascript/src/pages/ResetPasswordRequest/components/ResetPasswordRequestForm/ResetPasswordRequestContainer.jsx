@@ -1,36 +1,37 @@
 import React, { useState, useEffect } from "react";
 import { csrfToken } from "@rails/ujs";
 import axios from "axios";
-import { validate, parseErrors } from "./RegistrationFormValidation";
-import RegistrationFormView from "./RegistrationFormView";
+import { toast } from "react-toastify";
+import {
+  validate,
+  parseErrors,
+} from "../../../../utils/resetPasswordRequestUtil";
+import ResetPasswordRequestView from "./ResetPasswordRequestView";
 
-const RegistrationForm = (props) => {
+const ResetPasswordRequestForm = (props) => {
   const [errors, setErrors] = useState({});
   const [values, setValues] = useState({
-    name: "",
     email: "",
-    password: "",
-    password_confirmation: "",
   });
-
-  /*function getCookie(key) {
-    var b = document.cookie.match("(^|;)\\s*" + key + "\\s*=\\s*([^;]+)");
-    return b ? b.pop() : "";
-  }*/
+  const notify = () => {
+    toast.success("Email sent with password reset instructions");
+  };
 
   const submitForm = async () => {
     try {
       const response = await axios.post(
-        "/users/",
-        { user: values },
+        "/password_resets",
+        { password_reset: values },
         {
-          headers: { "X-CSRF-Token": csrfToken() /*getCookie("CSRF-TOKEN")*/ },
+          headers: { "X-CSRF-Token": csrfToken() },
         }
       );
       props.setIsSubmitted(true);
+      console.log(response.data);
+      notify();
     } catch (error) {
-      const errors = error.response.data.errors;
-      setErrors(parseErrors(errors));
+      const err = error.response.data.error;
+      setErrors(parseErrors(err));
     }
   };
 
@@ -56,7 +57,7 @@ const RegistrationForm = (props) => {
   }, [values]);
 
   return (
-    <RegistrationFormView
+    <ResetPasswordRequestView
       values={values}
       errors={errors}
       onChange={handleChange}
@@ -65,4 +66,4 @@ const RegistrationForm = (props) => {
   );
 };
 
-export default RegistrationForm;
+export default ResetPasswordRequestForm;

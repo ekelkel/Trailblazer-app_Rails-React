@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 //import Image from "./assets/pexels-helena-lopes-693269";
 //import mobileImage from "./assets/pexels-blue-bird-7242744";
 import Typed from "react-typed";
-import "./pulse.css";
-import { Grid, Button, Typography, Paper } from "@material-ui/core";
+import "./animation.css";
+import { Grid, Button, Typography } from "@material-ui/core";
 
-const useStyles = makeStyles((theme) => {
+const useStyles = makeStyles(() => {
   return {
     "@global": {
       body: {

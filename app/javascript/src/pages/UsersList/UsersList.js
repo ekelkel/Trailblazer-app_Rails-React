@@ -8,7 +8,7 @@ import {
   Avatar,
 } from "@material-ui/core";
 import Pagination from "@material-ui/lab/Pagination";
-import LoadingScreen from "./LoadingScreen";
+import LoadingScreen from "../../common/LoadingScreen";
 import { csrfToken } from "@rails/ujs";
 import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => {
   };
 });
 
-const Users = () => {
+const UsersList = () => {
   const classes = useStyles();
   const [users, setUsers] = useState([]);
   const [page, setPage] = useState(1);
@@ -117,4 +117,4 @@ const Users = () => {
   );
 };
 
-export default Users;
+export default UsersList;

@@ -25,7 +25,7 @@ class PasswordResetsTest < ApplicationSystemTestCase
     # Right email, wrong token
     visit '/reset_password_form?resetToken=invalid&email=elora@example.com'
     page.assert_current_path('/login')
-    assert page.has_content? 'Invalid reset password link.'
+    assert page.has_content? 'Invalid reset password link or unactivated account.'
 
     email = ActionMailer::Base.deliveries.last
     html = Nokogiri.HTML(email.html_part.body.to_s)
@@ -37,13 +37,13 @@ class PasswordResetsTest < ApplicationSystemTestCase
     invalid_path = path.dup.sub!('elora@example.com', 'invalid@gmail.com')
     visit invalid_path
     page.assert_current_path('/login')
-    assert page.has_content? 'Invalid reset password link.'
+    assert page.has_content? 'Invalid reset password link or unactivated account.'
 
     # Inactive user
     @user.toggle!(:activated)
     visit path
     page.assert_current_path('/login')
-    assert page.has_content? 'Invalid reset password link.'
+    assert page.has_content? 'Invalid reset password link or unactivated account.'
     @user.toggle!(:activated)
 
     # Right email, right roken
@@ -87,6 +87,6 @@ class PasswordResetsTest < ApplicationSystemTestCase
       CGI.unescapeHTML(target_link['href']).sub!('http://localhost:3000', '')
     visit path
     page.assert_current_path('/login')
-    assert page.has_content? 'Invalid reset password link.'
+    assert page.has_content? 'Password reset has expired.'
   end
 end

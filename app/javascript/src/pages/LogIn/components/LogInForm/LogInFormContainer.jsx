@@ -1,33 +1,51 @@
 import React, { useState, useEffect } from "react";
 import { csrfToken } from "@rails/ujs";
 import axios from "axios";
+import { validate, parseErrors } from "../../../../utils/logInFormUtil";
+import LogInFormView from "./LogInFormView";
+import { useDispatch } from "react-redux";
+import { ActionCreators } from "../../../../actions/actionCreators";
 import { toast } from "react-toastify";
-import { validate, parseErrors } from "./ResetPasswordRequestValidation";
-import ResetPasswordRequestView from "./ResetPasswordRequestView";
 
-const ResetPasswordRequestForm = (props) => {
+const LogInForm = (props) => {
+  const dispatch = useDispatch();
   const [errors, setErrors] = useState({});
   const [values, setValues] = useState({
     email: "",
+    password: "",
+    remember_me: false,
   });
-  const notify = () => {
-    toast.success("Email sent with password reset instructions");
+  const [checked, setChecked] = useState(false);
+  const notify = (type) => {
+    if (type === "error")
+      toast.error(
+        "Account not activated. Check your email for the activation link."
+      );
+  };
+
+  const handleCheck = (event) => {
+    setChecked(event.target.checked);
+    setValues({
+      ...values,
+      remember_me: event.target.checked,
+    });
   };
 
   const submitForm = async () => {
     try {
       const response = await axios.post(
-        "/password_resets",
-        { password_reset: values },
+        "/login",
+        { user: values },
         {
           headers: { "X-CSRF-Token": csrfToken() },
         }
       );
       props.setIsSubmitted(true);
+      dispatch(ActionCreators.login(response.data.user));
       console.log(response.data);
-      notify();
     } catch (error) {
       const err = error.response.data.error;
+      if (err.account) notify("error");
       setErrors(parseErrors(err));
     }
   };
@@ -54,13 +72,15 @@ const ResetPasswordRequestForm = (props) => {
   }, [values]);
 
   return (
-    <ResetPasswordRequestView
+    <LogInFormView
       values={values}
       errors={errors}
+      checked={checked}
       onChange={handleChange}
       onSubmit={handleSubmit}
+      onCheck={handleCheck}
     />
   );
 };
 
-export default ResetPasswordRequestForm;
+export default LogInForm;

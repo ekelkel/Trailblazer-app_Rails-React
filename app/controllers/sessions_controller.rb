@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
                    account: 'Account not activated.',
                  },
                },
-               status: 400
+               status: 401
       end
     else
       render json: {

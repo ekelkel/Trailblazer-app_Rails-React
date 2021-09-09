@@ -1,7 +1,16 @@
 import React from "react";
-import { Grid, TextField, Button, Typography, Paper } from "@material-ui/core";
+import {
+  Grid,
+  TextField,
+  Button,
+  Typography,
+  Paper,
+  FormControlLabel,
+  Checkbox,
+} from "@material-ui/core";
+import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import Bird from "../Bird";
+import Bird from "../../../../common/Bird";
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -23,13 +32,13 @@ const useStyles = makeStyles((theme) => {
         width: "100%",
       },
     },
-    container: {
-      minHeight: "100vh",
+    checkbox: {
+      color: "#787878",
     },
   };
 });
 
-const RegistrationFormView = (props) => {
+const LogInFormView = (props) => {
   const classes = useStyles();
 
   return (
@@ -39,7 +48,7 @@ const RegistrationFormView = (props) => {
         justifyContent="center"
         alignItems="center"
         direction="column"
-        className={classes.container}
+        style={{ minHeight: "100vh" }}
         spacing={5}
       >
         <Paper className={classes.paper} elevation={5}>
@@ -49,7 +58,7 @@ const RegistrationFormView = (props) => {
               className={classes.title}
               color="secondary"
             >
-              Create your Trailblazer account
+              Log In
             </Typography>
           </Grid>
           <Grid item>
@@ -61,20 +70,6 @@ const RegistrationFormView = (props) => {
                 justifyContent="center"
                 className={classes.form}
               >
-                <TextField
-                  fullWidth
-                  id="name"
-                  className={classes.field}
-                  label="Name"
-                  color="secondary"
-                  variant="outlined"
-                  type="text"
-                  value={props.values.name}
-                  onChange={props.onChange}
-                  required
-                  error={props.errors.name ? true : false}
-                  helperText={props.errors.name}
-                />
                 <TextField
                   id="email"
                   className={classes.field}
@@ -103,25 +98,34 @@ const RegistrationFormView = (props) => {
                   error={props.errors.password ? true : false}
                   helperText={props.errors.password}
                 />
-                <TextField
-                  id="password_confirmation"
-                  fullWidth
-                  className={classes.field}
-                  color="secondary"
-                  label="Password confirmation"
-                  variant="outlined"
-                  type="password"
-                  value={props.values.password_confirmation}
-                  onChange={props.onChange}
-                  required
-                  error={props.errors.password_confirmation ? true : false}
-                  helperText={props.errors.password_confirmation}
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={props.checked}
+                      onChange={props.onCheck}
+                      id="remember_me"
+                      color="secondary"
+                    />
+                  }
+                  className={classes.checkbox}
+                  label="Remember me on this computer"
                 />
                 <Button type="submit" variant="contained" color="secondary">
-                  Register
+                  Log In
                 </Button>
               </Grid>
             </form>
+          </Grid>
+          <Grid item>
+            <Button
+              color="secondary"
+              size="small"
+              component={Link}
+              to={"/reset_password_request"}
+              style={{ marginTop: "2rem" }}
+            >
+              Forgot your password?
+            </Button>
           </Grid>
         </Paper>
       </Grid>
@@ -129,4 +133,4 @@ const RegistrationFormView = (props) => {
   );
 };
 
-export default RegistrationFormView;
+export default LogInFormView;

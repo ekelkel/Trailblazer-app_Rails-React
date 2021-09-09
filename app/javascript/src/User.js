@@ -1,7 +1,7 @@
 import { useParams } from "react-router";
 import React, { useState, useEffect } from "react";
 import { Avatar, Typography } from "@material-ui/core";
-import LoadingScreen from "./LoadingScreen";
+import LoadingScreen from "./common/LoadingScreen";
 import { csrfToken } from "@rails/ujs";
 import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
@@ -28,11 +28,17 @@ const Users = () => {
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);
 
-  const getUser = async () => {
+  const getUser = async (controller) => {
     try {
-      const response = await axios.get(`/get_user?id=${id}`, {
-        headers: { "X-CSRF-Token": csrfToken() },
-      });
+      const response = await axios.get(
+        `/get_user?id=${id}`,
+        {
+          headers: { "X-CSRF-Token": csrfToken() },
+        },
+        {
+          signal: controller.signal,
+        }
+      );
       //console.log(response);
       setUser(response.data.user);
       setLoading(false);
@@ -42,7 +48,9 @@ const Users = () => {
   };
 
   useEffect(() => {
-    getUser();
+    let controller = new AbortController();
+    getUser(controller);
+    return () => controller?.abort();
   }, [id]);
 
   return (

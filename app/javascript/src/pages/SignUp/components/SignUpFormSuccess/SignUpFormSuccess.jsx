@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid, Typography } from "@material-ui/core";
 
-const RegistrationSuccess = () => {
+const SignUpFormSuccess = () => {
   return (
     <>
       <Grid
@@ -21,4 +21,4 @@ const RegistrationSuccess = () => {
   );
 };
 
-export default RegistrationSuccess;
+export default SignUpFormSuccess;

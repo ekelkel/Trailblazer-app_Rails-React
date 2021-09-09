@@ -20,7 +20,7 @@ class UsersController < ApplicationController
     if @user = User.find(params[:id])
       render json: { user: @user }, status: 200
     else
-      render json: { error: 'An error occured.' }, status: 400
+      render json: { error: 'User does not exist.' }, status: 400
     end
   end
 
@@ -60,14 +60,14 @@ class UsersController < ApplicationController
       render json: {
                error: 'You must be logged in to perform this action.',
              },
-             status: 400
+             status: 401
     end
   end
 
   def correct_user
     @user = User.find(params[:id])
     unless current_user?(@user)
-      render json: { error: 'You cannot perform this action.' }, status: 400
+      render json: { error: 'You cannot perform this action.' }, status: 401
     end
   end
 end

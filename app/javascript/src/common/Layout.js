@@ -15,7 +15,7 @@ import { useSelector } from "react-redux";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import { Link as RouterLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { ActionCreators } from "./actions";
+import { ActionCreators } from "../actions/actionCreators";
 import { csrfToken } from "@rails/ujs";
 import axios from "axios";
 

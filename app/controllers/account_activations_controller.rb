@@ -6,7 +6,11 @@ class AccountActivationsController < ApplicationController
       user.activate
       render json: { activated: true }, status: 200
     else
-      render json: { activated: false }, status: 400
+      render json: {
+               error:
+                 'This account is already activated or the link is invalid.',
+             },
+             status: 401
     end
   end
 end

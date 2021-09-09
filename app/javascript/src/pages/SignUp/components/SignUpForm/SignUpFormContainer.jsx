@@ -1,40 +1,35 @@
 import React, { useState, useEffect } from "react";
 import { csrfToken } from "@rails/ujs";
 import axios from "axios";
-import { toast } from "react-toastify";
-import { validate, parseErrors } from "./ResetPasswordFormValidation";
-import ResetPasswordFormView from "./ResetPasswordFormView";
+import { validate, parseErrors } from "../../../../utils/signUpFormUtil";
+import SignUpFormView from "./SignUpFormView";
 
-const ResetPasswordFormContainer = (props) => {
+const SignUpForm = (props) => {
   const [errors, setErrors] = useState({});
   const [values, setValues] = useState({
+    name: "",
+    email: "",
     password: "",
     password_confirmation: "",
   });
-  const notify = (type) => {
-    if (type === "success")
-      toast.success(
-        "Password has been successfully reset. You can now log in."
-      );
-    else if (type === "error") toast.error("Password reset has expired.");
-  };
+
+  /*function getCookie(key) {
+    var b = document.cookie.match("(^|;)\\s*" + key + "\\s*=\\s*([^;]+)");
+    return b ? b.pop() : "";
+  }*/
 
   const submitForm = async () => {
     try {
-      const response = await axios.put(
-        `/password_resets/${props.resetToken}`,
-        { user: values, email: props.email, resetToken: props.resetToken },
+      const response = await axios.post(
+        "/users/",
+        { user: values },
         {
-          headers: { "X-CSRF-Token": csrfToken() },
+          headers: { "X-CSRF-Token": csrfToken() /*getCookie("CSRF-TOKEN")*/ },
         }
       );
-      if (response.data.successful_reset) {
-        props.setIsSubmitted(true);
-        notify("success");
-      }
+      props.setIsSubmitted(true);
     } catch (error) {
       const errors = error.response.data.errors;
-      if (errors.link) notify("error");
       setErrors(parseErrors(errors));
     }
   };
@@ -61,7 +56,7 @@ const ResetPasswordFormContainer = (props) => {
   }, [values]);
 
   return (
-    <ResetPasswordFormView
+    <SignUpFormView
       values={values}
       errors={errors}
       onChange={handleChange}
@@ -70,4 +65,4 @@ const ResetPasswordFormContainer = (props) => {
   );
 };
 
-export default ResetPasswordFormContainer;
+export default SignUpForm;

@@ -46,7 +46,12 @@ class PasswordResetsController < ApplicationController
   def valid_user
     unless @user && @user.activated? &&
              @user.authenticated?(:reset, params[:resetToken])
-      render json: { errors: { link: 'Invalid user.' } }, status: 400
+      render json: {
+               errors: {
+                 user: 'Invalid reset password link or unactivated account.',
+               },
+             },
+             status: 401
     end
   end
 
@@ -58,7 +63,7 @@ class PasswordResetsController < ApplicationController
                  link: 'Password reset has expired.',
                },
              },
-             status: 400
+             status: 401
     end
   end
 end
