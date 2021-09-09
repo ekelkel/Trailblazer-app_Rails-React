@@ -23,6 +23,7 @@ class PasswordResetsController < ApplicationController
       @user.errors.add(:password, "can't be empty")
       render json: { errors: @user.errors }, status: 400
     elsif @user.update(user_params)
+      @user.update_attribute(:reset_digest, nil)
       render json: { successful_reset: true }, status: 200
     else
       render json: { errors: @user.errors }, status: 400
