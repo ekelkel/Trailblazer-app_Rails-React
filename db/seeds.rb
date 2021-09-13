@@ -30,3 +30,20 @@ User.create!(
     activated_at: Time.zone.now,
   )
 end
+
+# Generate pins for a subset of users
+users = User.order(:created_at).take(6)
+50.times do
+  name = Faker::Restaurant.name
+  address = Faker::Address.full_address
+  comment = Faker::Restaurant.review.partition('.').first
+  rating = Faker::Number.between(from: 1, to: 10)
+  users.each do |user|
+    user.pins.create!(
+      name: name,
+      address: address,
+      comment: comment,
+      rating: rating,
+    )
+  end
+end

@@ -1,0 +1,41 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+tomo:
+  name: "TOMO"
+  address: "11 Rue Chabanais, 75002 Paris"
+  latitude: 48.867610
+  longitude: 2.336900
+  rating: 9
+  comment: "Café chic de style japonais proposant thé vert, plats de nouilles et dorayakis"
+  created_at: <%= 10.minutes.ago %>
+  user: elora
+
+bisou:
+  name: "Bisou."
+  address: "15 Bd du Temple, 75003 Paris"
+  latitude: 48.8640838
+  longitude: 2.3658858
+  rating: 8
+  comment: "Bar accueillant et éclectique aux tons rose proposant des cocktails de saison préparés sur commande"
+  created_at: <%= 3.years.ago %>
+  user: elora
+
+boneshaker:
+  name: "Boneshaker Doughnuts"
+  address: "77 Rue d'Aboukir, 75002 Paris"
+  latitude: 48.8678805
+  longitude: 2.3472063
+  rating: 8.5
+  comment: "Vente à emporter de donuts et brownies artisanaux préparés avec des ingrédients végans"
+  created_at: <%= 2.hours.ago %>
+  user: elora
+
+most_recent:
+  name: "Papacionu"
+  address: "7 Rue Cadet, 75009 Paris"
+  latitude: 48.8747685
+  longitude: 2.3427513
+  rating: 7.5
+  comment: "Pizzas géantes servies sur des planches en bois pour ce restaurant corse à la salle rustique et cosy"
+  created_at: <%= Time.zone.now %>
+  user: elora

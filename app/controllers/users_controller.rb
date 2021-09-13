@@ -18,7 +18,15 @@ class UsersController < ApplicationController
 
   def get_user
     if @user = User.find(params[:id])
-      render json: { user: @user }, status: 200
+      @pins = @user.pins.paginate(page: params[:page])
+      render json: {
+               user: @user,
+               count: @user.pins.count,
+               pins: @pins,
+               page: @pins.current_page,
+               pages: @pins.total_pages,
+             },
+             status: 200
     else
       render json: { error: 'User does not exist.' }, status: 400
     end
