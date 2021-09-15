@@ -1,6 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import AddIcon from "@material-ui/icons/Add";
 import {
   AppBar,
   Toolbar,
@@ -9,6 +10,7 @@ import {
   Menu,
   MenuItem,
   Badge,
+  Button,
 } from "@material-ui/core";
 import AccountCircleRoundedIcon from "@material-ui/icons/AccountCircleRounded";
 import { useSelector } from "react-redux";
@@ -82,8 +84,21 @@ export default function Layout({ children }) {
               Trailblazer
             </Link>
           </Typography>
-          <Typography color="secondary">Welcome</Typography>
+          {/*<Typography color="secondary">Welcome</Typography>*/}
           {user && (
+            <div>
+              <Button
+                color="secondary"
+                size="small"
+                component={Link}
+                to={"/add_pin"}
+                startIcon={<AddIcon />}
+              >
+                ADD PLACE
+              </Button>
+            </div>
+          )}
+          {/*user && (
             <div>
               <IconButton>
                 <Badge badgeContent={17} color="secondary">
@@ -93,7 +108,7 @@ export default function Layout({ children }) {
                 </Badge>
               </IconButton>
             </div>
-          )}
+          )*/}
           <IconButton id="menu-icon" onClick={handleMenu}>
             <AccountCircleRoundedIcon
               style={{ color: "#787878", fontSize: 30 }}

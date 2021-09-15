@@ -96,6 +96,7 @@ const User = () => {
             spacing={4}
             className={classes.gridContainer}
             justifyContent="center"
+            id="pins-list"
           >
             {pins.map((pin) => {
               return (

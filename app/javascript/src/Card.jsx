@@ -25,7 +25,7 @@ export default function OutlinedCard(props) {
   const classes = useStyles();
   const StyledRating = withStyles({
     iconFilled: {
-      color: "#ff6d75",
+      color: "#FFBC1F",
     },
     icon: {},
   })(Rating);

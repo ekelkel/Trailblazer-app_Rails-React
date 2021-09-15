@@ -39,3 +39,4 @@ yarn-debug.log*
 db/test.*
 # Ignore application configuration
 /config/application.yml
+.env

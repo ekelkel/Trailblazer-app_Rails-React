@@ -13,4 +13,5 @@ Rails
     get '/*path' => 'static_pages#home', :via => :all
     resources :users
     resources :password_resets, only: %i[create update]
+    resources :pins, only: %i[create destroy]
   end

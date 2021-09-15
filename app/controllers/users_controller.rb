@@ -62,16 +62,6 @@ class UsersController < ApplicationController
 
   # Before filters
 
-  # Confirms a logged-in user
-  def logged_in_user
-    unless logged_in?
-      render json: {
-               error: 'You must be logged in to perform this action.',
-             },
-             status: 401
-    end
-  end
-
   def correct_user
     @user = User.find(params[:id])
     unless current_user?(@user)

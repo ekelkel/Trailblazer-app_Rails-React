@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import LogIn from "./pages/LogIn/LogIn";
+import PinForm from "./pages/PinForm/PinForm";
 import SignUp from "./pages/SignUp/SignUp";
 import ActivateAccount from "./pages/SignUp/components/ActivateAccount/ActivateAccount";
 import ResetPasswordRequest from "./pages/ResetPasswordRequest/ResetPasswordRequest";
@@ -96,6 +97,7 @@ const AppComponent = () => {
                 <Route exact path="/profile" component={Profile} />
                 <Route exact path="/users" component={UsersList} />
                 <Route exact path="/user/:userId" component={User} />
+                <Route exact path="/add_pin" component={PinForm} />
                 <Redirect to="/" />
               </Switch>
             ) : (

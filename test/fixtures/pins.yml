@@ -39,3 +39,13 @@ most_recent:
   comment: "Pizzas géantes servies sur des planches en bois pour ce restaurant corse à la salle rustique et cosy"
   created_at: <%= Time.zone.now %>
   user: elora
+
+<% 30.times do |n|%>
+pin_<%= n %>:
+  name: <%= Faker::Restaurant.name %>
+  address: <%= Faker::Address.full_address %>
+  rating: <%= rand(11) %>
+  comment: <%= Faker::Restaurant.review.partition('.').first %>
+  created_at: <%= 42.days.ago %>
+  user: elora
+<% end %>
