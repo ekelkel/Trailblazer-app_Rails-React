@@ -56,6 +56,7 @@ const PinFormContainer = () => {
   };
 
   const handleSubmit = (event) => {
+    console.log(values);
     event.preventDefault();
     let newErrors = validate(values);
     setErrors(newErrors);
@@ -65,9 +66,14 @@ const PinFormContainer = () => {
   };
 
   const onSelectHandler = (result) => {
-    console.log(result.geometry.coordinates);
-    console.log(result.place_name);
-    // Go to result handler.
+    setValues({
+      ...values,
+      ["address"]: result.place_name,
+      ["latitude"]: result.geometry.coordinates[1],
+      ["longitude"]: result.geometry.coordinates[0],
+    });
+    /*console.log(result.geometry.coordinates);
+    console.log(result.place_name);*/
   };
 
   useEffect(() => {
