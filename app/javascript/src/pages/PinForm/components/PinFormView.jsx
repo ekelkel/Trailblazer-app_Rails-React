@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => {
     field: {
       marginBottom: "1rem",
     },
-    addressError: {
+    legend: {
       fontSize: 12,
       marginLeft: "0.2rem",
       marginTop: "0.2rem",
@@ -38,9 +38,9 @@ const PinFormView = (props) => {
   })(Rating);
 
   return (
-    <Box width="75%">
+    <Box>
       <Typography variant="h5" className={classes.title} color="secondary">
-        Add a new place to your map
+        Add a new place to your collection of pins
       </Typography>
       <form noValidate autoComplete="off" onSubmit={props.onSubmit}>
         <TextField
@@ -56,17 +56,6 @@ const PinFormView = (props) => {
           onChange={props.onChange}
           error={props.errors.name ? true : false}
           helperText={props.errors.name}
-        />
-        <StyledRating
-          name="rating"
-          value={props.values.rating}
-          onChange={(event, newValue) => {
-            props.onRating(newValue);
-          }}
-          precision={0.5}
-          icon={<FavoriteIcon fontSize="inherit" />}
-          style={{ marginBottom: "1rem" }}
-          size="large"
         />
         <TextField
           id="comment"
@@ -91,14 +80,29 @@ const PinFormView = (props) => {
           {...geocoderApiOptions}
         />
         {props.errors.address ? (
-          <Typography className={classes.addressError} color="error">
+          <Typography className={classes.legend} color="error">
             Address is required
           </Typography>
         ) : (
-          <Typography className={classes.addressError} color="textSecondary">
+          <Typography className={classes.legend} color="textSecondary">
             Address is required
           </Typography>
         )}
+        <StyledRating
+          name="rating"
+          value={props.values.rating ? props.values.rating : 0}
+          onChange={(event, newValue) => {
+            props.onRating(newValue);
+          }}
+          precision={0.5}
+          icon={<FavoriteIcon fontSize="inherit" />}
+          style={{ marginTop: "1rem" }}
+          size="large"
+        />
+        <Typography color="textSecondary" className={classes.legend}>
+          You can rate this place if you have already visited it, otherwise
+          leave blank
+        </Typography>
         <Button
           type="submit"
           variant="contained"

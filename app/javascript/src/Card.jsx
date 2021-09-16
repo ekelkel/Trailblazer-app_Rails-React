@@ -45,13 +45,17 @@ export default function OutlinedCard(props) {
       </CardContent>
       <CardActions>
         <Button size="small">Learn More</Button>
-        <StyledRating
-          className="pop-score-hearts"
-          value={props.pin.rating}
-          precision={0.1}
-          icon={<FavoriteIcon fontSize="inherit" />}
-          readOnly
-        />
+        {props.pin.rating ? (
+          <StyledRating
+            className="pop-score-hearts"
+            value={props.pin.rating}
+            precision={0.1}
+            icon={<FavoriteIcon fontSize="inherit" />}
+            readOnly
+          />
+        ) : (
+          <div />
+        )}
       </CardActions>
     </Card>
   );

@@ -5,15 +5,19 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { validate, parseErrors } from "../../../utils/pinFormUtil";
 import PinFormView from "./PinFormView";
+import { useSelector } from "react-redux";
+import { Redirect } from "react-router";
 
 toast.configure();
 
 const PinFormContainer = () => {
+  const user = useSelector((state) => state.user);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const [errors, setErrors] = useState({});
   const [values, setValues] = useState({
     name: "",
     comment: "",
-    rating: 2,
+    rating: null,
     address: "",
     longitude: null,
     latitude: null,
@@ -22,22 +26,21 @@ const PinFormContainer = () => {
     toast.success("Pin successfully created!");
   };
 
-  const submitForm = /*async*/ () => {
-    /*try {
-      const response = await axios.put(
-        "",
+  const submitForm = async () => {
+    try {
+      const response = await axios.post(
+        "/pins/",
         { pin: values },
         {
-          headers: { "X-CSRF-Token": csrfToken() },
+          headers: { "X-CSRF-Token": csrfToken() /*getCookie("CSRF-TOKEN")*/ },
         }
       );
-      console.log(response.data);
-
       notify();
+      setIsSubmitted(true);
     } catch (error) {
       const errors = error.response.data.errors;
       setErrors(parseErrors(errors));
-    }*/
+    }
   };
 
   const handleChange = (e) => {
@@ -56,7 +59,7 @@ const PinFormContainer = () => {
   };
 
   const handleSubmit = (event) => {
-    console.log(values);
+    //console.log(values);
     event.preventDefault();
     let newErrors = validate(values);
     setErrors(newErrors);
@@ -81,14 +84,20 @@ const PinFormContainer = () => {
   }, [values]);
 
   return (
-    <PinFormView
-      values={values}
-      errors={errors}
-      onChange={handleChange}
-      onSubmit={handleSubmit}
-      onRating={handleRating}
-      onSelectHandler={onSelectHandler}
-    />
+    <div>
+      {isSubmitted ? (
+        <Redirect to={`/user/${user.id}`} />
+      ) : (
+        <PinFormView
+          values={values}
+          errors={errors}
+          onChange={handleChange}
+          onSubmit={handleSubmit}
+          onRating={handleRating}
+          onSelectHandler={onSelectHandler}
+        />
+      )}
+    </div>
   );
 };
 
