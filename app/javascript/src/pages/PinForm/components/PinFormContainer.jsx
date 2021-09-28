@@ -86,7 +86,7 @@ const PinFormContainer = () => {
   return (
     <div>
       {isSubmitted ? (
-        <Redirect to={`/user/${user.id}`} />
+        <Redirect to="/" />
       ) : (
         <PinFormView
           values={values}

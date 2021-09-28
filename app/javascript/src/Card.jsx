@@ -1,23 +1,37 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
+import {
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  Button,
+  Typography,
+  Avatar,
+  IconButton,
+} from "@material-ui/core";
 import Rating from "@material-ui/lab/Rating";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import { withStyles } from "@material-ui/core/styles";
+import TimeAgo from "react-timeago";
+import ClearIcon from "@material-ui/icons/Clear";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles({
   root: {
     minWidth: 200,
+    width: "100%",
   },
   title: {
     fontSize: 14,
   },
   pos: {
     marginBottom: 12,
+  },
+  pinOwner: {
+    display: "flex",
+    alignItems: "center",
+    flexWrap: "wrap",
   },
 });
 
@@ -29,9 +43,37 @@ export default function OutlinedCard(props) {
     },
     icon: {},
   })(Rating);
+  const user = useSelector((state) => state.user);
+  const deleteId = `delete-pin-${props.pin.id}`;
 
   return (
     <Card className={classes.root} variant="outlined">
+      <CardHeader
+        title={
+          <div className={classes.pinOwner}>
+            <Avatar>{props.user.name[0].toUpperCase()}</Avatar>
+            <Typography
+              variant="body1"
+              color="secondary"
+              style={{ marginLeft: "1rem" }}
+            >
+              {props.user.name}
+            </Typography>
+          </div>
+        }
+        action={
+          user.id === props.pin.user_id ? (
+            <IconButton
+              id={deleteId}
+              onClick={() => props.onDelete(props.pin.id)}
+            >
+              <ClearIcon />
+            </IconButton>
+          ) : (
+            <div />
+          )
+        }
+      />
       <CardContent>
         <Typography variant="h5" component="h2">
           {props.pin.name}
@@ -41,6 +83,9 @@ export default function OutlinedCard(props) {
         </Typography>
         <Typography variant="body2" component="p">
           {props.pin.comment}
+        </Typography>
+        <Typography variant="body2" component="p" color="textSecondary">
+          added <TimeAgo date={props.pin.created_at} />
         </Typography>
       </CardContent>
       <CardActions>

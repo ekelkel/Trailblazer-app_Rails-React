@@ -5,8 +5,8 @@ tomo:
   address: "11 Rue Chabanais, 75002 Paris"
   latitude: 48.867610
   longitude: 2.336900
-  rating: 9
-  comment: "Café chic de style japonais proposant thé vert, plats de nouilles et dorayakis"
+  rating: 10
+  comment: "Best dorayaki in town!"
   created_at: <%= 10.minutes.ago %>
   user: elora
 
@@ -16,7 +16,7 @@ bisou:
   latitude: 48.8640838
   longitude: 2.3658858
   rating: 8
-  comment: "Bar accueillant et éclectique aux tons rose proposant des cocktails de saison préparés sur commande"
+  comment: "A bar full of softness with a rosy façade. We feel like at some friends' place and what a surprise here!"
   created_at: <%= 3.years.ago %>
   user: elora
 
@@ -26,7 +26,7 @@ boneshaker:
   latitude: 48.8678805
   longitude: 2.3472063
   rating: 8.5
-  comment: "Vente à emporter de donuts et brownies artisanaux préparés avec des ingrédients végans"
+  comment: "A combination of traditional American and French pastry techniques"
   created_at: <%= 2.hours.ago %>
   user: elora
 
@@ -36,14 +36,57 @@ most_recent:
   latitude: 48.8747685
   longitude: 2.3427513
   rating: 7.5
-  comment: "Pizzas géantes servies sur des planches en bois pour ce restaurant corse à la salle rustique et cosy"
+  comment: "Best non-Italian pizzeria"
   created_at: <%= Time.zone.now %>
   user: elora
 
+hero:
+  name: "Hero"
+  address: "289 Rue Saint-Denis, 75002 Paris"
+  latitude: 48.869420
+  longitude: 2.352330
+  rating: 7
+  comment: "Simply delicious"
+  created_at: <%= 2.minutes.ago %>
+  user: paul
+
+fréquence:
+  name: "Fréquence"
+  address: "20 Rue Keller, 75011 Paris"
+  latitude: 48.854810
+  longitude: 2.375930
+  rating: 10
+  comment: "Great vinyl and even greater cocktails"
+  created_at: <%= 30.minutes.ago %>
+  user: paul
+
+salatim:
+  name: "Salatim"
+  address: "15 Rue des Jeuneurs, 75002 Paris"
+  latitude: 48.869100
+  longitude: 2.345970
+  rating: 10
+  comment: "The atmosphere is also very Israeli - crowded, but in a good way."
+  created_at: <%= 30.minutes.ago %>
+  user: john
+
+kokoro:
+  name: "Kokoro"
+  address: "36 Rue des Boulangers, 75005 Paris"
+  latitude: 48.846240
+  longitude: 2.352410
+  rating: 10
+  comment: "Kokoro actually means ‘heart’ in Japanese, and once you’ve been it’s hard not to love this cute neo-bistro."
+  created_at: <%= 4.hours.ago %>
+  user: john
+
+<% Faker::Config.locale = 'fr' %>
 <% 30.times do |n|%>
 pin_<%= n %>:
   name: <%= Faker::Restaurant.name %>
   address: <%= Faker::Address.full_address %>
+  latitude: <%= Faker::Address.latitude %>
+  longitude: <%= Faker::Address.longitude %>
   rating: <%= rand(11) %>
   comment: <%= Faker::Restaurant.review.partition('.').first %>
   created_at: <%= 42.days.ago %>

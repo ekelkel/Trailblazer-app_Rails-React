@@ -1,12 +1,12 @@
-import { useParams } from "react-router";
-import Card from "./Card";
 import React, { useState, useEffect } from "react";
-import { Avatar, Typography, List, ListItem } from "@material-ui/core";
+import { Typography, List, ListItem } from "@material-ui/core";
 import Pagination from "@material-ui/lab/Pagination";
 import LoadingScreen from "./common/LoadingScreen";
 import { csrfToken } from "@rails/ujs";
 import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
+import Card from "./Card";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 toast.configure();
@@ -18,9 +18,9 @@ const useStyles = makeStyles((theme) => {
       backgroundColor: "#ffffff",
     },
     title: {
-      marginLeft: "2rem",
       marginBottom: "2rem",
       display: "flex",
+      justifyContent: "center",
       alignItems: "center",
       flexWrap: "wrap",
     },
@@ -36,12 +36,10 @@ const useStyles = makeStyles((theme) => {
   };
 });
 
-const User = () => {
-  const id = useParams().userId;
+const Feed = () => {
   const classes = useStyles();
-  const [user, setUser] = useState({});
-  const [pinsNumber, setPinsNumber] = useState(0);
-  const [pins, setPins] = useState([]);
+  const user = useSelector((state) => state.user);
+  const [feedItems, setFeedItems] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState();
   const [loading, setLoading] = useState(true);
@@ -49,15 +47,13 @@ const User = () => {
     toast.success("Pin successfully deleted!");
   };
 
-  const getUser = async () => {
+  const getFeedItems = async () => {
     try {
-      const response = await axios.get(`/get_user?id=${id}&page=${page}`, {
+      const response = await axios.get(`/feed?page=${page}`, {
         headers: { "X-CSRF-Token": csrfToken() },
       });
-      //console.log(response);
-      setUser(response.data.user);
-      setPinsNumber(response.data.count);
-      setPins(response.data.pins);
+      console.log(response.data);
+      setFeedItems(response.data.feed);
       setPage(response.data.page);
       setTotalPages(response.data.pages);
       setLoading(false);
@@ -72,8 +68,8 @@ const User = () => {
         headers: { "X-CSRF-Token": csrfToken() },
       });
       console.log(response.data);
-      const newPins = pins.filter((pin) => pin.id != pinId);
-      setPins(newPins);
+      const newFeedItems = feedItems.filter((item) => item.id != pinId);
+      setFeedItems(newFeedItems);
       notify();
     } catch (error) {
       console.log(error);
@@ -86,7 +82,7 @@ const User = () => {
 
   useEffect(() => {
     setLoading(true);
-    getUser();
+    getFeedItems();
     window.scrollTo(0, 0);
   }, [page]);
 
@@ -96,24 +92,14 @@ const User = () => {
         <LoadingScreen />
       ) : (
         <div>
-          <div className={classes.title}>
-            <Avatar>{user.name[0].toUpperCase()}</Avatar>
-            <Typography
-              variant="body1"
-              color="secondary"
-              style={{ marginLeft: "1rem" }}
-            >
-              {user.name}
-            </Typography>
-            <Typography color="textSecondary" style={{ marginLeft: "2rem" }}>
-              {pinsNumber} pins
-            </Typography>
-          </div>
-          <List dense className={classes.root} id="pins-list">
-            {pins.map((pin) => {
+          <Typography variant="h5" className={classes.title} color="secondary">
+            Welcome {user.name}!
+          </Typography>
+          <List dense className={classes.root} id="feed-items-list">
+            {feedItems.map((item) => {
               return (
-                <ListItem key={pin.id} xs={12}>
-                  <Card pin={pin} user={user} onDelete={handleDelete} />
+                <ListItem key={item.id} xs={12}>
+                  <Card pin={item} user={user} onDelete={handleDelete} />
                 </ListItem>
               );
             })}
@@ -132,4 +118,4 @@ const User = () => {
   );
 };
 
-export default User;
+export default Feed;

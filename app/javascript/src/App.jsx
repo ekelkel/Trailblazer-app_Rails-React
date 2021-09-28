@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import Home from "./pages/Home/Home";
+import Feed from "./Feed";
 import LogIn from "./pages/LogIn/LogIn";
 import PinForm from "./pages/PinForm/PinForm";
 import SignUp from "./pages/SignUp/SignUp";
@@ -93,7 +94,7 @@ const AppComponent = () => {
           <Layout>
             {user ? (
               <Switch>
-                <Route exact path="/" component={Home} />
+                <Route exact path="/" component={Feed} />
                 <Route exact path="/profile" component={Profile} />
                 <Route exact path="/users" component={UsersList} />
                 <Route exact path="/user/:userId" component={User} />

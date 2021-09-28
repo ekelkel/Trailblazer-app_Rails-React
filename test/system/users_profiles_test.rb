@@ -15,13 +15,10 @@ class UsersProfilesTest < ApplicationSystemTestCase
     page.assert_current_path("/user/#{@user.id}")
     assert page.has_content? "#{@user.name}"
     assert page.has_content? "#{@user.pins.count} pins"
-    @user
-      .pins
-      .paginate(page: 1)
-      .each do |pin|
-        assert page.has_content? "#{pin.name}"
-        assert page.has_content? "#{pin.address}"
-        assert page.has_content? "#{pin.comment}"
-      end
+    assert find_by_id('pins-list').all('li').size == 30
+    first_pin = @user.pins.paginate(page: 1).first
+    assert page.has_content? "#{first_pin.name}"
+    assert page.has_content? "#{first_pin.address}"
+    assert page.has_content? "#{first_pin.comment}"
   end
 end
