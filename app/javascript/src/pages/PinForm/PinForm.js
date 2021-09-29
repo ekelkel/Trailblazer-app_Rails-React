@@ -15,17 +15,11 @@ const PinForm = () => {
   }, [user]);
 
   return (
-    <>
-      <Grid
-        container
-        justifyContent="center"
-        alignItems="center"
-        direction="column"
-        style={{ minHeight: "100vh" }}
-      >
-        {loading ? <LoadingScreen /> : <PinFormContainer />}
-      </Grid>
-    </>
+    <div
+      style={{ marginLeft: "2rem", marginRight: "2rem", marginBottom: "2rem" }}
+    >
+      {loading ? <LoadingScreen /> : <PinFormContainer />}
+    </div>
   );
 };
 

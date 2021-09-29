@@ -3,8 +3,9 @@ import { Box, TextField, Button, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import MatGeocoder from "react-mui-mapbox-geocoder";
 import Rating from "@material-ui/lab/Rating";
-import FavoriteIcon from "@material-ui/icons/Favorite";
+//import FavoriteIcon from "@material-ui/icons/Favorite";
 import { withStyles } from "@material-ui/core/styles";
+import UploadImages from "../../../UploadImages";
 
 const geocoderApiOptions = {
   //country: "us",
@@ -16,6 +17,7 @@ const useStyles = makeStyles((theme) => {
   return {
     title: {
       marginBottom: "2rem",
+      textAlign: "center",
     },
     field: {
       marginBottom: "1rem",
@@ -24,6 +26,7 @@ const useStyles = makeStyles((theme) => {
       fontSize: 12,
       marginLeft: "0.2rem",
       marginTop: "0.2rem",
+      marginBottom: "1rem",
     },
   };
 });
@@ -38,7 +41,7 @@ const PinFormView = (props) => {
   })(Rating);
 
   return (
-    <Box>
+    <div>
       <Typography variant="h5" className={classes.title} color="secondary">
         Add a new place to your collection of pins
       </Typography>
@@ -88,7 +91,7 @@ const PinFormView = (props) => {
             Address is required
           </Typography>
         )}
-        <StyledRating
+        {/*<StyledRating
           name="rating"
           value={props.values.rating ? props.values.rating : 0}
           onChange={(event, newValue) => {
@@ -102,17 +105,21 @@ const PinFormView = (props) => {
         <Typography color="textSecondary" className={classes.legend}>
           You can rate this place if you have already visited it, otherwise
           leave blank
-        </Typography>
-        <Button
-          type="submit"
-          variant="contained"
-          color="secondary"
-          style={{ marginTop: "1rem" }}
-        >
-          Pin this location
-        </Button>
+        </Typography>*/}
+        <UploadImages updateFilesCb={props.updateFilesCb} />
+        <Box textAlign="center">
+          <Button
+            type="submit"
+            variant="contained"
+            color="secondary"
+            style={{ marginTop: "1rem" }}
+            size="large"
+          >
+            Pin this location
+          </Button>
+        </Box>
       </form>
-    </Box>
+    </div>
   );
 };
 

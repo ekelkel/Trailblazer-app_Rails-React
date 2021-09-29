@@ -22,7 +22,11 @@ class UsersController < ApplicationController
       render json: {
                user: @user,
                count: @user.pins.count,
-               pins: @pins,
+               pins:
+                 ActiveModelSerializers::SerializableResource.new(
+                   @pins,
+                   each_serializer: PinSerializer,
+                 ),
                page: @pins.current_page,
                pages: @pins.total_pages,
              },

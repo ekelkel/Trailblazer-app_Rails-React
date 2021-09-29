@@ -6,9 +6,12 @@ import {
   CardContent,
   CardHeader,
   Button,
+  Divider,
   Typography,
   Avatar,
   IconButton,
+  Box,
+  Grid,
 } from "@material-ui/core";
 import Rating from "@material-ui/lab/Rating";
 import FavoriteIcon from "@material-ui/icons/Favorite";
@@ -16,11 +19,18 @@ import { withStyles } from "@material-ui/core/styles";
 import TimeAgo from "react-timeago";
 import ClearIcon from "@material-ui/icons/Clear";
 import { useSelector } from "react-redux";
+import Image from "./pexels-helena-lopes-693269";
 
 const useStyles = makeStyles({
   root: {
-    minWidth: 200,
     width: "100%",
+    border: 0,
+    margin: "auto",
+    transition: "0.3s",
+    boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
+    /*"&:hover": {
+      boxShadow: "0 16px 70px -12.125px rgba(0,0,0,0.3)",
+    },*/
   },
   title: {
     fontSize: 14,
@@ -33,17 +43,23 @@ const useStyles = makeStyles({
     alignItems: "center",
     flexWrap: "wrap",
   },
+  divider: {
+    margin: "3px 3px 3px 0",
+  },
 });
 
 export default function OutlinedCard(props) {
   const classes = useStyles();
-  const StyledRating = withStyles({
+  /*const StyledRating = withStyles({
     iconFilled: {
       color: "#FFBC1F",
     },
     icon: {},
-  })(Rating);
+  })(Rating);*/
   const user = useSelector((state) => state.user);
+  const coverImage = props.pin.image
+    ? `http://localhost:3000${props.pin.image.url}`
+    : Image;
   const deleteId = `delete-pin-${props.pin.id}`;
 
   return (
@@ -75,21 +91,42 @@ export default function OutlinedCard(props) {
         }
       />
       <CardContent>
-        <Typography variant="h5" component="h2">
-          {props.pin.name}
-        </Typography>
-        <Typography className={classes.pos} color="textSecondary">
-          {props.pin.address}
-        </Typography>
-        <Typography variant="body2" component="p">
-          {props.pin.comment}
-        </Typography>
-        <Typography variant="body2" component="p" color="textSecondary">
-          added <TimeAgo date={props.pin.created_at} />
-        </Typography>
+        <Box sx={{ flexGrow: 1 }}>
+          <Grid container spacing={2}>
+            <Grid item xs={8}>
+              <Typography variant="h5" component="h2" color="secondary">
+                {props.pin.name}
+              </Typography>
+              <Typography className={classes.pos} color="textSecondary">
+                {props.pin.address}
+              </Typography>
+              <Typography variant="body2" component="p" color="textSecondary">
+                {props.pin.comment}
+              </Typography>
+              <Divider className={classes.divider} light />
+              <Typography
+                variant="body2"
+                component="p"
+                style={{ color: "rgb(169, 169, 169)" }}
+              >
+                added <TimeAgo date={props.pin.created_at} />
+              </Typography>
+            </Grid>
+            <Grid
+              item
+              xs={4}
+              style={{
+                backgroundImage: `url(${coverImage})`,
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "cover",
+                minHeight: 200,
+                borderRadius: "6px",
+              }}
+            />
+          </Grid>
+        </Box>
       </CardContent>
-      <CardActions>
-        <Button size="small">Learn More</Button>
+      {/*<CardActions>
         {props.pin.rating ? (
           <StyledRating
             className="pop-score-hearts"
@@ -101,7 +138,7 @@ export default function OutlinedCard(props) {
         ) : (
           <div />
         )}
-      </CardActions>
+        </CardActions*/}
     </Card>
   );
 }

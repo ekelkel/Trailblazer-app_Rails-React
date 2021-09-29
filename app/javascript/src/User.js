@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => {
       backgroundColor: "#ffffff",
     },
     title: {
+      marginTop: "3rem",
       marginLeft: "2rem",
       marginBottom: "2rem",
       display: "flex",
@@ -32,6 +33,7 @@ const useStyles = makeStyles((theme) => {
     },
     root: {
       width: "100%",
+      marginBottom: "2rem",
     },
   };
 });
@@ -112,7 +114,7 @@ const User = () => {
           <List dense className={classes.root} id="pins-list">
             {pins.map((pin) => {
               return (
-                <ListItem key={pin.id} xs={12}>
+                <ListItem key={pin.id} xs={12} style={{ marginBottom: "2rem" }}>
                   <Card pin={pin} user={user} onDelete={handleDelete} />
                 </ListItem>
               );

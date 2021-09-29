@@ -11,7 +11,10 @@ Rails
     get '/validate_account', to: 'account_activations#validate'
     get '/check_reset_password_link', to: 'password_resets#check_link'
     get '/feed', to: 'pins#feed'
-    get '/*path' => 'static_pages#home', :via => :all
+    get '/*path' => 'static_pages#home',
+        :via => :all,
+        :constraints =>
+          lambda { |req| req.path.exclude? 'rails/active_storage' }
     resources :users
     resources :password_resets, only: %i[create update]
     resources :pins, only: %i[create destroy]

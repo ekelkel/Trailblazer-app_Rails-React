@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => {
       backgroundColor: "#ffffff",
     },
     title: {
+      marginTop: "3rem",
       textAlign: "center",
       marginBottom: "2rem",
     },

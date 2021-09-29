@@ -30,11 +30,9 @@ class PinsControllerTest < ActionDispatch::IntegrationTest
     assert_difference 'Pin.count', 1 do
       post pins_path,
            params: {
-             pin: {
-               name: 'Test',
-               address: 'Test',
-               comment: 'Lorem ipsum',
-             },
+             name: 'Test',
+             address: 'Test',
+             comment: 'Lorem ipsum',
            }
     end
   end
