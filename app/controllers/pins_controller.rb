@@ -4,6 +4,7 @@ class PinsController < ApplicationController
 
   def create
     @pin = current_user.pins.build(pin_params)
+
     if @pin.save
       render json: { pin: @pin }, status: 200
     else
@@ -23,7 +24,11 @@ class PinsController < ApplicationController
     if logged_in?
       @feed_items = current_user.feed.paginate(page: params[:page])
       render json: {
-               feed: @feed_items,
+               feed:
+                 ActiveModelSerializers::SerializableResource.new(
+                   @feed_items,
+                   each_serializer: PinSerializer,
+                 ),
                page: @feed_items.current_page, # an integer corresponding to the current page
                pages: @feed_items.total_pages, # an integer corresponding to the total page count
              },
@@ -36,9 +41,15 @@ class PinsController < ApplicationController
   private
 
   def pin_params
-    params
-      .require(:pin)
-      .permit(:name, :address, :latitude, :longitude, :rating, :comment)
+    params.permit(
+      :name,
+      :address,
+      :latitude,
+      :longitude,
+      :rating,
+      :comment,
+      images: [],
+    )
   end
 
   def correct_user

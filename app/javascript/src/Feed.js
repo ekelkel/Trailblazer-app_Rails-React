@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme) => {
     },
     title: {
       marginBottom: "2rem",
+      marginTop: "3rem",
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
@@ -52,7 +53,6 @@ const Feed = () => {
       const response = await axios.get(`/feed?page=${page}`, {
         headers: { "X-CSRF-Token": csrfToken() },
       });
-      console.log(response.data);
       setFeedItems(response.data.feed);
       setPage(response.data.page);
       setTotalPages(response.data.pages);
@@ -98,7 +98,11 @@ const Feed = () => {
           <List dense className={classes.root} id="feed-items-list">
             {feedItems.map((item) => {
               return (
-                <ListItem key={item.id} xs={12}>
+                <ListItem
+                  key={item.id}
+                  xs={12}
+                  style={{ marginBottom: "2rem" }}
+                >
                   <Card pin={item} user={user} onDelete={handleDelete} />
                 </ListItem>
               );

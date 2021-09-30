@@ -29,7 +29,9 @@ const useStyles = makeStyles((theme) => {
     root: {
       display: "flex",
     },
-    appBar: {},
+    appBar: {
+      boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
+    },
     logo: {
       flexGrow: 1,
     },

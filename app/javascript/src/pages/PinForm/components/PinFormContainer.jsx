@@ -21,20 +21,18 @@ const PinFormContainer = () => {
     address: "",
     longitude: null,
     latitude: null,
+    images: [],
   });
   const notify = () => {
     toast.success("Pin successfully created!");
   };
 
-  const submitForm = async () => {
+  const submitForm = async (formData) => {
     try {
-      const response = await axios.post(
-        "/pins/",
-        { pin: values },
-        {
-          headers: { "X-CSRF-Token": csrfToken() /*getCookie("CSRF-TOKEN")*/ },
-        }
-      );
+      const response = await axios.post("/pins/", formData, {
+        headers: { "X-CSRF-Token": csrfToken() /*getCookie("CSRF-TOKEN")*/ },
+      });
+      console.log(response);
       notify();
       setIsSubmitted(true);
     } catch (error) {
@@ -64,7 +62,19 @@ const PinFormContainer = () => {
     let newErrors = validate(values);
     setErrors(newErrors);
     if (Object.keys(newErrors).length === 0) {
-      submitForm();
+      const formData = new FormData();
+      formData.append("name", values.name);
+      formData.append("address", values.address);
+      formData.append("longitude", values.longitude);
+      formData.append("latitude", values.latitude);
+      formData.append("rating", values.rating);
+      formData.append("comment", values.comment);
+      if (values.images) {
+        for (let i = 0; i < values.images.length; i++) {
+          formData.append("images[]", values.images[i]);
+        }
+      }
+      submitForm(formData);
     }
   };
 
@@ -77,6 +87,13 @@ const PinFormContainer = () => {
     });
     /*console.log(result.geometry.coordinates);
     console.log(result.place_name);*/
+  };
+
+  const updateFilesCb = (filesAsArray) => {
+    setValues({
+      ...values,
+      ["images"]: filesAsArray,
+    });
   };
 
   useEffect(() => {
@@ -95,6 +112,7 @@ const PinFormContainer = () => {
           onSubmit={handleSubmit}
           onRating={handleRating}
           onSelectHandler={onSelectHandler}
+          updateFilesCb={updateFilesCb}
         />
       )}
     </div>

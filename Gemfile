@@ -60,6 +60,10 @@ group :test do
   gem 'nokogiri'
 end
 
+group :production do
+  gem 'aws-sdk-s3', require: false
+end
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 # Uncomment the following line if you're running Rails
 # on a native Windows system:
@@ -71,3 +75,4 @@ gem 'faker', '2.1.2'
 gem 'will_paginate', '3.1.8'
 gem 'figaro'
 gem 'geocoder', '~> 1.3', '>= 1.3.7'
+gem 'active_model_serializers'
