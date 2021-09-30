@@ -19,7 +19,7 @@ import { withStyles } from "@material-ui/core/styles";
 import TimeAgo from "react-timeago";
 import ClearIcon from "@material-ui/icons/Clear";
 import { useSelector } from "react-redux";
-import Image from "./pexels-helena-lopes-693269";
+import Image from "./logo";
 
 const useStyles = makeStyles({
   root: {
@@ -57,9 +57,7 @@ export default function OutlinedCard(props) {
     icon: {},
   })(Rating);*/
   const user = useSelector((state) => state.user);
-  const coverImage = props.pin.image
-    ? `http://localhost:3000${props.pin.image.url}`
-    : Image;
+  const coverImage = props.pin.image ? `${props.pin.image.url}` : Image;
   const deleteId = `delete-pin-${props.pin.id}`;
 
   return (
@@ -115,13 +113,24 @@ export default function OutlinedCard(props) {
             <Grid
               item
               xs={4}
-              style={{
-                backgroundImage: `url(${coverImage})`,
-                backgroundRepeat: "no-repeat",
-                backgroundSize: "cover",
-                minHeight: 200,
-                borderRadius: "6px",
-              }}
+              id="pin-image"
+              style={
+                props.pin.image
+                  ? {
+                      backgroundImage: `url(${coverImage})`,
+                      backgroundRepeat: "no-repeat",
+                      backgroundPosition: "center",
+                      backgroundSize: "cover",
+                      minHeight: 200,
+                      borderRadius: "6px",
+                    }
+                  : {
+                      backgroundImage: `url(${coverImage})`,
+                      backgroundRepeat: "no-repeat",
+                      backgroundSize: "contain",
+                      backgroundPosition: "center",
+                    }
+              }
             />
           </Grid>
         </Box>

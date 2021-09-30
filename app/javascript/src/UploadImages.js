@@ -41,7 +41,7 @@ const UploadImages = (props) => {
         files[file.name] = file;
         setErrorMessage("");
       } else {
-        setErrorMessage("File is too big.");
+        setErrorMessage("File is too big. Should be less than 5MB.");
       }
     }
     return { ...files };
@@ -95,6 +95,7 @@ const UploadImages = (props) => {
             <input
               type="file"
               accept="image/*"
+              name="upload_image"
               onChange={handleNewFileUpload}
               hidden
             />

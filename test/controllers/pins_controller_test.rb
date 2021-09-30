@@ -25,16 +25,62 @@ class PinsControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test 'invalid image size' do
+    image =
+      fixture_file_upload(
+        'test/fixtures/files/pexels-helena-lopes-693267.jpg',
+        'image/jpeg',
+      )
+    assert_no_difference 'Pin.count' do
+      post pins_path,
+           params: {
+             pin: {
+               name: 'Test',
+               address: 'Test',
+               comment: 'Lorem ipsum',
+               images: [image],
+             },
+           }
+    end
+  end
+
+  test 'invalid image content type' do
+    image =
+      fixture_file_upload(
+        'test/fixtures/files/pexels-helena-lopes-693269.pdf',
+        'application/pdf',
+      )
+    assert_no_difference 'Pin.count' do
+      post pins_path,
+           params: {
+             pin: {
+               name: 'Test',
+               address: 'Test',
+               comment: 'Lorem ipsum',
+               images: [image],
+             },
+           }
+    end
+  end
+
   test 'valid pin creation' do
     log_in_as(users(:elora))
+    image =
+      fixture_file_upload(
+        'test/fixtures/files/pexels-helena-lopes-693269.jpg',
+        'image/jpeg',
+      )
     assert_difference 'Pin.count', 1 do
       post pins_path,
            params: {
              name: 'Test',
              address: 'Test',
              comment: 'Lorem ipsum',
+             images: [image],
            }
     end
+    pin = assigns(:pin)
+    assert pin.images.attached?
   end
 
   test 'should not destroy when not logged in' do

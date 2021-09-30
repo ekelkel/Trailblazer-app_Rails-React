@@ -22,17 +22,29 @@ class PinsInterfacesTest < ApplicationSystemTestCase
     assert page.has_content? 'Name required'
     assert page.has_content? 'Address is required'
 
+    # Ivalid image size
+    page.attach_file(
+      'upload_image',
+      Rails.root + 'test/fixtures/files/pexels-helena-lopes-693267.jpg',
+      make_visible: true,
+    )
+    assert page.has_content? 'File is too big. Should be less than 5MB.'
+
     # Valid submission
     fill_in 'Name', with: 'Le Comptoir Général'
     fill_in 'Add a comment about this place...',
             with:
               'The atmosphere is fun and distinctly Parisian. If you’re exploring Canal St. Martin this is a worthy point to stop.'
-    fill_in('Address', with: '84 Quai De Jemmapes')
+    fill_in('Address', with: '84 Quai De Jemmapes, 75010 Paris')
       .send_keys(:space)
       .send_keys(:down)
       .send_keys(:return)
-
     sleep 2
+    page.attach_file(
+      'upload_image',
+      Rails.root + 'test/fixtures/files/pexels-helena-lopes-693269.jpg',
+      make_visible: true,
+    )
     click_on 'Pin this location'
 
     #click_on 'Pin this location'
@@ -43,6 +55,13 @@ class PinsInterfacesTest < ApplicationSystemTestCase
     assert page.has_content? 'Le Comptoir Général'
     assert page.has_content? 'The atmosphere is fun and distinctly Parisian. If you’re exploring Canal St. Martin this is a worthy point to stop.'
     assert page.has_content? '84 Quai De Jemmapes, 75010 Paris, France'
+
+    assert page.has_css?(
+             '#pin-image',
+             style: {
+               'background-image' => %r{/pexels-helena-lopes-693269.jpg},
+             },
+           )
 
     # Delete pin
     first_pin = @user.pins.paginate(page: 1).first
