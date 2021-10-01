@@ -48,6 +48,7 @@ class PinsController < ApplicationController
       :longitude,
       :rating,
       :comment,
+      :all_tags,
       images: [],
     )
   end

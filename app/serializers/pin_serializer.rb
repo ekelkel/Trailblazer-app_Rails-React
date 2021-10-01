@@ -9,12 +9,17 @@ class PinSerializer < ActiveModel::Serializer
              :longitude,
              :latitude,
              :created_at,
-             :image
+             :image,
+             :tags
   def image
     if object.images.attached?
       #{ url: object.images.map { |image| rails_blob_url(image) } }
       host = Rails.env.development? ? 'http://localhost:3000' : ''
       { url: host + rails_blob_url(object.images[0], only_path: true) }
     end
+  end
+
+  def tags
+    object.all_tags
   end
 end

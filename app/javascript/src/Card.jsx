@@ -5,7 +5,7 @@ import {
   CardActions,
   CardContent,
   CardHeader,
-  Button,
+  Chip,
   Divider,
   Typography,
   Avatar,
@@ -13,9 +13,9 @@ import {
   Box,
   Grid,
 } from "@material-ui/core";
-import Rating from "@material-ui/lab/Rating";
+/*import Rating from "@material-ui/lab/Rating";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import { withStyles } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";*/
 import TimeAgo from "react-timeago";
 import ClearIcon from "@material-ui/icons/Clear";
 import { useSelector } from "react-redux";
@@ -101,6 +101,18 @@ export default function OutlinedCard(props) {
               <Typography variant="body2" component="p" color="textSecondary">
                 {props.pin.comment}
               </Typography>
+              {props.pin.tags.map((tag) => {
+                const color = `#${tag.color}`;
+                return (
+                  <Box component="div" sx={{ display: "inline" }} key={tag.id}>
+                    <Chip
+                      color="primary"
+                      style={{ backgroundColor: color }}
+                      label={tag.name}
+                    />
+                  </Box>
+                );
+              })}
               <Divider className={classes.divider} light />
               <Typography
                 variant="body2"

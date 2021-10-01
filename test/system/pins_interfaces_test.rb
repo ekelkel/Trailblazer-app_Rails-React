@@ -35,6 +35,7 @@ class PinsInterfacesTest < ApplicationSystemTestCase
     fill_in 'Add a comment about this place...',
             with:
               'The atmosphere is fun and distinctly Parisian. If you’re exploring Canal St. Martin this is a worthy point to stop.'
+    fill_in('Tags', with: 'brunch').send_keys(:return)
     fill_in('Address', with: '84 Quai De Jemmapes, 75010 Paris')
       .send_keys(:space)
       .send_keys(:down)
@@ -54,6 +55,7 @@ class PinsInterfacesTest < ApplicationSystemTestCase
     # first_pin = @user.pins.paginate(page: 1).first
     assert page.has_content? 'Le Comptoir Général'
     assert page.has_content? 'The atmosphere is fun and distinctly Parisian. If you’re exploring Canal St. Martin this is a worthy point to stop.'
+    assert page.has_content? 'brunch'
     assert page.has_content? '84 Quai De Jemmapes, 75010 Paris, France'
 
     assert page.has_css?(

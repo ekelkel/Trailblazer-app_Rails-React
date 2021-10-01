@@ -32,13 +32,30 @@ User.create!(
 end
 
 Faker::Config.locale = 'fr'
+tags = %w[
+  brunch
+  bar
+  japan
+  beer
+  breakfast
+  bakery
+  chinese
+  italian
+  fancy
+  spicy
+  cosy
+  vegan
+  outdoor
+  cuban
+  mexican
+]
 # Generate pins for a subset of users
 users = User.order(:created_at).take(6)
 50.times do
   name = Faker::Restaurant.name
   address = Faker::Address.full_address
-  latitude = Faker::Address.latitude
-  longitude = Faker::Address.longitude
+  latitude = rand(-90.0..90.0)
+  longitude = rand(-180.0..180.0)
   comment = Faker::Restaurant.review.partition('.').first
   rating = Faker::Number.between(from: 1, to: 10)
   created_at = Faker::Time.between(from: 42.days.ago, to: Time.now)
@@ -48,6 +65,7 @@ users = User.order(:created_at).take(6)
       address: address,
       comment: comment,
       rating: rating,
+      all_tags: tags.sample(4).join(','),
       created_at: created_at,
     )
   end

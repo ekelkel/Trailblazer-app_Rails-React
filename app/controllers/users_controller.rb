@@ -36,6 +36,22 @@ class UsersController < ApplicationController
     end
   end
 
+  def get_tags
+    user_tags = []
+    all_pins = Pin.where(user_id: params[:id])
+    all_tags = []
+    all_pins.each { |pin| pin.tags.each { |tag| all_tags |= [tag] } }
+    all_tags.each do |tag|
+      user_tag = Hash.new
+      user_tag['value'] = tag.name
+      user_tag['label'] = tag.name
+
+      # add color ?
+      user_tags.push(user_tag)
+    end
+    render json: { tags: user_tags }, status: 200
+  end
+
   def create
     @user = User.new(user_params)
     if @user.save

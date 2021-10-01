@@ -2,10 +2,11 @@ import React from "react";
 import { Box, TextField, Button, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import MatGeocoder from "react-mui-mapbox-geocoder";
-import Rating from "@material-ui/lab/Rating";
+//import Rating from "@material-ui/lab/Rating";
 //import FavoriteIcon from "@material-ui/icons/Favorite";
-import { withStyles } from "@material-ui/core/styles";
+//import { withStyles } from "@material-ui/core/styles";
 import UploadImages from "../../../UploadImages";
+import { MultipleSelect } from "react-select-material-ui";
 
 const geocoderApiOptions = {
   //country: "us",
@@ -13,9 +14,21 @@ const geocoderApiOptions = {
   //bbox: [-123.8501, 38.08, -117.5604, 39.8735],
 };
 
+const default_options = [
+  {
+    value: "brunch",
+    label: "brunch",
+  },
+  {
+    value: "bar",
+    label: "bar",
+  },
+];
+
 const useStyles = makeStyles((theme) => {
   return {
     title: {
+      marginTop: "3rem",
       marginBottom: "2rem",
       textAlign: "center",
     },
@@ -28,17 +41,21 @@ const useStyles = makeStyles((theme) => {
       marginTop: "0.2rem",
       marginBottom: "1rem",
     },
+    tags: {
+      fontFamily: "Raleway",
+      marginBottom: "1rem",
+    },
   };
 });
 
 const PinFormView = (props) => {
   const classes = useStyles();
-  const StyledRating = withStyles({
+  /*const StyledRating = withStyles({
     iconFilled: {
       color: "#FFBC1F",
     },
     icon: {},
-  })(Rating);
+  })(Rating);*/
 
   return (
     <div>
@@ -91,6 +108,19 @@ const PinFormView = (props) => {
             Address is required
           </Typography>
         )}
+        <MultipleSelect
+          id="Tags"
+          name="Tags"
+          helperText="You can add a new tag by writing it and pressing enter"
+          options={props.tags.length > 0 ? props.tags : default_options}
+          label="Tags"
+          onChange={props.onTagsSelect}
+          className={classes.tags}
+          SelectProps={{
+            isCreatable: true,
+            isSearchable: true,
+          }}
+        />
         {/*<StyledRating
           name="rating"
           value={props.values.rating ? props.values.rating : 0}

@@ -76,6 +76,7 @@ class PinsControllerTest < ActionDispatch::IntegrationTest
              name: 'Test',
              address: 'Test',
              comment: 'Lorem ipsum',
+             all_tags: 'brunch,cheap',
              images: [image],
            }
     end

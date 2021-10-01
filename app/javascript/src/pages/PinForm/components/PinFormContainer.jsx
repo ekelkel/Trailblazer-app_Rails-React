@@ -14,6 +14,7 @@ const PinFormContainer = () => {
   const user = useSelector((state) => state.user);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [errors, setErrors] = useState({});
+  const [tags, setTags] = useState([]);
   const [values, setValues] = useState({
     name: "",
     comment: "",
@@ -25,6 +26,18 @@ const PinFormContainer = () => {
   });
   const notify = () => {
     toast.success("Pin successfully created!");
+  };
+
+  const getTags = async () => {
+    try {
+      const response = await axios.get(`/get_tags?id=${user.id}`, {
+        headers: { "X-CSRF-Token": csrfToken() },
+      });
+      console.log(response.data.tags);
+      setTags(response.data.tags);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const submitForm = async (formData) => {
@@ -49,15 +62,23 @@ const PinFormContainer = () => {
     });
   };
 
-  const handleRating = (value) => {
+  /*const handleRating = (value) => {
     setValues({
       ...values,
       ["rating"]: value,
     });
+  };*/
+
+  const handleTagsSelect = (tags) => {
+    const tags_list = tags.join(",");
+    setValues({
+      ...values,
+      ["all_tags"]: tags_list,
+    });
   };
 
   const handleSubmit = (event) => {
-    //console.log(values);
+    console.log(values);
     event.preventDefault();
     let newErrors = validate(values);
     setErrors(newErrors);
@@ -69,6 +90,7 @@ const PinFormContainer = () => {
       formData.append("latitude", values.latitude);
       formData.append("rating", values.rating);
       formData.append("comment", values.comment);
+      formData.append("all_tags", values.all_tags);
       if (values.images) {
         for (let i = 0; i < values.images.length; i++) {
           formData.append("images[]", values.images[i]);
@@ -100,6 +122,10 @@ const PinFormContainer = () => {
     if (Object.keys(errors).length !== 0) setErrors(validate(values));
   }, [values]);
 
+  useEffect(() => {
+    getTags();
+  }, []);
+
   return (
     <div>
       {isSubmitted ? (
@@ -108,9 +134,11 @@ const PinFormContainer = () => {
         <PinFormView
           values={values}
           errors={errors}
+          tags={tags}
           onChange={handleChange}
           onSubmit={handleSubmit}
-          onRating={handleRating}
+          /*onRating={handleRating}*/
+          onTagsSelect={handleTagsSelect}
           onSelectHandler={onSelectHandler}
           updateFilesCb={updateFilesCb}
         />
