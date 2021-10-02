@@ -5,7 +5,7 @@ import MatGeocoder from "react-mui-mapbox-geocoder";
 //import Rating from "@material-ui/lab/Rating";
 //import FavoriteIcon from "@material-ui/icons/Favorite";
 //import { withStyles } from "@material-ui/core/styles";
-import UploadImages from "../../../UploadImages";
+import UploadImages from "./UploadImages";
 import { MultipleSelect } from "react-select-material-ui";
 
 const geocoderApiOptions = {

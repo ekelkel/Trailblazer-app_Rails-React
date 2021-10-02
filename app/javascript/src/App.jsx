@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import Home from "./pages/Home/Home";
-import Feed from "./Feed";
+import Feed from "./pages/Feed/Feed";
 import LogIn from "./pages/LogIn/LogIn";
 import PinForm from "./pages/PinForm/PinForm";
 import SignUp from "./pages/SignUp/SignUp";
@@ -22,7 +22,7 @@ import Layout from "./common/Layout";
 import { useSelector } from "react-redux";
 import LoadingScreen from "./common/LoadingScreen";
 import UsersList from "./pages/UsersList/UsersList";
-import User from "./User";
+import User from "./pages/User/User";
 
 const theme = createTheme({
   palette: {

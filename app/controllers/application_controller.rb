@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   include SessionsHelper # make helper available in controllers
+  require 'will_paginate/array'
 
   # skip_before_action :verify_authenticity_token
   # the above line skips the CSRF protection

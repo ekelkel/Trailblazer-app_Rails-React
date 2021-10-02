@@ -18,7 +18,24 @@ class UsersController < ApplicationController
 
   def get_user
     if @user = User.find(params[:id])
-      @pins = @user.pins.paginate(page: params[:page])
+      render json: { user: @user, count: @user.pins.count }, status: 200
+    else
+      render json: { error: 'User does not exist.' }, status: 400
+    end
+  end
+
+  def get_user_pins
+    if @user = User.find(params[:id])
+      if params[:tags]
+        tags = Tag.where(name: params[:tags].split(','))
+        all_pins = tags[0].pins.where(user_id: @user.id)
+        tags.each do |tag|
+          all_pins = all_pins & tag.pins.where(user_id: @user.id)
+        end
+        @pins = all_pins.paginate(page: params[:page])
+      else
+        @pins = @user.pins.paginate(page: params[:page])
+      end
       render json: {
                user: @user,
                count: @user.pins.count,
@@ -45,8 +62,8 @@ class UsersController < ApplicationController
       user_tag = Hash.new
       user_tag['value'] = tag.name
       user_tag['label'] = tag.name
-
-      # add color ?
+      user_tag['id'] = tag.id
+      user_tag['color'] = tag.color
       user_tags.push(user_tag)
     end
     render json: { tags: user_tags }, status: 200

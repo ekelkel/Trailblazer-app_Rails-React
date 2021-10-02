@@ -11,6 +11,7 @@ class PinTest < ActiveSupport::TestCase
         latitude: 48.867610,
         longitude: 2.336900,
         rating: 9,
+        all_tags: 'brunch,cheap',
         comment:
           'Café chic de style japonais proposant thé vert, plats de nouilles et dorayakis',
       )
@@ -42,5 +43,12 @@ class PinTest < ActiveSupport::TestCase
 
   test 'order should be most recent first' do
     assert_equal pins(:most_recent), Pin.first
+  end
+
+  test 'associated tagging should be destroyed' do
+    @pin.save
+    assert_difference 'Tagging.count', -2 do
+      @pin.destroy
+    end
   end
 end

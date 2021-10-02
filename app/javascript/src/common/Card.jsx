@@ -19,7 +19,7 @@ import { withStyles } from "@material-ui/core/styles";*/
 import TimeAgo from "react-timeago";
 import ClearIcon from "@material-ui/icons/Clear";
 import { useSelector } from "react-redux";
-import Image from "./logo";
+import Image from "../assets/logo";
 
 const useStyles = makeStyles({
   root: {

@@ -8,6 +8,7 @@ Rails
     delete '/logout', to: 'sessions#destroy'
     get '/get_users', to: 'users#get_users'
     get '/get_user', to: 'users#get_user'
+    get '/get_user_pins', to: 'users#get_user_pins'
     get '/get_tags', to: 'users#get_tags'
     get '/validate_account', to: 'account_activations#validate'
     get '/check_reset_password_link', to: 'password_resets#check_link'
@@ -16,7 +17,7 @@ Rails
         :via => :all,
         :constraints =>
           lambda { |req| req.path.exclude? 'rails/active_storage' }
-    resources :users
+    resources :users, only: %i[create update]
     resources :password_resets, only: %i[create update]
     resources :pins, only: %i[create destroy]
   end

@@ -3,3 +3,11 @@
 japan:
   name: "japan"
   color: "ffe2b3"
+
+pizza:
+  name: "pizza"
+  color: "37F9F0"
+
+pastry:
+  name: "pastry"
+  color: "F937D9"

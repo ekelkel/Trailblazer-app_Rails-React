@@ -40,7 +40,7 @@ class PinsInterfacesTest < ApplicationSystemTestCase
       .send_keys(:space)
       .send_keys(:down)
       .send_keys(:return)
-    sleep 2
+    sleep 5
     page.attach_file(
       'upload_image',
       Rails.root + 'test/fixtures/files/pexels-helena-lopes-693269.jpg',

@@ -1,5 +1,17 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 tagging_1:
+  tag: pastry
+  pin: tomo
+
+tagging_2:
+  tag: pizza
+  pin: most_recent
+
+tagging_3:
+  tag: pastry
+  pin: boneshaker
+
+tagging_4:
   tag: japan
   pin: tomo
