@@ -17,3 +17,6 @@ environment.plugins.prepend(
   "Environment",
   new webpack.EnvironmentPlugin(JSON.parse(JSON.stringify(process.env)))
 );
+
+// https://github.com/mapbox/mapbox-gl-js/issues/3422
+environment.loaders.delete("nodeModules");

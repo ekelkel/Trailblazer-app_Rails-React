@@ -23,6 +23,7 @@ import { useSelector } from "react-redux";
 import LoadingScreen from "./common/LoadingScreen";
 import UsersList from "./pages/UsersList/UsersList";
 import User from "./pages/User/User";
+import Map from "./Map";
 
 const theme = createTheme({
   palette: {
@@ -99,6 +100,7 @@ const AppComponent = () => {
                 <Route exact path="/users" component={UsersList} />
                 <Route exact path="/user/:userId" component={User} />
                 <Route exact path="/add_pin" component={PinForm} />
+                <Route exact path="/map" component={Map} />
                 <Redirect to="/" />
               </Switch>
             ) : (
