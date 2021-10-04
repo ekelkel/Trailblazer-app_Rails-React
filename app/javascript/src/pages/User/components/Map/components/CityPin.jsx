@@ -12,7 +12,7 @@ const pinStyle = {
 
 export default class CityPin extends PureComponent {
   render() {
-    const { size = 20, onClick, index } = this.props;
+    const { size = 20, onClick, index, id } = this.props;
 
     return (
       <svg
@@ -22,6 +22,7 @@ export default class CityPin extends PureComponent {
           ...pinStyle,
           transform: `translate(${-size / 2}px,${-size}px)`,
         }}
+        id={id}
         onClick={() => onClick(index)}
       >
         <path d={ICON} />

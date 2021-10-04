@@ -53,6 +53,32 @@ class UsersController < ApplicationController
     end
   end
 
+  def get_map_pins
+    if @user = User.find(params[:id])
+      if params[:tags]
+        tags = Tag.where(name: params[:tags].split(','))
+        all_pins = tags[0].pins.where(user_id: @user.id)
+        tags.each do |tag|
+          all_pins = all_pins & tag.pins.where(user_id: @user.id)
+        end
+        @pins = all_pins
+      else
+        @pins = @user.pins
+      end
+      render json: {
+               user: @user,
+               pins:
+                 ActiveModelSerializers::SerializableResource.new(
+                   @pins,
+                   each_serializer: PinSerializer,
+                 ),
+             },
+             status: 200
+    else
+      render json: { error: 'User does not exist.' }, status: 400
+    end
+  end
+
   def get_tags
     user_tags = []
     all_pins = Pin.where(user_id: params[:id])

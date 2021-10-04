@@ -139,8 +139,8 @@ export default function OutlinedCard(props) {
                   : {
                       backgroundImage: `url(${coverImage})`,
                       backgroundRepeat: "no-repeat",
-                      backgroundSize: "contain",
                       backgroundPosition: "center",
+                      backgroundSize: "100px 100px",
                     }
               }
             />

@@ -39,5 +39,11 @@ class UsersProfilesTest < ApplicationSystemTestCase
     assert page.has_content? "#{@other_pin.name}"
     assert page.has_content? "#{@pin.name}"
     assert page.has_content? "#{@same_tag_pin.name}"
+
+    # Display map
+    find_by_id('map', visible: :all).click
+    find_by_id("tag-#{tag.id}").click
+    find_by_id("pin-#{@pin.id}").click
+    assert page.has_content? "#{@pin.name}"
   end
 end

@@ -7,6 +7,8 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # Create a main user.
+require 'random-location'
+
 User.create!(
   name: 'Example User',
   email: 'example@trailblazer.com',
@@ -56,9 +58,10 @@ tags = %w[
 users = User.order(:created_at).take(6)
 50.times do
   name = Faker::Restaurant.name
-  address = Faker::Address.full_address
-  latitude = Faker::Address.latitude
-  longitude = Faker::Address.longitude
+  location = RandomLocation.near_by(48.856614, 2.3522219, 2000)
+  latitude = location[0]
+  longitude = location[1]
+  address = Geocoder.search([latitude, longitude]).first.address
   comment = Faker::Restaurant.review.partition('.').first
   rating = Faker::Number.between(from: 1, to: 10)
   created_at = Faker::Time.between(from: 42.days.ago, to: Time.now)
@@ -66,6 +69,8 @@ users = User.order(:created_at).take(6)
     user.pins.create!(
       name: name,
       address: address,
+      latitude: latitude,
+      longitude: longitude,
       comment: comment,
       rating: rating,
       all_tags: tags.sample(4).join(','),

@@ -9,6 +9,7 @@ Rails
     get '/get_users', to: 'users#get_users'
     get '/get_user', to: 'users#get_user'
     get '/get_user_pins', to: 'users#get_user_pins'
+    get '/get_map_pins', to: 'users#get_map_pins'
     get '/get_tags', to: 'users#get_tags'
     get '/validate_account', to: 'account_activations#validate'
     get '/check_reset_password_link', to: 'password_resets#check_link'
