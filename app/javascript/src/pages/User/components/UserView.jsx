@@ -1,8 +1,7 @@
 import React from "react";
 import { Avatar, Typography, Switch } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import Map from "./Map/Map";
-import PinsList from "./List/PinsList";
+import Pins from "./Pins/Pins";
 import { withStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => {
@@ -108,15 +107,11 @@ const UserView = (props) => {
             id="map"
           />
           <Typography className={classes.switchLegend} color="textSecondary">
-            Switch on to display the map
+            Map view
           </Typography>
         </div>
       </div>
-      {props.toggled ? (
-        <Map user={props.user} tags={props.tags} />
-      ) : (
-        <PinsList user={props.user} tags={props.tags} />
-      )}
+      <Pins user={props.user} tags={props.tags} toggled={props.toggled} />
     </div>
   );
 };

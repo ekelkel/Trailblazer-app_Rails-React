@@ -5,8 +5,6 @@ import React, {
   useMemo,
   useEffect,
 } from "react";
-import CheckSharpIcon from "@material-ui/icons/CheckSharp";
-import { Typography, Box, Chip } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { csrfToken } from "@rails/ujs";
 import axios from "axios";
@@ -18,18 +16,9 @@ import CityPin from "./components/CityPin";
 import CustomPopup from "./components/CustomPinPopup";
 
 const useStyles = makeStyles((theme) => {
-  return {
-    legend: {
-      fontSize: 12,
-      marginLeft: "0.2rem",
-      marginTop: "0.2rem",
-      marginBottom: "1rem",
-      marginLeft: "1rem",
-    },
-  };
+  return {};
 });
 
-// dans les props user et tags
 const Map = (props) => {
   const classes = useStyles();
   const [viewport, setViewport] = useState({
@@ -39,7 +28,6 @@ const Map = (props) => {
     longitude: 2.3488,
     zoom: 11,
   });
-  const [selected, setSelected] = useState([]);
   const [mapPins, setMapPins] = useState([]);
   const [mapPinsLoading, setMapPinsLoading] = useState(true);
   const [selectedIndex, setSelectedIndex] = useState(null);
@@ -53,8 +41,8 @@ const Map = (props) => {
   const getMapPins = async () => {
     try {
       let url = `/get_map_pins?id=${props.user.id}`;
-      if (selected.length > 0) {
-        const tags_param = selected.join(",");
+      if (props.selected.length > 0) {
+        const tags_param = props.selected.join(",");
         url += `&tags=${tags_param}`;
       }
       const response = await axios.get(url, {
@@ -69,26 +57,14 @@ const Map = (props) => {
   };
 
   useEffect(() => {
+    closePopup();
     setMapPinsLoading(true);
     getMapPins();
-  }, [selected]);
+  }, [props.selected]);
 
   useEffect(() => {
     getMapPins();
   }, []);
-
-  const handleSelectTagClick = (tag) => {
-    closePopup();
-    setSelected([...selected, tag.label]);
-  };
-
-  const handleRemoveTagClick = (tag) => {
-    closePopup();
-    const filtered = selected.filter((item) => {
-      return item !== tag.label;
-    });
-    setSelected(filtered);
-  };
 
   const closePopup = () => {
     setSelectedIndex(null);
@@ -114,57 +90,6 @@ const Map = (props) => {
 
   return (
     <div>
-      <div style={{ marginLeft: "1rem" }}>
-        {props.tags ? (
-          props.tags.map((tag) => {
-            const color = `#${tag.color}`;
-            return (
-              <Box
-                component="div"
-                sx={{
-                  display: "inline",
-                  padding: 0.8,
-                  marginTop: -0.8,
-                }}
-                key={tag.id}
-              >
-                {selected.includes(tag.label) ? (
-                  <Chip
-                    color="primary"
-                    icon={<CheckSharpIcon />}
-                    style={{
-                      backgroundColor: color,
-                      borderRadius: "2px",
-                      marginTop: 0.8,
-                    }}
-                    onClick={() => handleRemoveTagClick(tag)}
-                    label={tag.label}
-                    id={`tag-${tag.id}`}
-                  />
-                ) : (
-                  <Chip
-                    color="primary"
-                    style={{
-                      backgroundColor: "#DEDEDE",
-                      borderRadius: "2px",
-                      marginTop: 0.8,
-                    }}
-                    onClick={() => handleSelectTagClick(tag)}
-                    label={tag.label}
-                    id={`tag-${tag.id}`}
-                  />
-                )}
-              </Box>
-            );
-          })
-        ) : (
-          <div />
-        )}
-        <Typography className={classes.legend} color="textSecondary">
-          Click on the tags to filter the pins displayed
-        </Typography>
-      </div>
-
       <div style={{ display: "flex", justifyContent: "center" }}>
         <ReactMapGl
           ref={mapRef}
