@@ -78,3 +78,12 @@ users = User.order(:created_at).take(6)
     )
   end
 end
+
+# Create following relationships.
+# The first user follows users 3 through 51, users 4 through 41 follow that user back
+users = User.all
+user = users.first
+following = users[2..50]
+followers = users[3..40]
+following.each { |followed| user.follow(followed) }
+followers.each { |follower| follower.follow(user) }

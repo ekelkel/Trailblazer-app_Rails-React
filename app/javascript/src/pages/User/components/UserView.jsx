@@ -1,8 +1,9 @@
 import React from "react";
-import { Avatar, Typography, Switch } from "@material-ui/core";
+import { Avatar, Typography, Box, Grid, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Pins from "./Pins/Pins";
-import { withStyles } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
+import IOSSwitch from "./IOSSwitch";
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -10,13 +11,14 @@ const useStyles = makeStyles((theme) => {
       body: { margin: 0, padding: 0 },
       backgroundColor: "#ffffff",
     },
-    title: {
-      marginTop: "3rem",
-      marginLeft: "2rem",
-      marginBottom: "2rem",
+    avatar: {
       display: "flex",
+      justifyContent: "center",
       alignItems: "center",
-      flexWrap: "wrap",
+    },
+    container: {
+      marginLeft: "2rem",
+      display: "flex",
     },
     switchLegend: {
       fontSize: 12,
@@ -27,79 +29,63 @@ const useStyles = makeStyles((theme) => {
   };
 });
 
-const IOSSwitch = withStyles((theme) => ({
-  root: {
-    width: 42,
-    height: 26,
-    padding: 0,
-  },
-  switchBase: {
-    padding: 0,
-    margin: 2,
-    transitionDuration: "300ms",
-    "&$checked": {
-      transform: "translateX(16px)",
-      color: "#fff",
-      "& + $track": {
-        backgroundColor: "#FFBC1F",
-        opacity: 1,
-        border: 0,
-      },
-    },
-    "&$focusVisible $thumb": {
-      color: "#FFBC1F",
-      border: "6px solid #fff",
-    },
-  },
-  thumb: {
-    boxSizing: "border-box",
-    width: 22,
-    height: 22,
-  },
-  track: {
-    borderRadius: 26 / 2,
-    backgroundColor: theme.palette.grey[300],
-    opacity: 1,
-    transition: theme.transitions.create(["background-color"], {
-      duration: 500,
-    }),
-  },
-  checked: {},
-  focusVisible: {},
-}))(({ classes, ...props }) => {
-  return (
-    <Switch
-      focusVisibleClassName={classes.focusVisible}
-      disableRipple
-      classes={{
-        root: classes.root,
-        switchBase: classes.switchBase,
-        thumb: classes.thumb,
-        track: classes.track,
-        checked: classes.checked,
-      }}
-      {...props}
-    />
-  );
-});
-
 const UserView = (props) => {
   const classes = useStyles();
 
   return (
     <div>
-      <div className={classes.title}>
-        <Avatar>{props.user.name[0].toUpperCase()}</Avatar>
-        <Typography
-          variant="body1"
-          color="secondary"
-          style={{ marginLeft: "1rem" }}
-        >
-          {props.user.name}
-        </Typography>
-        <Typography color="textSecondary" style={{ marginLeft: "2rem" }}>
-          {props.pinsNumber} pins
-        </Typography>
+      <Box sx={{ flexGrow: 1, marginTop: "3rem", marginLeft: "1rem" }}>
+        <Grid container spacing={0}>
+          <Grid item xs={2} className={classes.avatar}>
+            <Avatar style={{ height: "54px", width: "54px" }}>
+              {props.user.name[0].toUpperCase()}
+            </Avatar>
+          </Grid>
+          <Grid item xs={8}>
+            <div style={{ display: "flex" }}>
+              <Typography variant="body1" color="secondary">
+                {props.user.name}
+              </Typography>
+              {props.currentUser.id !== props.user.id ? (
+                <Button
+                  size="small"
+                  variant="contained"
+                  color="secondary"
+                  style={{ marginLeft: "1rem" }}
+                  onClick={props.onClick}
+                  disableElevation
+                >
+                  {props.followed ? "Unfollow" : "Follow"}
+                </Button>
+              ) : (
+                <div />
+              )}
+            </div>
+            <div style={{ display: "flex", marginTop: "1rem" }}>
+              <Typography color="textSecondary">
+                {props.pinsNumber} pins
+              </Typography>
+              <Typography
+                color="textSecondary"
+                style={{ marginLeft: "1rem" }}
+                component={Link}
+                to={`/followers/${props.user.id}`}
+              >
+                {props.followersNumber} followers
+              </Typography>
+              <Typography
+                color="textSecondary"
+                style={{ marginLeft: "1rem" }}
+                component={Link}
+                to={`/following/${props.user.id}`}
+              >
+                {props.followingNumber} following
+              </Typography>
+            </div>
+          </Grid>
+        </Grid>
+      </Box>
+      <div className={classes.container}>
         <div style={{ marginLeft: "auto", marginRight: "1rem" }}>
           <IOSSwitch
             checked={props.toggled}

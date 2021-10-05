@@ -25,7 +25,6 @@ const useStyles = makeStyles((theme) => {
   };
 });
 
-// dans les props tags et user
 const PinsList = (props) => {
   const classes = useStyles();
   const [pins, setPins] = useState([]);

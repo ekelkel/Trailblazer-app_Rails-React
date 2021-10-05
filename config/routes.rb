@@ -11,6 +11,10 @@ Rails
     get '/get_user_pins', to: 'users#get_user_pins'
     get '/get_map_pins', to: 'users#get_map_pins'
     get '/get_tags', to: 'users#get_tags'
+    get '/following', to: 'users#following'
+    get '/followers', to: 'users#followers'
+    get '/is_following', to: 'relationships#is_following'
+    delete '/unfollow', to: 'relationships#unfollow'
     get '/validate_account', to: 'account_activations#validate'
     get '/check_reset_password_link', to: 'password_resets#check_link'
     get '/feed', to: 'pins#feed'
@@ -21,4 +25,5 @@ Rails
     resources :users, only: %i[create update]
     resources :password_resets, only: %i[create update]
     resources :pins, only: %i[create destroy]
+    resources :relationships, only: %i[create destroy]
   end

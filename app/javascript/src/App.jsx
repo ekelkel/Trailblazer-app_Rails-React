@@ -14,15 +14,14 @@ import { createTheme } from "@material-ui/core/styles";
 import axios from "axios";
 import { csrfToken } from "@rails/ujs";
 //import { setAuthHeaders } from "./apis/axios";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector, Provider } from "react-redux";
 import { ActionCreators } from "./actions/actionCreators";
-import { Provider } from "react-redux";
 import store from "./store";
 import Layout from "./common/Layout";
-import { useSelector } from "react-redux";
 import LoadingScreen from "./common/LoadingScreen";
 import UsersList from "./pages/UsersList/UsersList";
 import User from "./pages/User/User";
+import Follow from "./pages/Follow/Follow";
 
 const theme = createTheme({
   palette: {
@@ -99,6 +98,16 @@ const AppComponent = () => {
                 <Route exact path="/users" component={UsersList} />
                 <Route exact path="/user/:userId" component={User} />
                 <Route exact path="/add_pin" component={PinForm} />
+                <Route
+                  exact
+                  path="/followers/:userId"
+                  component={() => <Follow following={false} />}
+                />
+                <Route
+                  exact
+                  path="/following/:userId"
+                  component={() => <Follow following={true} />}
+                />
                 <Redirect to="/" />
               </Switch>
             ) : (
