@@ -3,6 +3,7 @@ require 'application_system_test_case'
 class FollowingsTest < ApplicationSystemTestCase
   def setup
     @user = users(:elora)
+    @other_user = users(:karen)
   end
 
   test 'following page' do
@@ -43,5 +44,27 @@ class FollowingsTest < ApplicationSystemTestCase
         assert page.has_link?(href: "/user/#{user.id}")
         assert page.has_content? "#{user.name}"
       end
+  end
+
+  test 'should follow and unfollow a user' do
+    visit '/login'
+    fill_in 'Email', with: @user.email
+    fill_in 'Password', with: 'password', match: :prefer_exact
+    click_button 'Log In'
+    visit "/user/#{@other_user.id}"
+    assert_difference '@user.following.count', 1 do
+      assert_difference '@other_user.followers.count', 1 do
+        click_button 'Follow'
+        sleep 2
+      end
+    end
+    assert page.has_content? "#{@other_user.followers.count} followers"
+    assert_difference '@user.following.count', -1 do
+      assert_difference '@other_user.followers.count', -1 do
+        click_button 'Unfollow'
+        sleep 2
+      end
+    end
+    assert page.has_content? "#{@other_user.followers.count} followers"
   end
 end
