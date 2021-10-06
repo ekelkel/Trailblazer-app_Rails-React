@@ -9,12 +9,12 @@ import {
   IconButton,
   Menu,
   MenuItem,
-  Badge,
+  /*Badge,*/
   Button,
 } from "@material-ui/core";
 import AccountCircleRoundedIcon from "@material-ui/icons/AccountCircleRounded";
 import { useSelector } from "react-redux";
-import NotificationsIcon from "@material-ui/icons/Notifications";
+//import NotificationsIcon from "@material-ui/icons/Notifications";
 import { Link as RouterLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { ActionCreators } from "../actions/actionCreators";

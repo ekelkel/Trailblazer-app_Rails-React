@@ -18,8 +18,9 @@ const PinFormContainer = () => {
   const [values, setValues] = useState({
     name: "",
     comment: "",
-    rating: null,
+    /*rating: null,*/
     address: "",
+    all_tags: "",
     images: [],
   });
   const notify = () => {
@@ -85,7 +86,7 @@ const PinFormContainer = () => {
       formData.append("address", values.address);
       formData.append("longitude", values.longitude);
       formData.append("latitude", values.latitude);
-      formData.append("rating", values.rating);
+      //formData.append("rating", values.rating);
       formData.append("comment", values.comment);
       formData.append("all_tags", values.all_tags);
       if (values.images) {

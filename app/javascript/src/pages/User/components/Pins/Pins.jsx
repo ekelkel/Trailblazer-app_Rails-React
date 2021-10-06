@@ -35,7 +35,7 @@ const Pins = (props) => {
   return (
     <div>
       <div style={{ marginLeft: "1rem" }}>
-        {props.tags ? (
+        {props.tags.length > 0 ? (
           props.tags.map((tag) => {
             const color = `#${tag.color}`;
             return (
@@ -80,9 +80,13 @@ const Pins = (props) => {
         ) : (
           <div />
         )}
-        <Typography className={classes.legend} color="textSecondary">
-          Click on the tags to filter the pins displayed
-        </Typography>
+        {props.tags.length > 0 ? (
+          <Typography className={classes.legend} color="textSecondary">
+            Click on the tags to filter the pins displayed
+          </Typography>
+        ) : (
+          <div />
+        )}
       </div>
       {props.toggled ? (
         <Map user={props.user} tags={props.tags} selected={selected} />

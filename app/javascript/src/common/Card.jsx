@@ -1,5 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
 import {
   Card,
   CardActions,
@@ -46,6 +47,10 @@ const useStyles = makeStyles({
   divider: {
     margin: "3px 3px 3px 0",
   },
+  link: {
+    textDecoration: "none",
+    color: "#FFBC1F",
+  },
 });
 
 export default function OutlinedCard(props) {
@@ -65,13 +70,21 @@ export default function OutlinedCard(props) {
       <CardHeader
         title={
           <div className={classes.pinOwner}>
-            <Avatar>{props.pin.owner[0].toUpperCase()}</Avatar>
+            <Avatar
+              style={{ textDecoration: "none" }}
+              component={Link}
+              to={`/user/${props.pin.user_id}`}
+            >
+              {props.pin.owner[0].toUpperCase()}
+            </Avatar>
             <Typography
               variant="body1"
               color="secondary"
               style={{ marginLeft: "1rem" }}
             >
-              {props.pin.owner}
+              <Link to={`/user/${props.pin.user_id}`} className={classes.link}>
+                {props.pin.owner}
+              </Link>
             </Typography>
           </div>
         }
