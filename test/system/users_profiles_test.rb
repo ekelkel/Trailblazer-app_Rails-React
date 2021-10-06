@@ -14,7 +14,7 @@ class UsersProfilesTest < ApplicationSystemTestCase
     fill_in 'Password', with: 'password', match: :prefer_exact
     click_button 'Log In'
     find_by_id('menu-icon').click
-    click_on 'My locations'
+    click_on 'My profile'
     page.assert_current_path("/user/#{@user.id}")
     assert page.has_content? "#{@user.name}"
     assert page.has_content? "#{@user.pins.count} pins"

@@ -27,10 +27,7 @@ const UserContainer = () => {
       setPinsNumber(userResponse.data.pins_count);
       setFollowingNumber(userResponse.data.following_count);
       setFollowersNumber(userResponse.data.followers_count);
-      const tagsResponse = await axios.get(`/get_tags?id=${id}`, {
-        headers: { "X-CSRF-Token": csrfToken() },
-      });
-      setTags(tagsResponse.data.tags);
+      setTags(userResponse.data.tags);
       const followingResponse = await axios.get(`/is_following?user_id=${id}`, {
         headers: { "X-CSRF-Token": csrfToken() },
       });
@@ -93,6 +90,7 @@ const UserContainer = () => {
           user={user}
           currentUser={currentUser}
           pinsNumber={pinsNumber}
+          setPinsNumber={setPinsNumber}
           tags={tags}
           toggled={toggled}
           setToggled={setToggled}

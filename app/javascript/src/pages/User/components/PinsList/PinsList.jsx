@@ -73,6 +73,7 @@ const PinsList = (props) => {
       console.log(response.data);
       const newPins = pins.filter((pin) => pin.id != pinId);
       setPins(newPins);
+      props.setPinsNumber(props.pinsNumber - 1);
       notify();
     } catch (error) {
       console.log(error);
@@ -94,7 +95,7 @@ const PinsList = (props) => {
                     xs={12}
                     style={{ marginBottom: "1rem" }}
                   >
-                    <Card pin={pin} user={props.user} onDelete={handleDelete} />
+                    <Card pin={pin} onDelete={handleDelete} />
                   </ListItem>
                 );
               })}

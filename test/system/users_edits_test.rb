@@ -11,7 +11,7 @@ class UsersEditsTest < ApplicationSystemTestCase
     fill_in 'Password', with: 'password', match: :prefer_exact
     click_button 'Log In'
     find_by_id('menu-icon').click
-    click_on 'Profile'
+    click_on 'Settings'
     fill_in('Name', with: '', fill_options: { clear: :backspace })
     fill_in('Email', with: 'invalid', fill_options: { clear: :backspace })
     fill_in 'New password', with: 'foo', match: :prefer_exact
@@ -29,7 +29,7 @@ class UsersEditsTest < ApplicationSystemTestCase
     fill_in 'Password', with: 'password', match: :prefer_exact
     click_button 'Log In'
     find_by_id('menu-icon').click
-    click_on 'Profile'
+    click_on 'Settings'
     fill_in('Name', with: 'Micha', fill_options: { clear: :backspace })
     fill_in(
       'Email',
@@ -43,7 +43,7 @@ class UsersEditsTest < ApplicationSystemTestCase
   end
 
   test 'should redirect profile when not logged in' do
-    visit '/profile'
+    visit '/settings'
     page.assert_current_path('/')
   end
 end

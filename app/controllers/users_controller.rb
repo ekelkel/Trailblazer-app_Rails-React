@@ -20,6 +20,11 @@ class UsersController < ApplicationController
     if @user = User.find(params[:id])
       render json: {
                user: @user,
+               tags:
+                 ActiveModelSerializers::SerializableResource.new(
+                   @user.tags,
+                   each_serializer: TagSerializer,
+                 ),
                pins_count: @user.pins.count,
                followers_count: @user.followers.count,
                following_count: @user.following.count,
@@ -86,19 +91,16 @@ class UsersController < ApplicationController
   end
 
   def get_tags
-    user_tags = []
-    all_pins = Pin.where(user_id: params[:id])
-    all_tags = []
-    all_pins.each { |pin| pin.tags.each { |tag| all_tags |= [tag] } }
-    all_tags.each do |tag|
-      user_tag = Hash.new
-      user_tag['value'] = tag.name
-      user_tag['label'] = tag.name
-      user_tag['id'] = tag.id
-      user_tag['color'] = tag.color
-      user_tags.push(user_tag)
-    end
-    render json: { tags: user_tags }, status: 200
+    user = User.find(params[:id])
+    user_tags = user.tags
+    render json: {
+             tags:
+               ActiveModelSerializers::SerializableResource.new(
+                 user_tags,
+                 each_serializer: TagSerializer,
+               ),
+           },
+           status: 200
   end
 
   def create

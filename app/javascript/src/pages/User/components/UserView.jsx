@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Pins from "./Pins/Pins";
 import { Link } from "react-router-dom";
 import IOSSwitch from "./IOSSwitch";
+import EmptyUserScreen from "./EmptyUserScreen";
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -85,19 +86,34 @@ const UserView = (props) => {
           </Grid>
         </Grid>
       </Box>
-      <div className={classes.container}>
-        <div style={{ marginLeft: "auto", marginRight: "1rem" }}>
-          <IOSSwitch
-            checked={props.toggled}
-            onChange={(e) => props.setToggled(e.target.checked)}
-            id="map"
+      {props.pinsNumber === 0 ? (
+        <EmptyUserScreen />
+      ) : (
+        <div>
+          <div className={classes.container}>
+            <div style={{ marginLeft: "auto", marginRight: "1rem" }}>
+              <IOSSwitch
+                checked={props.toggled}
+                onChange={(e) => props.setToggled(e.target.checked)}
+                id="map"
+              />
+              <Typography
+                className={classes.switchLegend}
+                color="textSecondary"
+              >
+                Map view
+              </Typography>
+            </div>
+          </div>
+          <Pins
+            user={props.user}
+            tags={props.tags}
+            toggled={props.toggled}
+            pinsNumber={props.pinsNumber}
+            setPinsNumber={props.setPinsNumber}
           />
-          <Typography className={classes.switchLegend} color="textSecondary">
-            Map view
-          </Typography>
         </div>
-      </div>
-      <Pins user={props.user} tags={props.tags} toggled={props.toggled} />
+      )}
     </div>
   );
 };

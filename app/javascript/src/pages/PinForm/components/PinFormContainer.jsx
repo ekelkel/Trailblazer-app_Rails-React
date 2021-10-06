@@ -20,8 +20,6 @@ const PinFormContainer = () => {
     comment: "",
     rating: null,
     address: "",
-    longitude: null,
-    latitude: null,
     images: [],
   });
   const notify = () => {
@@ -33,7 +31,6 @@ const PinFormContainer = () => {
       const response = await axios.get(`/get_tags?id=${user.id}`, {
         headers: { "X-CSRF-Token": csrfToken() },
       });
-      console.log(response.data.tags);
       setTags(response.data.tags);
     } catch (error) {
       console.log(error);

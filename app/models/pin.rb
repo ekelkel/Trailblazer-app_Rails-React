@@ -26,14 +26,6 @@ class Pin < ApplicationRecord
   end
 
   def all_tags
-    formatted_tags = []
-    self.tags.map do |tag|
-      new_tag = Hash.new
-      new_tag['name'] = tag.name
-      new_tag['color'] = tag.color
-      new_tag['id'] = tag.id
-      formatted_tags.push(new_tag)
-    end
-    return formatted_tags
+    self.tags
   end
 end

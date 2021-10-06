@@ -16,7 +16,7 @@ class UsersIndexTest < ApplicationSystemTestCase
     fill_in 'Password', with: 'password', match: :prefer_exact
     click_button 'Log In'
     find_by_id('menu-icon').click
-    click_on 'Users'
+    click_on 'Trailblazers'
     page.assert_current_path('/users')
     assert find_by_id('users-list').all('a').size == 30
     User

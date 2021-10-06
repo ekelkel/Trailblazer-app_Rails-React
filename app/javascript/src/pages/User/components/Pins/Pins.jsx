@@ -87,7 +87,13 @@ const Pins = (props) => {
       {props.toggled ? (
         <Map user={props.user} tags={props.tags} selected={selected} />
       ) : (
-        <PinsList user={props.user} tags={props.tags} selected={selected} />
+        <PinsList
+          user={props.user}
+          tags={props.tags}
+          selected={selected}
+          pinsNumber={props.pinsNumber}
+          setPinsNumber={props.setPinsNumber}
+        />
       )}
     </div>
   );

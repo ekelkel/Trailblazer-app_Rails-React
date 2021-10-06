@@ -104,4 +104,21 @@ class UserTest < ActiveSupport::TestCase
     elora.unfollow(tim)
     assert_not elora.following?(tim)
   end
+
+  test 'feed should have the right pins' do
+    elora = users(:elora)
+    karen = users(:karen)
+    paul = users(:paul)
+
+    # Pins from followed users
+    paul.pins.each { |pin| assert elora.feed.include?(pin) }
+
+    # Pins from self
+    elora.pins.each { |pin_self| assert elora.feed.include?(pin_self) }
+
+    # Pins from unfollowed users
+    karen.pins.each do |pin_unfollowed|
+      assert_not elora.feed.include?(pin_unfollowed)
+    end
+  end
 end

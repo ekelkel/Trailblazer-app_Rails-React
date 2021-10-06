@@ -9,8 +9,14 @@ class PinSerializer < ActiveModel::Serializer
              :longitude,
              :latitude,
              :created_at,
+             :owner,
              :image,
              :tags
+
+  def owner
+    User.find(object.user_id).name
+  end
+
   def image
     if object.images.attached?
       #{ url: object.images.map { |image| rails_blob_url(image) } }

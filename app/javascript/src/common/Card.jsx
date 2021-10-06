@@ -65,13 +65,13 @@ export default function OutlinedCard(props) {
       <CardHeader
         title={
           <div className={classes.pinOwner}>
-            <Avatar>{props.user.name[0].toUpperCase()}</Avatar>
+            <Avatar>{props.pin.owner[0].toUpperCase()}</Avatar>
             <Typography
               variant="body1"
               color="secondary"
               style={{ marginLeft: "1rem" }}
             >
-              {props.user.name}
+              {props.pin.owner}
             </Typography>
           </div>
         }

@@ -12,7 +12,6 @@ class PinsInterfacesTest < ApplicationSystemTestCase
     fill_in 'Password', with: 'password', match: :prefer_exact
     click_button 'Log In'
     page.assert_current_path('/')
-    assert page.has_content? "Welcome #{@user.name}!"
     assert find_by_id('feed-items-list').all('li').size == 30
     click_on 'ADD PLACE'
     page.assert_current_path('/add_pin')

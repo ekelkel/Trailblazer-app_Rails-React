@@ -8,7 +8,7 @@ import SignUp from "./pages/SignUp/SignUp";
 import ActivateAccount from "./pages/SignUp/components/ActivateAccount/ActivateAccount";
 import ResetPasswordRequest from "./pages/ResetPasswordRequest/ResetPasswordRequest";
 import ResetPassword from "./pages/ResetPassword/ResetPassword";
-import Profile from "./pages/Profile/Profile";
+import Settings from "./pages/Settings/Settings";
 import { ThemeProvider } from "@material-ui/core";
 import { createTheme } from "@material-ui/core/styles";
 import axios from "axios";
@@ -94,7 +94,7 @@ const AppComponent = () => {
             {user ? (
               <Switch>
                 <Route exact path="/" component={Feed} />
-                <Route exact path="/profile" component={Profile} />
+                <Route exact path="/settings" component={Settings} />
                 <Route exact path="/users" component={UsersList} />
                 <Route exact path="/user/:userId" component={User} />
                 <Route exact path="/add_pin" component={PinForm} />

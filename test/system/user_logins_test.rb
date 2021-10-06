@@ -22,18 +22,20 @@ class UserLoginsTest < ApplicationSystemTestCase
     find_by_id('menu-icon').click
     assert page.has_no_content? 'Log In'
     assert page.has_no_content? 'Sign up'
-    assert page.has_content? 'Profile'
-    assert page.has_content? 'My locations'
-    assert page.has_content? 'Users'
+    assert page.has_content? 'My profile'
+    assert page.has_content? 'Home'
+    assert page.has_content? 'Settings'
+    assert page.has_content? 'Trailblazers'
     assert page.has_content? 'Log out'
     click_on 'Log out'
     page.assert_current_path('/')
     find_by_id('menu-icon').click
     assert page.has_content? 'Log In'
     assert page.has_content? 'Sign up'
-    assert page.has_no_content? 'Profile'
-    assert page.has_no_content? 'My locations'
-    assert page.has_no_content? 'Users'
+    assert page.has_no_content? 'My profile'
+    assert page.has_no_content? 'Home'
+    assert page.has_no_content? 'Settings'
+    assert page.has_no_content? 'Trailblazers'
     assert page.has_no_content? 'Log out'
   end
 

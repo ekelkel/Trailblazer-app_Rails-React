@@ -12,7 +12,7 @@ class FollowingsTest < ApplicationSystemTestCase
     fill_in 'Password', with: 'password', match: :prefer_exact
     click_button 'Log In'
     find_by_id('menu-icon').click
-    click_on 'My locations'
+    click_on 'My profile'
     assert page.has_content? "#{@user.following.count} following"
     click_on "#{@user.following.count} following"
     page.assert_current_path("/following/#{@user.id}")
@@ -32,7 +32,7 @@ class FollowingsTest < ApplicationSystemTestCase
     fill_in 'Password', with: 'password', match: :prefer_exact
     click_button 'Log In'
     find_by_id('menu-icon').click
-    click_on 'My locations'
+    click_on 'My profile'
     assert page.has_content? "#{@user.followers.count} followers"
     click_on "#{@user.followers.count} followers"
     page.assert_current_path("/followers/#{@user.id}")

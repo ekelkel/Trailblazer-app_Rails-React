@@ -4,7 +4,7 @@ import UpdateProfile from "./components/UpdateProfile/UpdateProfileContainer";
 import LoadingScreen from "../../common/LoadingScreen";
 import { useSelector } from "react-redux";
 
-const Profile = () => {
+const Settings = () => {
   const user = useSelector((state) => state.user);
   const [loading, setLoading] = useState(true);
 
@@ -29,4 +29,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default Settings;

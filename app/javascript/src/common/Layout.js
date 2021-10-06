@@ -135,23 +135,26 @@ export default function Layout({ children }) {
                 <MenuItem
                   onClick={handleClose}
                   component={RouterLink}
-                  to="/profile"
+                  to={`/user/${user.id}`}
                 >
-                  Profile
+                  My profile
+                </MenuItem>
+                <MenuItem onClick={handleClose} component={RouterLink} to="/">
+                  Home
                 </MenuItem>
                 <MenuItem
                   onClick={handleClose}
                   component={RouterLink}
-                  to={`/user/${user.id}`}
+                  to="/settings"
                 >
-                  My locations
+                  Settings
                 </MenuItem>
                 <MenuItem
                   onClick={handleClose}
                   component={RouterLink}
                   to="/users"
                 >
-                  Users
+                  Trailblazers
                 </MenuItem>
                 <MenuItem
                   onClick={handleLogoutClick}
