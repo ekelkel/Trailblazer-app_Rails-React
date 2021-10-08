@@ -1,6 +1,6 @@
 import React from "react";
 import { Popup } from "react-map-gl";
-import { Chip, Box } from "@material-ui/core";
+import { Chip, Box } from "@mui/material";
 
 const CustomPopup = ({ pin, closePopup }) => {
   return (

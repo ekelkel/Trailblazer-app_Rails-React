@@ -1,9 +1,9 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { Typography, Button } from "@material-ui/core";
+import { makeStyles } from "@mui/styles";
+import { Typography, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 
-const useStyles = makeStyles((theme) => {
+const useStyles = makeStyles(() => {
   return {
     text: {
       marginTop: "5rem",
@@ -19,8 +19,10 @@ const EmptyFeedScreen = () => {
   const classes = useStyles();
   return (
     <div className={classes.text}>
-      <Typography color="secondary">It's a little quiet out here.</Typography>
-      <Typography color="secondary" style={{ textAlgin: "center" }}>
+      <Typography color="textSecondary">
+        It's a little quiet out here.
+      </Typography>
+      <Typography color="textSecondary" style={{ textAlgin: "center" }}>
         Start following fellow trailblazers or add your own favorite places!
       </Typography>
       <Button

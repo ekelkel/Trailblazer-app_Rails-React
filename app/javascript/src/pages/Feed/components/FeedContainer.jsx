@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import { csrfToken } from "@rails/ujs";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import LoadingScreen from "../../../common/LoadingScreen";
 import FeedView from "./FeedView";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 toast.configure();
 
 const FeedContainer = () => {
@@ -14,6 +14,7 @@ const FeedContainer = () => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState();
   const [loading, setLoading] = useState(true);
+
   const notify = () => {
     toast.success("Pin successfully deleted!");
   };

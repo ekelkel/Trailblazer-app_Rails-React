@@ -6,27 +6,20 @@ import {
   ListItemText,
   ListItemAvatar,
   Avatar,
-} from "@material-ui/core";
-import Pagination from "@material-ui/lab/Pagination";
+  Pagination,
+} from "@mui/material";
 import LoadingScreen from "../../common/LoadingScreen";
 import { csrfToken } from "@rails/ujs";
 import axios from "axios";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/styles";
 import { Link as RouterLink } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => {
   return {
-    "@global": {
-      body: { margin: 0, padding: 0 },
-      backgroundColor: "#ffffff",
-    },
     title: {
       marginTop: "3rem",
       textAlign: "center",
       marginBottom: "2rem",
-    },
-    root: {
-      width: "100%",
     },
     pagination: {
       justifyContent: "center",
@@ -84,7 +77,7 @@ const UsersList = () => {
             color="secondary"
             className={classes.pagination}
           />
-          <List dense className={classes.root} id="users-list">
+          <List dense id="users-list">
             {users.map((user) => {
               const labelId = `users-list-label-${user.id}`;
               return (

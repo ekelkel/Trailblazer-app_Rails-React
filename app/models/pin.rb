@@ -21,7 +21,7 @@ class Pin < ApplicationRecord
         .map do |name|
           generator = ColorGenerator.new saturation: 0.3, value: 1.0
           color = generator.create_hex
-          Tag.where(name: name.strip).first_or_create!(color: color)
+          Tag.where(name: name.strip.downcase).first_or_create!(color: color)
         end
   end
 

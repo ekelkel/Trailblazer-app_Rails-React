@@ -13,6 +13,13 @@ paul:
   activated: true
   activated_at: <%= Time.zone.now %>
 
+homer:
+  name: Homer Simpson
+  email: homer@example.com
+  password_digest: <%= User.digest('password') %>
+  activated: true
+  activated_at: <%= Time.zone.now %>
+
 john:
   name: John Doe
   email: john@example.com

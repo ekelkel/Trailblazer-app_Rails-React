@@ -7,9 +7,9 @@ import {
   Paper,
   FormControlLabel,
   Checkbox,
-} from "@material-ui/core";
+} from "@mui/material";
 import { Link } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/styles";
 import Bird from "../../../../common/Bird";
 
 const useStyles = makeStyles((theme) => {
@@ -27,11 +27,6 @@ const useStyles = makeStyles((theme) => {
       padding: theme.spacing(5),
       textAlign: "center",
     },
-    form: {
-      [theme.breakpoints.down("md")]: {
-        width: "100%",
-      },
-    },
     checkbox: {
       color: "#787878",
     },
@@ -47,9 +42,7 @@ const LogInFormView = (props) => {
         container
         justifyContent="center"
         alignItems="center"
-        direction="column"
         style={{ minHeight: "100vh" }}
-        spacing={5}
       >
         <Paper className={classes.paper} elevation={5}>
           <Grid item>
@@ -68,7 +61,6 @@ const LogInFormView = (props) => {
                 direction="column"
                 alignItems="center"
                 justifyContent="center"
-                className={classes.form}
               >
                 <TextField
                   id="email"

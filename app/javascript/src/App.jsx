@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { useDispatch, useSelector, Provider } from "react-redux";
+import store from "./store";
+import { ActionCreators } from "./actions/actionCreators";
+import axios from "axios";
+import { csrfToken } from "@rails/ujs";
+//import { setAuthHeaders } from "./apis/axios";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import Layout from "./common/Layout";
 import Home from "./pages/Home/Home";
 import Feed from "./pages/Feed/Feed";
 import LogIn from "./pages/LogIn/LogIn";
@@ -9,15 +17,6 @@ import ActivateAccount from "./pages/SignUp/components/ActivateAccount/ActivateA
 import ResetPasswordRequest from "./pages/ResetPasswordRequest/ResetPasswordRequest";
 import ResetPassword from "./pages/ResetPassword/ResetPassword";
 import Settings from "./pages/Settings/Settings";
-import { ThemeProvider } from "@material-ui/core";
-import { createTheme } from "@material-ui/core/styles";
-import axios from "axios";
-import { csrfToken } from "@rails/ujs";
-//import { setAuthHeaders } from "./apis/axios";
-import { useDispatch, useSelector, Provider } from "react-redux";
-import { ActionCreators } from "./actions/actionCreators";
-import store from "./store";
-import Layout from "./common/Layout";
 import LoadingScreen from "./common/LoadingScreen";
 import UsersList from "./pages/UsersList/UsersList";
 import User from "./pages/User/User";
@@ -62,12 +61,8 @@ const AppComponent = () => {
     try {
       const response = await axios.get(
         "/logged_in",
-        {
-          headers: { "X-CSRF-Token": csrfToken() },
-        },
-        {
-          signal: controller.signal,
-        }
+        { headers: { "X-CSRF-Token": csrfToken() } },
+        { signal: controller.signal }
       );
       if (response.data.logged_in) {
         dispatch(ActionCreators.login(response.data.user));
@@ -115,7 +110,6 @@ const AppComponent = () => {
                 <Route exact path="/" component={Home} />
                 <Route exact path="/signup" component={SignUp} />
                 <Route exact path="/login" component={LogIn} />
-                <Route exact path="/user/:userId" component={User} />
                 <Route path="/activate_account" component={ActivateAccount} />
                 <Route
                   exact

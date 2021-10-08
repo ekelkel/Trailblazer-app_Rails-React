@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Grid } from "@material-ui/core";
 import PinFormContainer from "./components/PinFormContainer";
 import LoadingScreen from "../../common/LoadingScreen";
 import { useSelector } from "react-redux";

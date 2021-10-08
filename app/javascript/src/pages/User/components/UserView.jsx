@@ -1,12 +1,13 @@
 import React from "react";
-import { Avatar, Typography, Box, Grid, Button } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import { Avatar, Typography, Box, Grid, Button } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import Pins from "./Pins/Pins";
 import { Link } from "react-router-dom";
 import IOSSwitch from "./IOSSwitch";
 import EmptyUserScreen from "./EmptyUserScreen";
+import Pluralize from "react-pluralize";
 
-const useStyles = makeStyles((theme) => {
+const useStyles = makeStyles(() => {
   return {
     "@global": {
       body: { margin: 0, padding: 0 },
@@ -43,7 +44,7 @@ const UserView = (props) => {
             </Avatar>
           </Grid>
           <Grid item xs={8}>
-            <div style={{ display: "flex" }}>
+            <div style={{ display: "flex", alignItems: "baseline" }}>
               <Typography variant="body1" color="secondary">
                 {props.user.name}
               </Typography>
@@ -64,7 +65,7 @@ const UserView = (props) => {
             </div>
             <div style={{ display: "flex", marginTop: "1rem" }}>
               <Typography color="textSecondary">
-                {props.pinsNumber} pins
+                <Pluralize singular={"pin"} count={props.pinsNumber} />
               </Typography>
               <Typography
                 color="textSecondary"
@@ -72,7 +73,10 @@ const UserView = (props) => {
                 component={Link}
                 to={`/followers/${props.user.id}`}
               >
-                {props.followersNumber} followers
+                <Pluralize
+                  singular={"follower"}
+                  count={props.followersNumber}
+                />
               </Typography>
               <Typography
                 color="textSecondary"
@@ -87,7 +91,7 @@ const UserView = (props) => {
         </Grid>
       </Box>
       {props.pinsNumber === 0 ? (
-        <EmptyUserScreen />
+        <EmptyUserScreen user={props.user} currentUser={props.currentUser} />
       ) : (
         <div>
           <div className={classes.container}>

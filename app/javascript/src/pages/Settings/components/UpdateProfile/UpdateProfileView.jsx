@@ -1,13 +1,9 @@
 import React from "react";
-import { Grid, TextField, Button, Typography, Paper } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import { Grid, TextField, Button, Typography, Paper } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme) => {
   return {
-    "@global": {
-      body: { margin: 0, padding: 0 },
-      backgroundColor: "#ffffff",
-    },
     title: {
       marginBottom: "2rem",
     },
@@ -17,11 +13,6 @@ const useStyles = makeStyles((theme) => {
     paper: {
       padding: theme.spacing(5),
       textAlign: "center",
-    },
-    form: {
-      [theme.breakpoints.down("md")]: {
-        width: "100%",
-      },
     },
   };
 });
@@ -34,9 +25,7 @@ const UpdateProfileView = (props) => {
       container
       justifyContent="center"
       alignItems="center"
-      direction="column"
       style={{ minHeight: "100vh" }}
-      spacing={2}
     >
       <Paper className={classes.paper} elevation={5}>
         <Grid item>
@@ -51,7 +40,6 @@ const UpdateProfileView = (props) => {
               direction="column"
               alignItems="center"
               justifyContent="center"
-              className={classes.form}
             >
               <TextField
                 id="name"

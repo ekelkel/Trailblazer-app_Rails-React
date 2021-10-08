@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Grid } from "@material-ui/core";
+import { Grid } from "@mui/material";
 import ResetPasswordRequestForm from "./components/ResetPasswordRequestForm/ResetPasswordRequestContainer";
 import { Redirect } from "react-router";
 

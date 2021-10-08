@@ -68,7 +68,9 @@ const PinFormContainer = () => {
   };*/
 
   const handleTagsSelect = (tags) => {
-    const tags_list = tags.join(",");
+    const tags_value = [];
+    tags.forEach((tag) => tags_value.push(tag.value));
+    const tags_list = tags_value.join(",");
     setValues({
       ...values,
       ["all_tags"]: tags_list,
@@ -76,7 +78,6 @@ const PinFormContainer = () => {
   };
 
   const handleSubmit = (event) => {
-    console.log(values);
     event.preventDefault();
     let newErrors = validate(values);
     setErrors(newErrors);

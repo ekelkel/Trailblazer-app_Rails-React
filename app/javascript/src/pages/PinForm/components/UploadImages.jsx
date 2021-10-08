@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Button, Typography, Box, IconButton } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import ClearIcon from "@material-ui/icons/Clear";
+import { Button, Typography, Box, IconButton } from "@mui/material";
+import { makeStyles } from "@mui/styles";
+import ClearIcon from "@mui/icons-material/Clear";
 
 const useStyles = makeStyles({
   imagePreview: {

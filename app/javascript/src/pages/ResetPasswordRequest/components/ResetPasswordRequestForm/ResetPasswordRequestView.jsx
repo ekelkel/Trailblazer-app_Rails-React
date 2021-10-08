@@ -1,6 +1,6 @@
 import React from "react";
-import { Grid, TextField, Button, Typography, Paper } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import { Grid, TextField, Button, Typography, Paper } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import Bird from "../../../../common/Bird";
 
 const useStyles = makeStyles((theme) => {
@@ -18,11 +18,6 @@ const useStyles = makeStyles((theme) => {
       padding: theme.spacing(5),
       textAlign: "center",
     },
-    form: {
-      [theme.breakpoints.down("md")]: {
-        width: "100%",
-      },
-    },
   };
 });
 
@@ -35,9 +30,7 @@ const ResetPasswordRequestView = (props) => {
         container
         justifyContent="center"
         alignItems="center"
-        direction="column"
         style={{ minHeight: "100vh" }}
-        spacing={5}
       >
         <Paper className={classes.paper} elevation={5}>
           <Grid item>
@@ -56,7 +49,6 @@ const ResetPasswordRequestView = (props) => {
                 direction="column"
                 alignItems="center"
                 justifyContent="center"
-                className={classes.form}
               >
                 <TextField
                   id="email"

@@ -42,7 +42,7 @@ class UsersEditsTest < ApplicationSystemTestCase
     assert page.has_content? 'Profile successfully updated!'
   end
 
-  test 'should redirect profile when not logged in' do
+  test 'should redirect settings when not logged in' do
     visit '/settings'
     page.assert_current_path('/')
   end

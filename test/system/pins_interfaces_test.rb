@@ -6,6 +6,11 @@ class PinsInterfacesTest < ApplicationSystemTestCase
     @other_user = users(:paul)
   end
 
+  test 'should redirect add_pin page when not logged in' do
+    visit '/add_pin'
+    page.assert_current_path('/')
+  end
+
   test 'pin interface' do
     visit '/login'
     fill_in 'Email', with: @user.email
@@ -34,12 +39,10 @@ class PinsInterfacesTest < ApplicationSystemTestCase
     fill_in 'Add a comment about this place...',
             with:
               'The atmosphere is fun and distinctly Parisian. If you’re exploring Canal St. Martin this is a worthy point to stop.'
-    fill_in('Tags', with: 'brunch').send_keys(:return)
-    fill_in('Address', with: '84 Quai De Jemmapes, 75010 Paris')
-      .send_keys(:space)
-      .send_keys(:down)
-      .send_keys(:return)
+    fill_in('react-select-2-input', with: 'brunch').send_keys(:return)
+    fill_in('Type an address', with: '84 Quai De Jemmapes, 75010 Paris')
     sleep 5
+    find('.AutocompletePlace-items', match: :first).click
     page.attach_file(
       'upload_image',
       Rails.root + 'test/fixtures/files/pexels-helena-lopes-693269.jpg',
@@ -66,8 +69,10 @@ class PinsInterfacesTest < ApplicationSystemTestCase
 
     # Delete pin
     first_pin = @user.pins.paginate(page: 1).first
-    find_by_id("delete-pin-#{first_pin.id}").click
-    sleep 2
+    assert_difference '@user.pins.count', -1 do
+      find_by_id("delete-pin-#{first_pin.id}").click
+      sleep 2
+    end
     assert page.has_content? 'Pin successfully deleted!'
     assert page.has_no_content? 'Le Comptoir Général'
     assert page.has_no_content? 'The atmosphere is fun and distinctly Parisian. If you’re exploring Canal St. Martin this is a worthy point to stop.'

@@ -57,15 +57,15 @@ tags = %w[
 # Generate pins for a subset of users
 users = User.order(:created_at).take(6)
 50.times do
-  name = Faker::Restaurant.name
-  location = RandomLocation.near_by(48.856614, 2.3522219, 2000)
-  latitude = location[0]
-  longitude = location[1]
-  address = Geocoder.search([latitude, longitude]).first.address
-  comment = Faker::Restaurant.review.partition('.').first
-  rating = Faker::Number.between(from: 1, to: 10)
-  created_at = Faker::Time.between(from: 42.days.ago, to: Time.now)
   users.each do |user|
+    name = Faker::Restaurant.name
+    location = RandomLocation.near_by(48.856614, 2.3522219, 2000)
+    latitude = location[0]
+    longitude = location[1]
+    address = Geocoder.search([latitude, longitude]).first.address
+    comment = Faker::Restaurant.review.partition('.').first
+    rating = Faker::Number.between(from: 1, to: 10)
+    created_at = Faker::Time.between(from: 42.days.ago, to: Time.now)
     user.pins.create!(
       name: name,
       address: address,

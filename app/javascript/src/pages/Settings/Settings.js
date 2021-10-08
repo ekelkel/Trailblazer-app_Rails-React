@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Grid } from "@material-ui/core";
+import { Grid } from "@mui/material";
 import UpdateProfile from "./components/UpdateProfile/UpdateProfileContainer";
 import LoadingScreen from "../../common/LoadingScreen";
 import { useSelector } from "react-redux";

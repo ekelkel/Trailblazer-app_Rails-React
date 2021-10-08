@@ -4,7 +4,7 @@ const queryString = require("query-string");
 import axios from "axios";
 import { csrfToken } from "@rails/ujs";
 import { toast } from "react-toastify";
-import { Grid } from "@material-ui/core";
+import { Grid } from "@mui/material";
 import LoadingScreen from "../../common/LoadingScreen";
 import ResetPasswordFormContainer from "./components/ResetPasswordForm/ResetPasswordFormContainer";
 

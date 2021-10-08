@@ -1,18 +1,16 @@
 import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { Box, Chip, Typography } from "@material-ui/core";
+import { makeStyles } from "@mui/styles";
+import { Box, Chip, Typography } from "@mui/material";
 import Map from "../Map/Map";
 import PinsList from "../PinsList/PinsList";
-import CheckSharpIcon from "@material-ui/icons/CheckSharp";
+import CheckSharpIcon from "@mui/icons-material/CheckSharp";
 
-const useStyles = makeStyles((theme) => {
+const useStyles = makeStyles(() => {
   return {
     legend: {
       fontSize: 12,
-      marginLeft: "0.2rem",
       marginTop: "0.2rem",
       marginBottom: "1rem",
-      marginLeft: "1rem",
     },
   };
 });
@@ -41,10 +39,10 @@ const Pins = (props) => {
             return (
               <Box
                 component="div"
-                sx={{
+                style={{
                   display: "inline",
-                  padding: 0.8,
-                  marginTop: -0.8,
+                  padding: 1,
+                  marginTop: -1,
                 }}
                 key={tag.id}
               >
@@ -55,7 +53,7 @@ const Pins = (props) => {
                     style={{
                       backgroundColor: color,
                       borderRadius: "2px",
-                      marginTop: 0.8,
+                      marginTop: 1,
                     }}
                     onClick={() => handleRemoveTagClick(tag)}
                     label={tag.label}

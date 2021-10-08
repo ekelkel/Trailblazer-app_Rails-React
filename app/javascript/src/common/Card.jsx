@@ -1,10 +1,10 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import TimeAgo from "react-timeago";
+import { makeStyles } from "@mui/styles";
 import {
-  Card,
-  CardActions,
-  CardContent,
+  /*CardActions,*/
   CardHeader,
   Chip,
   Divider,
@@ -13,43 +13,57 @@ import {
   IconButton,
   Box,
   Grid,
-} from "@material-ui/core";
+} from "@mui/material";
 /*import Rating from "@material-ui/lab/Rating";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import { withStyles } from "@material-ui/core/styles";*/
-import TimeAgo from "react-timeago";
-import ClearIcon from "@material-ui/icons/Clear";
-import { useSelector } from "react-redux";
+import ClearIcon from "@mui/icons-material/Clear";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import FormatQuoteIcon from "@mui/icons-material/FormatQuote";
 import Image from "../assets/logo";
 
 const useStyles = makeStyles({
   root: {
-    width: "100%",
-    border: 0,
+    width: "100vw",
     margin: "auto",
-    transition: "0.3s",
+    border: 0,
+    borderRadius: "6px",
     boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
+    fontFamily: "Karla",
     /*"&:hover": {
       boxShadow: "0 16px 70px -12.125px rgba(0,0,0,0.3)",
     },*/
   },
-  title: {
-    fontSize: 14,
-  },
-  pos: {
-    marginBottom: 12,
-  },
-  pinOwner: {
+  header: {
     display: "flex",
     alignItems: "center",
     flexWrap: "wrap",
   },
-  divider: {
-    margin: "3px 3px 3px 0",
-  },
   link: {
     textDecoration: "none",
     color: "#FFBC1F",
+  },
+  cardContent: {
+    marginLeft: "1rem",
+    marginRight: "1rem",
+    marginBottom: "1rem",
+    marginTop: 0,
+  },
+  pinName: {
+    fontSize: 24,
+    marginBottom: 12,
+  },
+  pinText: {
+    color: "#707070",
+  },
+  icon: {
+    marginRight: 4,
+    fontSize: 18,
+  },
+  timeAgo: {
+    marginTop: "3px",
+    color: "#707070",
+    fontSize: 12,
   },
 });
 
@@ -66,10 +80,10 @@ export default function OutlinedCard(props) {
   const deleteId = `delete-pin-${props.pin.id}`;
 
   return (
-    <Card className={classes.root} variant="outlined">
+    <div className={classes.root}>
       <CardHeader
         title={
-          <div className={classes.pinOwner}>
+          <div className={classes.header}>
             <Avatar
               style={{ textDecoration: "none" }}
               component={Link}
@@ -77,11 +91,7 @@ export default function OutlinedCard(props) {
             >
               {props.pin.owner[0].toUpperCase()}
             </Avatar>
-            <Typography
-              variant="body1"
-              color="secondary"
-              style={{ marginLeft: "1rem" }}
-            >
+            <Typography variant="body1" style={{ marginLeft: "1rem" }}>
               <Link to={`/user/${props.pin.user_id}`} className={classes.link}>
                 {props.pin.owner}
               </Link>
@@ -101,39 +111,52 @@ export default function OutlinedCard(props) {
           )
         }
       />
-      <CardContent>
+      <div className={classes.cardContent}>
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={2}>
             <Grid item xs={8}>
-              <Typography variant="h5" component="h2" color="secondary">
-                {props.pin.name}
-              </Typography>
-              <Typography className={classes.pos} color="textSecondary">
-                {props.pin.address}
-              </Typography>
-              <Typography variant="body2" component="p" color="textSecondary">
-                {props.pin.comment}
-              </Typography>
-              {props.pin.tags.map((tag) => {
-                const color = `#${tag.color}`;
-                return (
-                  <Box component="div" sx={{ display: "inline" }} key={tag.id}>
-                    <Chip
-                      color="primary"
-                      style={{ backgroundColor: color }}
-                      label={tag.name}
-                    />
-                  </Box>
-                );
-              })}
-              <Divider className={classes.divider} light />
-              <Typography
-                variant="body2"
-                component="p"
-                style={{ color: "rgb(169, 169, 169)" }}
+              <h3 className={classes.pinName}>{props.pin.name}</h3>
+              <Box
+                color={"grey.500"}
+                display={"flex"}
+                alignItems={"center"}
+                mb={1}
               >
+                <LocationOnIcon className={classes.icon} />
+                <span className={classes.pinText}>{props.pin.address}</span>
+              </Box>
+              <Box
+                color={"grey.500"}
+                display={"flex"}
+                alignItems={"center"}
+                style={{ marginBottom: "1rem" }}
+                mb={1}
+              >
+                <FormatQuoteIcon className={classes.icon} />
+                <span className={classes.pinText}>{props.pin.comment}</span>
+              </Box>
+              <div style={{ marginBottom: "3px" }}>
+                {props.pin.tags.map((tag) => {
+                  const color = `#${tag.color}`;
+                  return (
+                    <Box
+                      component="div"
+                      style={{ display: "inline", padding: 1 }}
+                      key={tag.id}
+                    >
+                      <Chip
+                        color="primary"
+                        style={{ backgroundColor: color }}
+                        label={tag.name}
+                      />
+                    </Box>
+                  );
+                })}
+              </div>
+              <Divider light style={{ marginRight: "1rem" }} />
+              <span className={classes.timeAgo}>
                 added <TimeAgo date={props.pin.created_at} />
-              </Typography>
+              </span>
             </Grid>
             <Grid
               item
@@ -159,7 +182,7 @@ export default function OutlinedCard(props) {
             />
           </Grid>
         </Box>
-      </CardContent>
+      </div>
       {/*<CardActions>
         {props.pin.rating ? (
           <StyledRating
@@ -173,6 +196,6 @@ export default function OutlinedCard(props) {
           <div />
         )}
         </CardActions*/}
-    </Card>
+    </div>
   );
 }

@@ -5,7 +5,6 @@ import React, {
   useMemo,
   useEffect,
 } from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import { csrfToken } from "@rails/ujs";
 import axios from "axios";
 import ReactMapGl, { Marker } from "react-map-gl";
@@ -15,12 +14,7 @@ import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import CityPin from "./components/CityPin";
 import CustomPopup from "./components/CustomPinPopup";
 
-const useStyles = makeStyles((theme) => {
-  return {};
-});
-
 const Map = (props) => {
-  const classes = useStyles();
   const [viewport, setViewport] = useState({
     width: "100vw",
     height: 500,

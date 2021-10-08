@@ -1,10 +1,9 @@
 import React from "react";
-import { List, ListItem } from "@material-ui/core";
-import Pagination from "@material-ui/lab/Pagination";
-import { makeStyles } from "@material-ui/core/styles";
-import PinCard from "../../../common/Card";
+import { List, ListItem, Typography, Pagination } from "@mui/material";
+import { makeStyles } from "@mui/styles";
+import Card from "../../../common/Card";
 import BouncingMarker from "./BouncingMarker/BouncingMarker";
-import EmptyFeedScreen from "./EmptyFeedScreen";
+import EmptyFeedView from "./EmptyFeedView";
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -16,9 +15,6 @@ const useStyles = makeStyles((theme) => {
       display: "flex",
       marginTop: theme.spacing(2),
       marginBottom: theme.spacing(2),
-    },
-    root: {
-      width: "100%",
     },
   };
 });
@@ -32,10 +28,17 @@ const FeedView = (props) => {
         <BouncingMarker />
       </div>
       {props.feedItems.length === 0 ? (
-        <EmptyFeedScreen />
+        <EmptyFeedView />
       ) : (
         <div>
-          <List dense className={classes.root} id="feed-items-list">
+          <Typography
+            color="textSecondary"
+            style={{ marginLeft: "2rem", fontFamily: "Karla" }}
+          >
+            Discover the most recent places shared by the trailblazers you
+            follow
+          </Typography>
+          <List dense id="feed-items-list">
             {props.feedItems.map((item) => {
               return (
                 <ListItem
@@ -43,7 +46,7 @@ const FeedView = (props) => {
                   xs={12}
                   style={{ marginBottom: "2rem" }}
                 >
-                  <PinCard pin={item} onDelete={props.onDelete} />
+                  <Card pin={item} onDelete={props.onDelete} />
                 </ListItem>
               );
             })}

@@ -1,11 +1,11 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/styles";
 import { Link } from "react-router-dom";
 //import Image from "./assets/pexels-helena-lopes-693269";
 //import mobileImage from "./assets/pexels-blue-bird-7242744";
 import Typed from "react-typed";
 import "./animation.css";
-import { Grid, Button, Typography } from "@material-ui/core";
+import { Grid, Button, Typography } from "@mui/material";
 
 const useStyles = makeStyles(() => {
   return {

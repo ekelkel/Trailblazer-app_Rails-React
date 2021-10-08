@@ -1,0 +1,52 @@
+* {
+  box-sizing: border-box;
+  margin: 0px;
+}
+
+.AutocompletePlace {
+  position: relative;
+}
+
+.AutocompletePlace-results {
+  z-index: 1000;
+  position: absolute;
+  background-color: white;
+  font-family: "Raleway";
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  border: 1px solid #00000011;
+}
+
+.AutocompletePlace-input {
+  border: 1px #c0c0c0 solid;
+  border-radius: 5px;
+  font-family: "Raleway";
+  font-size: 15px;
+  width: 100%;
+  padding: 15px;
+  -webkit-appearance: none;
+  outline-width: 0;
+}
+
+.AutocompletePlace-input:hover {
+  border: 1px #000000 solid;
+  -webkit-appearance: none;
+}
+
+.AutocompletePlace-input:focus {
+  border: 1px #ffbc1f solid;
+  border-radius: 5px;
+  -webkit-appearance: none;
+}
+
+.AutocompletePlace-items {
+  list-style: none;
+  border: 1px solid #00000011;
+  cursor: pointer;
+  padding: 10px 10px;
+}
+
+.AutocompletePlace-items:hover {
+  background-color: #0000ff11;
+}

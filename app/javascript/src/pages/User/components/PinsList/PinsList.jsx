@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { csrfToken } from "@rails/ujs";
 import axios from "axios";
-import Pagination from "@material-ui/lab/Pagination";
 import Card from "../../../../common/Card";
-import { List, ListItem } from "@material-ui/core";
+import { List, ListItem, Pagination } from "@mui/material";
 import LoadingScreen from "../../../../common/LoadingScreen";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/styles";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 toast.configure();
