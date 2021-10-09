@@ -41,7 +41,7 @@ class PinsInterfacesTest < ApplicationSystemTestCase
               'The atmosphere is fun and distinctly Parisian. If you’re exploring Canal St. Martin this is a worthy point to stop.'
     fill_in('react-select-2-input', with: 'brunch').send_keys(:return)
     fill_in('Type an address', with: '84 Quai De Jemmapes, 75010 Paris')
-    sleep 5
+    sleep 6
     find('.AutocompletePlace-items', match: :first).click
     page.attach_file(
       'upload_image',
@@ -60,15 +60,12 @@ class PinsInterfacesTest < ApplicationSystemTestCase
     assert page.has_content? 'brunch'
     assert page.has_content? '84 Quai De Jemmapes, 75010 Paris, France'
 
-    assert page.has_css?(
-             '#pin-image',
-             style: {
-               'background-image' => %r{/pexels-helena-lopes-693269.jpg},
-             },
-           )
+    first_pin = @user.pins.paginate(page: 1).first
+    url = rails_blob_url(first_pin.images[0])
+    url = url.slice(url.index('/rails/active_storage')..-1)
+    assert page.has_css?("img[src*=\"#{url}\"]")
 
     # Delete pin
-    first_pin = @user.pins.paginate(page: 1).first
     assert_difference '@user.pins.count', -1 do
       find_by_id("delete-pin-#{first_pin.id}").click
       sleep 2

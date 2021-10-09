@@ -22,6 +22,18 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import FormatQuoteIcon from "@mui/icons-material/FormatQuote";
 import Image from "../assets/logo";
 
+function importAll(r) {
+  let images = {};
+  r.keys().map((item) => {
+    images[item.replace("./", "")] = r(item);
+  });
+  return images;
+}
+
+const images = importAll(
+  require.context("../assets/images", false, /\.(png|jpe?g|svg)$/)
+);
+
 const useStyles = makeStyles({
   root: {
     width: "100vw",
@@ -65,6 +77,20 @@ const useStyles = makeStyles({
     color: "#707070",
     fontSize: 12,
   },
+  imgContainer: {
+    textAlign: "center",
+    display: "table-cell",
+    verticalAlign: "middle",
+  },
+  image: {
+    objectFit: "cover",
+    minHeight: 200,
+    width: "100%",
+    borderRadius: "6px",
+  },
+  logo: {
+    width: "100px",
+  },
 });
 
 export default function OutlinedCard(props) {
@@ -76,7 +102,14 @@ export default function OutlinedCard(props) {
     icon: {},
   })(Rating);*/
   const user = useSelector((state) => state.user);
-  const coverImage = props.pin.image ? `${props.pin.image.url}` : Image;
+  let coverImage = Image;
+  if (props.pin.id <= 300) {
+    const number = Math.floor(props.pin.id % 10);
+    coverImage = images[`${number}.jpg`];
+  } else {
+    if (props.pin.image) coverImage = `${props.pin.image.url}`;
+  }
+
   const deleteId = `delete-pin-${props.pin.id}`;
 
   return (
@@ -158,28 +191,17 @@ export default function OutlinedCard(props) {
                 added <TimeAgo date={props.pin.created_at} />
               </span>
             </Grid>
-            <Grid
-              item
-              xs={4}
-              id="pin-image"
-              style={
-                props.pin.image
-                  ? {
-                      backgroundImage: `url(${coverImage})`,
-                      backgroundRepeat: "no-repeat",
-                      backgroundPosition: "center",
-                      backgroundSize: "cover",
-                      minHeight: 200,
-                      borderRadius: "6px",
-                    }
-                  : {
-                      backgroundImage: `url(${coverImage})`,
-                      backgroundRepeat: "no-repeat",
-                      backgroundPosition: "center",
-                      backgroundSize: "100px 100px",
-                    }
-              }
-            />
+            <Grid item xs={4} id="pin-image" className={classes.imgContainer}>
+              <img
+                src={coverImage}
+                alt="CoverImage"
+                className={
+                  props.pin.image || props.pin.id <= 300
+                    ? classes.image
+                    : classes.logo
+                }
+              ></img>
+            </Grid>
           </Grid>
         </Box>
       </div>

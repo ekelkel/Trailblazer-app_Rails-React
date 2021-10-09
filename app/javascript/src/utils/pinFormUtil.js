@@ -10,7 +10,7 @@ export const validate = (values) => {
   }
 
   if (values.comment.length > 500) {
-    errors.password = "Comment needs to be less than 500 characters";
+    errors.comment = "Comment needs to be less than 500 characters";
   }
 
   return errors;
@@ -25,7 +25,7 @@ export const parseErrors = (errors) => {
     parsedErrors.address = `Address ${errors.email}.`;
   }
   if (errors.comment) {
-    parsedErrors.comment = `Comment ${errors.password}.`;
+    parsedErrors.comment = `Comment ${errors.comment}.`;
   }
   if (errors.rating) {
     parsedErrors.rating = `Rating ${errors.password_confirmation}.`;

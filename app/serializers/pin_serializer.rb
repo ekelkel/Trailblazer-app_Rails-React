@@ -10,11 +10,15 @@ class PinSerializer < ActiveModel::Serializer
              :latitude,
              :created_at,
              :owner,
-             :image,
-             :tags
+             :tags,
+             :image
 
   def owner
     User.find(object.user_id).name
+  end
+
+  def tags
+    object.all_tags
   end
 
   def image
@@ -23,9 +27,5 @@ class PinSerializer < ActiveModel::Serializer
       host = Rails.env.development? ? 'http://localhost:3000' : ''
       { url: host + rails_blob_url(object.images[0], only_path: true) }
     end
-  end
-
-  def tags
-    object.all_tags
   end
 end
