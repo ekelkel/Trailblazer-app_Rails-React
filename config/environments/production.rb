@@ -68,7 +68,7 @@ Rails.application.configure do
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
-  host = 'https://blooming-dusk-67341.herokuapp.com'
+  host = 'https://trailblaazer.herokuapp.com'
   config.action_mailer.default_url_options = { host: host }
   ActionMailer::Base.smtp_settings = {
     address: 'smtp.sendgrid.net',
@@ -76,7 +76,7 @@ Rails.application.configure do
     authentication: :plain,
     user_name: 'apikey',
     password: ENV['SENDGRID_API_KEY'],
-    domain: 'blooming-dusk-67341.herokuapp.com',
+    domain: 'trailblaazer.herokuapp.com',
     enable_starttls_auto: true,
   }
 
