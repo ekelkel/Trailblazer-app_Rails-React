@@ -1,30 +1,36 @@
-# Trailblazer App
+# Trailblazer App - Bookmark your favorite places around the world and share them 🍻
+### Built with Ruby on Rails & React
 
-## Getting started
+## The project
 
-To get started with the app, clone the repo and then install
-the needed gems:
+Trailblazer is a Mapstr clone with the following features: 
+* 🗺 a map view of your favourite places
+* 📌 tags for easy sorting
+* 👩🏼‍💻 a feed to keep track of the places recently added by the users you follow 
 
+## Roadmap
+
+* 🔔 real-time notifications
+
+## How to quickly try it?
+
+👀 The project is hosted on Heroku: https://trailblaazer.herokuapp.com/
+
+💡 If you don't want to go through the sign-up process, here are login credentials you can use:
 ```
-$ bundle install --without production
+* trailblazer@test.com // testtrailblazer
 ```
 
-Next, migrate the database:
+## The stack
+### Back
+* [Ruby on Rails](https://rubyonrails.org/)
+* [Postgres](https://www.postgresql.org/)
+* [AWS](https://aws.amazon.com/fr/s3/) : images hosting
 
-```
-$ rails db:migrate
-```
+### Front
+* [React](https://reactjs.org/)
+* [MUI](https://mui.com/) : React UI framework
 
-Finally, run the test suite to verify that everything is
-working correctly:
-
-```
-$ rails test
-```
-
-If the test suite passes, you'll be ready to run the app in a
-local server:
-
-```
-$ rails server
-```
+### API
+* [Mapbox](https://www.mapbox.com/)
+* [Sendgrid](https://docs.sendgrid.com/for-developers/sending-email/rubyonrails)
