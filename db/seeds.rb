@@ -56,8 +56,9 @@ tags = %w[
 ]
 # Generate pins for a subset of users
 users = User.order(:created_at).take(6)
-50.times do
-  users.each do |user|
+
+users.each do |user|
+  50.times do
     name = Faker::Restaurant.name
     location = RandomLocation.near_by(48.856614, 2.3522219, 2000)
     latitude = location[0]
