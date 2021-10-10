@@ -8,10 +8,10 @@ Trailblazer is a [Mapstr](https://mapstr.com/) clone that lets its users bookmar
 
 ## What it looks like
 
-![Trailblazer Login](https://github.com/ekelkel/Trailblazer-app_Rails-React/blob/app/javascript/assets/login.png?raw=true)
-![Trailblazer Map](https://github.com/ekelkel/Trailblazer-app_Rails-React/blob/app/javascript/assets/map.png?raw=true)
-![Trailblazer Profile](https://github.com/ekelkel/Trailblazer-app_Rails-React/blob/app/javascript/assets/profile.png?raw=true)
-![Trailblazer AddPlace](https://github.com/ekelkel/Trailblazer-app_Rails-React/blob/app/javascript/assets/addplace.png?raw=true)
+![Trailblazer Login](https://github.com/ekelkel/Trailblazer-app_Rails-React/blob/app/javascript/src/assets/login.png?raw=true)
+![Trailblazer Map](https://github.com/ekelkel/Trailblazer-app_Rails-React/blob/app/javascript/src/assets/map.png?raw=true)
+![Trailblazer Profile](https://github.com/ekelkel/Trailblazer-app_Rails-React/blob/app/javascript/src/assets/profile.png?raw=true)
+![Trailblazer AddPlace](https://github.com/ekelkel/Trailblazer-app_Rails-React/blob/app/javascript/src/assets/addplace.png?raw=true)
 
 ## Roadmap
 
