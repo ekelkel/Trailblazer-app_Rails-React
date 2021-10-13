@@ -26,6 +26,22 @@ Trailblazer is a [Mapstr](https://mapstr.com/) clone that lets its users bookmar
 ```
 * trailblazer@test.com // testtrailblazer
 ```
+## Running it locally
+
+You'll need a [Mapbox access token](https://docs.mapbox.com/help/glossary/access-token/) and to set the following environment variable in `.env`:
+```
+REACT_APP_MAPBOX_TOKEN: xxxxxxxxxxxxxx
+```
+- clone the repository and install the gems `bundle install`
+- create a role in Postgres that your Rails application will use later to create your database with username 'trailblazer' and password 'trailblazer'
+- run `rails db:create`
+- run `rails db:migrate`
+- run `yarn install`
+- run `rails s`
+- navigate to `http://localhost:3000`
+
+To run all unit tests: run `rails test`
+To run all integration tests: run `rails test:system`
 
 ## The stack
 
